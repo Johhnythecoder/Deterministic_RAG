@@ -1,0 +1,710 @@
+{
+  "summary": {
+    "question_file": "/Users/jonathang/Projects/Deterministic_RAG/scripts/openai_services_questions_newset2_1774564386.json",
+    "total": 40,
+    "accuracy": 0.775,
+    "answerable_accuracy": 0.55,
+    "unanswerable_accuracy": 1.0,
+    "false_positives": 0,
+    "false_negatives": 9,
+    "confusion_matrix": {
+      "tp": 11,
+      "tn": 20,
+      "fp": 0,
+      "fn": 9
+    },
+    "rescue_triggered_count": 0,
+    "rescue_applied_count": 0,
+    "total_seconds": 274.318
+  },
+  "rows": [
+    {
+      "idx": 1,
+      "question": "What is the effective date of the OpenAI Services Agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.6394,
+      "threshold": 0.565,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 2,
+      "question": "How does the agreement define 'Confidential Information'?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.8312,
+      "threshold": 0.493,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 3,
+      "question": "What are the payment terms specified in the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.3883,
+      "threshold": 0.609,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 4,
+      "question": "Under what conditions can OpenAI suspend or terminate services?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.8599,
+      "threshold": 0.4351,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 5,
+      "question": "What warranties does OpenAI disclaim in the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.8721,
+      "threshold": 0.4146,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 6,
+      "question": "What is the governing law for disputes under this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.6756,
+      "threshold": 0.5338,
+      "gate_reason": [
+        "general_weak_path_bottleneck",
+        "general_target_set_too_broad",
+        "general_low_topology_confidence"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 7,
+      "question": "How long does the confidentiality obligation last after termination?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.6999,
+      "threshold": 0.5474,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 8,
+      "question": "What liability limitations are imposed on OpenAI?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.8446,
+      "threshold": 0.4136,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 9,
+      "question": "What rights does the customer have to use the services?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.8429,
+      "threshold": 0.4,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 10,
+      "question": "Are there any restrictions on the customer's use of the services?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.7538,
+      "threshold": 0.4355,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 11,
+      "question": "What indemnification obligations does the customer have?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.8509,
+      "threshold": 0.4134,
+      "gate_reason": [
+        "slot_score_low(0.306<0.340)"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 12,
+      "question": "How are modifications to the agreement communicated?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.7346,
+      "threshold": 0.549,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 13,
+      "question": "What is the term length of the agreement before renewal?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.7212,
+      "threshold": 0.5663,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 14,
+      "question": "What data privacy commitments does OpenAI make?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.8102,
+      "threshold": 0.4725,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 15,
+      "question": "What happens to customer data upon termination of the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.7981,
+      "threshold": 0.492,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 16,
+      "question": "Does the agreement include a force majeure clause?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.1382,
+      "threshold": 0.7685,
+      "gate_reason": [
+        "topology_predicted_unanswerable",
+        "topology_margin_low(-0.630<0.020)"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 17,
+      "question": "What is the process for dispute resolution outlined in the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.5219,
+      "threshold": 0.5931,
+      "gate_reason": [
+        "slot_score_low(0.279<0.380)",
+        "topology_predicted_unanswerable",
+        "topology_margin_low(-0.071<0.070)",
+        "general_weak_path_bottleneck",
+        "general_target_set_too_broad",
+        "general_low_topology_confidence"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 18,
+      "question": "Are there any export control restrictions mentioned?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.7102,
+      "threshold": 0.5445,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 19,
+      "question": "What responsibilities does the customer have regarding compliance?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "llm_raw": "answerable",
+      "score": 0.8321,
+      "threshold": 0.4563,
+      "gate_reason": [],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 20,
+      "question": "How does the agreement address intellectual property rights?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.5813,
+      "threshold": 0.5797,
+      "gate_reason": [
+        "topology_margin_low(0.002<0.070)",
+        "general_weak_path_bottleneck",
+        "general_target_set_too_broad",
+        "general_low_topology_confidence"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 21,
+      "question": "What is the customer's current monthly usage volume under the agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.1296,
+      "threshold": 0.7027,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 22,
+      "question": "Who is the designated account manager for the customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.657,
+      "threshold": 0.5473,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 23,
+      "question": "What specific API keys has the customer been issued?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.2832,
+      "threshold": 0.7314,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 24,
+      "question": "What are the customer's internal policies for data retention?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.2019,
+      "threshold": 0.6939,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 25,
+      "question": "What is the uptime percentage achieved by OpenAI in the last month?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.7738,
+      "threshold": 0.5981,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 26,
+      "question": "Has the customer requested any custom features or modifications?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.5339,
+      "threshold": 0.626,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 27,
+      "question": "What is the customer's billing address?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.4828,
+      "threshold": 0.6737,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 28,
+      "question": "What are the exact contents of the customer's privacy policy?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.0721,
+      "threshold": 0.7789,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 29,
+      "question": "What is the current status of any ongoing support tickets?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.443,
+      "threshold": 0.6024,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 30,
+      "question": "What are the customer's internal security protocols?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.329,
+      "threshold": 0.6677,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 31,
+      "question": "What is the customer's organizational structure?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.5332,
+      "threshold": 0.6667,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 32,
+      "question": "What third-party integrations does the customer use with OpenAI services?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.2233,
+      "threshold": 0.7142,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 33,
+      "question": "What is the customer's internal SLA for service availability?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.4765,
+      "threshold": 0.6584,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 34,
+      "question": "What are the customer's employee training procedures for using OpenAI services?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.5192,
+      "threshold": 0.6258,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 35,
+      "question": "What is the customer's current subscription plan pricing?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.1818,
+      "threshold": 0.7076,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 36,
+      "question": "What is the customer's feedback on OpenAI's service performance?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.6998,
+      "threshold": 0.5959,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 37,
+      "question": "What are the customer's plans for scaling usage in the next quarter?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.1829,
+      "threshold": 0.6335,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 38,
+      "question": "What is the customer's internal process for contract approval?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.3132,
+      "threshold": 0.6697,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 39,
+      "question": "What are the customer's specific data encryption standards?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.5381,
+      "threshold": 0.5906,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 40,
+      "question": "What is the customer's current incident response plan?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.1041,
+      "threshold": 0.776,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    }
+  ],
+  "errors": [
+    {
+      "idx": 3,
+      "question": "What are the payment terms specified in the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.3883,
+      "threshold": 0.609,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 6,
+      "question": "What is the governing law for disputes under this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.6756,
+      "threshold": 0.5338,
+      "gate_reason": [
+        "general_weak_path_bottleneck",
+        "general_target_set_too_broad",
+        "general_low_topology_confidence"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 7,
+      "question": "How long does the confidentiality obligation last after termination?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.6999,
+      "threshold": 0.5474,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 11,
+      "question": "What indemnification obligations does the customer have?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.8509,
+      "threshold": 0.4134,
+      "gate_reason": [
+        "slot_score_low(0.306<0.340)"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 12,
+      "question": "How are modifications to the agreement communicated?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.7346,
+      "threshold": 0.549,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 15,
+      "question": "What happens to customer data upon termination of the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "unanswerable",
+      "score": 0.7981,
+      "threshold": 0.492,
+      "gate_reason": [
+        "llm_unanswerable"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 16,
+      "question": "Does the agreement include a force majeure clause?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.1382,
+      "threshold": 0.7685,
+      "gate_reason": [
+        "topology_predicted_unanswerable",
+        "topology_margin_low(-0.630<0.020)"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 17,
+      "question": "What is the process for dispute resolution outlined in the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.5219,
+      "threshold": 0.5931,
+      "gate_reason": [
+        "slot_score_low(0.279<0.380)",
+        "topology_predicted_unanswerable",
+        "topology_margin_low(-0.071<0.070)",
+        "general_weak_path_bottleneck",
+        "general_target_set_too_broad",
+        "general_low_topology_confidence"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    },
+    {
+      "idx": 20,
+      "question": "How does the agreement address intellectual property rights?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "llm_raw": "answerable",
+      "score": 0.5813,
+      "threshold": 0.5797,
+      "gate_reason": [
+        "topology_margin_low(0.002<0.070)",
+        "general_weak_path_bottleneck",
+        "general_target_set_too_broad",
+        "general_low_topology_confidence"
+      ],
+      "rescue_triggered": false,
+      "rescue_applied": false
+    }
+  ]
+}

@@ -1,0 +1,479 @@
+{
+  "summary": {
+    "total": 40,
+    "accuracy": 0.95,
+    "confusion_matrix": {
+      "tp": 19,
+      "tn": 19,
+      "fp": 1,
+      "fn": 1
+    },
+    "total_seconds": 1204.3
+  },
+  "rows": [
+    {
+      "idx": 1,
+      "question": "What is the date this agreement was made?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7885,
+      "threshold": 0.4722,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 32.72
+    },
+    {
+      "idx": 2,
+      "question": "What is MLX's principal address?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6719,
+      "threshold": 0.562,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 24.79
+    },
+    {
+      "idx": 3,
+      "question": "What is HCI's principal place of business address?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6785,
+      "threshold": 0.5555,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 30.95
+    },
+    {
+      "idx": 4,
+      "question": "What is the agreed launch date of the Co-Branded Site?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6154,
+      "threshold": 0.5991,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 29.18
+    },
+    {
+      "idx": 5,
+      "question": "How many days per week and hours per day must the Co-Branded Site be available?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.849,
+      "threshold": 0.4818,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 31.96
+    },
+    {
+      "idx": 6,
+      "question": "How many days advance written notice must be given before conducting an audit?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7805,
+      "threshold": 0.4933,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 35.31
+    },
+    {
+      "idx": 7,
+      "question": "Within how many days of the end of each quarter must remittances and accounting reports be delivered?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6758,
+      "threshold": 0.5127,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 25.81
+    },
+    {
+      "idx": 8,
+      "question": "What is the initial term length of this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7849,
+      "threshold": 0.4716,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 29.2
+    },
+    {
+      "idx": 9,
+      "question": "What share of net advertising revenue exceeding the annual threshold is split between the parties?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8116,
+      "threshold": 0.4706,
+      "gate_reason": "none",
+      "vote_fraction": 0.667,
+      "q_seconds": 31.31
+    },
+    {
+      "idx": 10,
+      "question": "Which party is entitled to all proceeds generated from US companies on the Co-Branded Site?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.8139,
+      "threshold": 0.4508,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 24.84
+    },
+    {
+      "idx": 11,
+      "question": "For how long after the Term does MLX's restriction on using Co-Branded Site data for competing health purposes apply?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6863,
+      "threshold": 0.5494,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 35.37
+    },
+    {
+      "idx": 12,
+      "question": "What percentage of the HealthyWay title font size must the 'Powered By HealthCentral' tag line be approximately?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7984,
+      "threshold": 0.5453,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 25.27
+    },
+    {
+      "idx": 13,
+      "question": "What is the maximum fraction of promotion that competing third-party health content may receive on the Sympatico Health home page?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7801,
+      "threshold": 0.5411,
+      "gate_reason": "none",
+      "vote_fraction": 0.667,
+      "q_seconds": 36.44
+    },
+    {
+      "idx": 14,
+      "question": "If an audit determines the other party underpaid by 10% or more, who bears the audit cost?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8417,
+      "threshold": 0.4,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 25.39
+    },
+    {
+      "idx": 15,
+      "question": "Is the Sympatico Content license granted to HCI exclusive or non-exclusive?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6951,
+      "threshold": 0.5415,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 60.99
+    },
+    {
+      "idx": 16,
+      "question": "What URL shall the Co-Branded Site retain?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8306,
+      "threshold": 0.4,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 32.49
+    },
+    {
+      "idx": 17,
+      "question": "For how long from the Launch Date must the primary branding of the Co-Branded Site remain HealthyWay?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.722,
+      "threshold": 0.5119,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 14.74
+    },
+    {
+      "idx": 18,
+      "question": "How many days prior written notice is required to terminate this agreement for material breach?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7388,
+      "threshold": 0.5101,
+      "gate_reason": "none",
+      "vote_fraction": 0.667,
+      "q_seconds": 44.2
+    },
+    {
+      "idx": 19,
+      "question": "How many days must insolvency proceedings remain pending before a party may immediately terminate?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8905,
+      "threshold": 0.4,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 17.49
+    },
+    {
+      "idx": 20,
+      "question": "Who retains all right, title and interest in the HealthyWay discussion forums?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8559,
+      "threshold": 0.4,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 20.31
+    },
+    {
+      "idx": 21,
+      "question": "What is the guaranteed fixed annual sum HCI pays MLX under this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6213,
+      "threshold": 0.5642,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 38.64
+    },
+    {
+      "idx": 22,
+      "question": "What is the monthly payment amount HCI owes MLX?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2154,
+      "threshold": 0.6863,
+      "gate_reason": "none",
+      "vote_fraction": 0.667,
+      "q_seconds": 45.05
+    },
+    {
+      "idx": 23,
+      "question": "What advertising revenue threshold does HCI receive exclusively before the 50-50 revenue split applies?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6485,
+      "threshold": 0.5661,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 27.2
+    },
+    {
+      "idx": 24,
+      "question": "What specific promotion obligations for the Co-Branded Site are listed in Schedule 1?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6438,
+      "threshold": 0.6079,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 11.76
+    },
+    {
+      "idx": 25,
+      "question": "What traffic levels are specified in Schedule 2 for triggering MLX's promotion obligations?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1965,
+      "threshold": 0.6961,
+      "gate_reason": "missing_artifact_contents,q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 37.25
+    },
+    {
+      "idx": 26,
+      "question": "What Canadian content requirements are specified in Schedule 3?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.751,
+      "threshold": 0.5258,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 53.28
+    },
+    {
+      "idx": 27,
+      "question": "What is the format for daily usage statistics set out in Schedule 4?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1101,
+      "threshold": 0.7817,
+      "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 28.69
+    },
+    {
+      "idx": 28,
+      "question": "How much total revenue has the Co-Branded Site generated to date under this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3081,
+      "threshold": 0.6535,
+      "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 30.32
+    },
+    {
+      "idx": 29,
+      "question": "What specific Canadian advertisers have purchased advertising on the Co-Branded Site?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2798,
+      "threshold": 0.7017,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 12.89
+    },
+    {
+      "idx": 30,
+      "question": "Has this agreement been amended since the Launch Date?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2479,
+      "threshold": 0.6717,
+      "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 19.26
+    },
+    {
+      "idx": 31,
+      "question": "What specific e-commerce relationships have been approved and implemented on the Co-Branded Site?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1937,
+      "threshold": 0.7163,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 5.29
+    },
+    {
+      "idx": 32,
+      "question": "How many users has the Co-Branded Site registered since the Launch Date?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2315,
+      "threshold": 0.6615,
+      "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 23.95
+    },
+    {
+      "idx": 33,
+      "question": "What is MediaLinx's current stock price?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0486,
+      "threshold": 0.7561,
+      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing,speculative_intent",
+      "vote_fraction": 0.0,
+      "q_seconds": 29.3
+    },
+    {
+      "idx": 34,
+      "question": "Who is the current CEO of HealthCentral.com?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1921,
+      "threshold": 0.6864,
+      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 28.19
+    },
+    {
+      "idx": 35,
+      "question": "What is HealthCentral.com's current annual revenue?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0348,
+      "threshold": 0.7252,
+      "gate_reason": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "vote_fraction": 0.0,
+      "q_seconds": 36.18
+    },
+    {
+      "idx": 36,
+      "question": "What is MediaLinx's current Canadian internet market share?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1143,
+      "threshold": 0.7517,
+      "gate_reason": "q2_missing_or_external",
+      "vote_fraction": 0.667,
+      "q_seconds": 22.04
+    },
+    {
+      "idx": 37,
+      "question": "Has any user of the Co-Branded Site filed a health-related complaint against either party?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5277,
+      "threshold": 0.584,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 26.27
+    },
+    {
+      "idx": 38,
+      "question": "What will happen to this agreement if MediaLinx is acquired by a competitor?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5278,
+      "threshold": 0.5956,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 23.3
+    },
+    {
+      "idx": 39,
+      "question": "What specific content has MLX approved for publication on the Co-Branded Site?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6465,
+      "threshold": 0.5356,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 48.82
+    },
+    {
+      "idx": 40,
+      "question": "What is the current page view count on the Co-Branded Site?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2052,
+      "threshold": 0.6624,
+      "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
+      "vote_fraction": 0.333,
+      "q_seconds": 47.82
+    }
+  ],
+  "errors": [
+    {
+      "idx": 10,
+      "question": "Which party is entitled to all proceeds generated from US companies on the Co-Branded Site?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.8139,
+      "threshold": 0.4508,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 24.84
+    },
+    {
+      "idx": 24,
+      "question": "What specific promotion obligations for the Co-Branded Site are listed in Schedule 1?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6438,
+      "threshold": 0.6079,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 11.76
+    }
+  ]
+}

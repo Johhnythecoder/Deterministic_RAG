@@ -1,0 +1,262 @@
+{
+  "summary": {
+    "scale": 0.5,
+    "total": 40,
+    "accuracy": 0.8,
+    "answerable_accuracy": 0.6,
+    "unanswerable_accuracy": 1.0,
+    "false_positives": 0,
+    "false_negatives": 8,
+    "confusion_matrix": {
+      "tp": 12,
+      "tn": 20,
+      "fp": 0,
+      "fn": 8
+    },
+    "q16": "unanswerable",
+    "q20": "unanswerable",
+    "carveout_hits": 1
+  },
+  "rows": [
+    {
+      "idx": 1,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 2,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 3,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 4,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 5,
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 6,
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 7,
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 8,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 9,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 10,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 11,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 12,
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 13,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 14,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 15,
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 16,
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": true
+    },
+    {
+      "idx": 17,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 18,
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 19,
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 20,
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 21,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 22,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 23,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 24,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 25,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 26,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 27,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 28,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 29,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 30,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 31,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 32,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 33,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 34,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 35,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 36,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 37,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 38,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 39,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    },
+    {
+      "idx": 40,
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "base_rule_despite_reference": false
+    }
+  ]
+}

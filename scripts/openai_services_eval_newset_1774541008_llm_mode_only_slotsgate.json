@@ -1,0 +1,413 @@
+{
+  "summary": {
+    "accuracy": 0.775,
+    "answerable_accuracy": 0.8,
+    "unanswerable_accuracy": 0.75,
+    "tp": 16,
+    "tn": 15,
+    "fp": 5,
+    "fn": 4
+  },
+  "rows": [
+    {
+      "idx": 1,
+      "question": "How does the agreement define the Effective Date?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.7094,
+      "thr": 0.5323,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 2,
+      "question": "Where does the agreement say the Services Term is listed?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.691,
+      "thr": 0.5428,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 3,
+      "question": "How many days of notice are required for non-renewal or scope reduction before a Renewal Term?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.8025,
+      "thr": 0.5201,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 4,
+      "question": "What information is required on the Order Form to provision Services for an initial Authorized Purchaser?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.7854,
+      "thr": 0.4925,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 5,
+      "question": "How are additional licenses or quantities purchased during a Services Term priced?",
+      "gold": "answerable",
+      "pred": "unanswerable",
+      "score": 0.6169,
+      "thr": 0.6351,
+      "gate": "low_exactness",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 6,
+      "question": "If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.6456,
+      "thr": 0.5273,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 7,
+      "question": "What must an Affiliate do if it wants separate purchase and use of Services from Customer?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.8735,
+      "thr": 0.4287,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 8,
+      "question": "If Security Measures are updated in a way that materially diminishes protections, what can Customer do?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.7943,
+      "thr": 0.4585,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 9,
+      "question": "How often can Customer request OpenAI's most recent Audit Reports?",
+      "gold": "answerable",
+      "pred": "unanswerable",
+      "score": 0.3486,
+      "thr": 0.6385,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 10,
+      "question": "Can Customer process Protected Health Information without signing the Healthcare Addendum?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.8098,
+      "thr": 0.4593,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 11,
+      "question": "What two steps must Customer take to dispute an invoice under Section 6.4?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.7914,
+      "thr": 0.4962,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 12,
+      "question": "What finance charge may apply to overdue undisputed amounts?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.7145,
+      "thr": 0.545,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 13,
+      "question": "Under Section 8.2, can OpenAI limit or suspend access if required by law?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.8208,
+      "thr": 0.4492,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 14,
+      "question": "If OpenAI asks Customer to suspend or terminate a relevant End User account and Customer fails to do so promptly, what can OpenAI do?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.8155,
+      "thr": 0.4539,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 15,
+      "question": "Are class arbitrations and class actions allowed under the dispute resolution section?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.7782,
+      "thr": 0.4935,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 16,
+      "question": "Which arbitration provider is named for commencing binding arbitration?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.6844,
+      "thr": 0.5586,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 17,
+      "question": "What order of precedence applies if contract terms conflict?",
+      "gold": "answerable",
+      "pred": "unanswerable",
+      "score": 0.5064,
+      "thr": 0.6477,
+      "gate": "no_answer_path",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 18,
+      "question": "Does the agreement say Customer purchase-order terms are binding on OpenAI?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.823,
+      "thr": 0.4348,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 19,
+      "question": "In the definitions, what does 'Fees' mean if no Order Form exists?",
+      "gold": "answerable",
+      "pred": "unanswerable",
+      "score": 0.399,
+      "thr": 0.6273,
+      "gate": "missing_artifact_contents",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 20,
+      "question": "Who owns Input and Output as between Customer and OpenAI?",
+      "gold": "answerable",
+      "pred": "answerable",
+      "score": 0.8057,
+      "thr": 0.499,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 21,
+      "question": "What is the exact calendar date of the Effective Date for this specific customer?",
+      "gold": "unanswerable",
+      "pred": "answerable",
+      "score": 0.7505,
+      "thr": 0.5277,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 22,
+      "question": "What is the legal name of the customer entity that signed this agreement instance?",
+      "gold": "unanswerable",
+      "pred": "answerable",
+      "score": 0.8075,
+      "thr": 0.542,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 23,
+      "question": "Who is the initial Authorized Purchaser by name and email for this customer?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.7492,
+      "thr": 0.5239,
+      "gate": "instance_or_runtime_missing",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 24,
+      "question": "What is the exact month-and-day Start Date for this customer's initial Services Term?",
+      "gold": "unanswerable",
+      "pred": "answerable",
+      "score": 0.6388,
+      "thr": 0.5872,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 25,
+      "question": "What exact dollar prices were listed on the Pricing Page on the day this customer agreed?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.1291,
+      "thr": 0.7204,
+      "gate": "outside_document_intent,q2_missing_or_external",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 26,
+      "question": "What specific security controls are listed inside the Security Measures PDF?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.0122,
+      "thr": 0.8053,
+      "gate": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 27,
+      "question": "What exact obligations are in the full DPA text referenced by this agreement?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.0189,
+      "thr": 0.7937,
+      "gate": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 28,
+      "question": "What exact indemnity language appears in the Service-Specific Terms Indemnity document?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.0232,
+      "thr": 0.8242,
+      "gate": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 29,
+      "question": "What are the NAM filing fee dollar amounts for this dispute?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.5565,
+      "thr": 0.627,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 30,
+      "question": "What total annual minimum commitment value in dollars did this customer agree to?",
+      "gold": "unanswerable",
+      "pred": "answerable",
+      "score": 0.7751,
+      "thr": 0.5419,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 31,
+      "question": "What discount percentage was negotiated for this customer in its Order Form?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.7802,
+      "thr": 0.5467,
+      "gate": "commercial_terms_not_instantiated",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 32,
+      "question": "What is this customer's current monthly invoice total?",
+      "gold": "unanswerable",
+      "pred": "answerable",
+      "score": 0.8063,
+      "thr": 0.5432,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 33,
+      "question": "Which third-party services are pre-enabled by default for this customer's workspace?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.6332,
+      "thr": 0.5699,
+      "gate": "instance_or_runtime_missing",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 34,
+      "question": "What internal negotiations led to the final liability cap wording?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.0633,
+      "thr": 0.7025,
+      "gate": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 35,
+      "question": "What confidential security incidents did OpenAI have last year?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.0074,
+      "thr": 0.8425,
+      "gate": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 36,
+      "question": "What is the likely outcome if this customer starts arbitration?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.0966,
+      "thr": 0.651,
+      "gate": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 37,
+      "question": "What amendments will OpenAI make to this agreement next year?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.0732,
+      "thr": 0.7446,
+      "gate": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 38,
+      "question": "What countries are in the complete Supported Countries and Territories list right now?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.3274,
+      "thr": 0.7652,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 39,
+      "question": "What exact names are listed in Exhibit A to this agreement?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.3664,
+      "thr": 0.6995,
+      "gate": "none",
+      "slot_variant_reject": false
+    },
+    {
+      "idx": 40,
+      "question": "What personal opinion did the drafter have about this arbitration clause?",
+      "gold": "unanswerable",
+      "pred": "unanswerable",
+      "score": 0.285,
+      "thr": 0.6157,
+      "gate": "q2_missing_or_external,speculative_intent",
+      "slot_variant_reject": false
+    }
+  ]
+}

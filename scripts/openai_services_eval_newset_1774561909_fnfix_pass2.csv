@@ -1,0 +1,41 @@
+idx,question,gold_label,predicted_label,score,threshold,gate_reason,escape_hatch_triggered,q_seconds
+1,How does the agreement define the Effective Date?,answerable,answerable,0.7103,0.5274,none,False,8.279
+2,Where does the agreement say the Services Term is listed?,answerable,answerable,0.5794,0.5509,none,False,6.62
+3,How many days of notice are required for non-renewal or scope reduction before a Renewal Term?,answerable,answerable,0.7425,0.4562,none,False,16.153
+4,What information is required on the Order Form to provision Services for an initial Authorized Purchaser?,answerable,answerable,0.8542,0.4247,none,False,6.89
+5,How are additional licenses or quantities purchased during a Services Term priced?,answerable,answerable,0.6838,0.5737,none,False,6.751
+6,"If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",answerable,answerable,0.8564,0.4,none,False,4.394
+7,What must an Affiliate do if it wants separate purchase and use of Services from Customer?,answerable,answerable,0.8743,0.4,none,False,4.841
+8,"If Security Measures are updated in a way that materially diminishes protections, what can Customer do?",answerable,unanswerable,0.3494,0.5877,none,False,6.05
+9,How often can Customer request OpenAI's most recent Audit Reports?,answerable,answerable,0.8187,0.4546,none,False,6.239
+10,Can Customer process Protected Health Information without signing the Healthcare Addendum?,answerable,unanswerable,0.4866,0.5577,none,False,4.905
+11,What two steps must Customer take to dispute an invoice under Section 6.4?,answerable,answerable,0.8339,0.4398,none,False,4.785
+12,What finance charge may apply to overdue undisputed amounts?,answerable,answerable,0.845,0.4429,none,False,7.12
+13,"Under Section 8.2, can OpenAI limit or suspend access if required by law?",answerable,answerable,0.8343,0.4,none,False,4.906
+14,"If OpenAI asks Customer to suspend or terminate a relevant End User account and Customer fails to do so promptly, what can OpenAI do?",answerable,answerable,0.8617,0.4,none,False,24.057
+15,Are class arbitrations and class actions allowed under the dispute resolution section?,answerable,answerable,0.7975,0.4314,none,False,10.953
+16,Which arbitration provider is named for commencing binding arbitration?,answerable,unanswerable,0.5509,0.594,none,False,8.396
+17,What order of precedence applies if contract terms conflict?,answerable,unanswerable,0.5203,0.5508,none,False,6.675
+18,Does the agreement say Customer purchase-order terms are binding on OpenAI?,answerable,answerable,0.862,0.4,none,False,7.052
+19,"In the definitions, what does 'Fees' mean if no Order Form exists?",answerable,answerable,0.7688,0.481,none,False,6.43
+20,Who owns Input and Output as between Customer and OpenAI?,answerable,answerable,0.8549,0.4231,none,False,8.038
+21,What is the exact calendar date of the Effective Date for this specific customer?,unanswerable,unanswerable,0.1484,0.7361,"customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",False,5.813
+22,What is the legal name of the customer entity that signed this agreement instance?,unanswerable,unanswerable,0.1203,0.8133,"customer_identity_not_instantiated,customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",False,5.31
+23,Who is the initial Authorized Purchaser by name and email for this customer?,unanswerable,unanswerable,0.2261,0.71,"customer_instance_value_missing,instance_or_runtime_missing,missing_artifact_contents,q2_missing_or_external",False,7.077
+24,What is the exact month-and-day Start Date for this customer's initial Services Term?,unanswerable,unanswerable,0.1366,0.7395,"customer_instance_value_missing,instance_or_runtime_missing,missing_artifact_contents,q2_missing_or_external",False,7.66
+25,What exact dollar prices were listed on the Pricing Page on the day this customer agreed?,unanswerable,unanswerable,0.1651,0.7337,"external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",False,10.616
+26,What specific security controls are listed inside the Security Measures PDF?,unanswerable,unanswerable,0.0987,0.7916,"external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",False,18.853
+27,What exact obligations are in the full DPA text referenced by this agreement?,unanswerable,unanswerable,0.3023,0.692,"external_artifact_contents_missing,missing_artifact_contents",False,9.876
+28,What exact indemnity language appears in the Service-Specific Terms Indemnity document?,unanswerable,unanswerable,0.0677,0.8121,"external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",False,7.259
+29,What are the NAM filing fee dollar amounts for this dispute?,unanswerable,unanswerable,0.567,0.6198,none,False,5.281
+30,What total annual minimum commitment value in dollars did this customer agree to?,unanswerable,unanswerable,0.215,0.7064,"customer_instance_value_missing,instance_or_runtime_missing,missing_artifact_contents,q2_missing_or_external",False,4.737
+31,What discount percentage was negotiated for this customer in its Order Form?,unanswerable,unanswerable,0.0773,0.7755,"commercial_terms_not_instantiated,q2_missing_or_external",False,5.626
+32,What is this customer's current monthly invoice total?,unanswerable,unanswerable,0.3014,0.6646,"instance_or_runtime_missing,missing_artifact_contents,runtime_lookup_missing",False,5.278
+33,Which third-party services are pre-enabled by default for this customer's workspace?,unanswerable,unanswerable,0.1553,0.7417,"customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",False,5.194
+34,What internal negotiations led to the final liability cap wording?,unanswerable,unanswerable,0.0658,0.7162,none,False,12.733
+35,What confidential security incidents did OpenAI have last year?,unanswerable,unanswerable,0.0071,0.8163,"outside_document_intent,q2_missing_or_external,speculative_intent",False,5.293
+36,What is the likely outcome if this customer starts arbitration?,unanswerable,unanswerable,0.0704,0.6746,"outside_document_intent,q2_missing_or_external,speculative_intent",False,7.486
+37,What amendments will OpenAI make to this agreement next year?,unanswerable,unanswerable,0.0356,0.7557,"outside_document_intent,q2_missing_or_external,speculative_intent",False,5.908
+38,What countries are in the complete Supported Countries and Territories list right now?,unanswerable,unanswerable,0.0964,0.799,"external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",False,7.167
+39,What exact names are listed in Exhibit A to this agreement?,unanswerable,unanswerable,0.0656,0.8084,"external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",False,6.659
+40,What personal opinion did the drafter have about this arbitration clause?,unanswerable,unanswerable,0.0273,0.7284,"outside_document_intent,q2_missing_or_external,speculative_intent",False,9.976

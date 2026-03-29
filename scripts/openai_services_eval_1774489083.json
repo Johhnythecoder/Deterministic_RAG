@@ -1,0 +1,581 @@
+{
+  "summary": {
+    "document": "/Users/jonathang/Projects/Deterministic_RAG/uploads/1774488921_openai-services-agreement.pdf",
+    "total": 40,
+    "accuracy": 0.6,
+    "answerable_accuracy": 0.75,
+    "unanswerable_accuracy": 0.45,
+    "false_positives": 11,
+    "false_negatives": 5,
+    "confusion_matrix": {
+      "tp": 15,
+      "tn": 9,
+      "fp": 11,
+      "fn": 5
+    }
+  },
+  "rows": [
+    {
+      "idx": 1,
+      "question": "What is the defined Effective Date of this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.662,
+      "threshold": 0.5028,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 2,
+      "question": "What are OpenAI and Customer each referred to as in the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7611,
+      "threshold": 0.5162,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 3,
+      "question": "Where is the Services Term stated?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8179,
+      "threshold": 0.4944,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 4,
+      "question": "How much advance notice is required for non-renewal or scope reduction before a Renewal Term?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6964,
+      "threshold": 0.5691,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 5,
+      "question": "What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5629,
+      "threshold": 0.5945,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 6,
+      "question": "How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6483,
+      "threshold": 0.5756,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 7,
+      "question": "If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6737,
+      "threshold": 0.5859,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 8,
+      "question": "What must an Affiliate do if it wants separate purchase and use of Services from Customer?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6181,
+      "threshold": 0.5388,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 9,
+      "question": "What right does OpenAI grant Customer under Section 2.2 regarding use of the API and Customer Applications?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.742,
+      "threshold": 0.5177,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 10,
+      "question": "If an update materially reduces Services functionality, what termination option does Customer have?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.742,
+      "threshold": 0.5299,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 11,
+      "question": "Are Account access credentials allowed to be shared between multiple users?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7719,
+      "threshold": 0.4968,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 12,
+      "question": "What must Customer do if it becomes aware of unauthorized access to the Account or Services?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5609,
+      "threshold": 0.5678,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 13,
+      "question": "Who owns Input and Output as between Customer and OpenAI?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.742,
+      "threshold": 0.4924,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 14,
+      "question": "Will OpenAI use Customer Content to develop or improve Services without explicit Customer agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7809,
+      "threshold": 0.4905,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 15,
+      "question": "How often can Customer request OpenAI's most recent Audit Reports?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4838,
+      "threshold": 0.6139,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 16,
+      "question": "Can Customer process Protected Health Information without signing the Healthcare Addendum?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7264,
+      "threshold": 0.5227,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 17,
+      "question": "What must Customer do to dispute an invoice under Section 6.4?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7267,
+      "threshold": 0.5431,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 18,
+      "question": "What finance charge can apply to overdue undisputed amounts?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6697,
+      "threshold": 0.5771,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 19,
+      "question": "Under what circumstances may OpenAI limit or suspend Customer's access to Services under Section 8.2?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8041,
+      "threshold": 0.5029,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 20,
+      "question": "What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5813,
+      "threshold": 0.599,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 21,
+      "question": "What exact security controls are listed in the Security Measures PDF referenced by the agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6476,
+      "threshold": 0.5619,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 22,
+      "question": "What are the exact processor and subprocessor obligations in the full DPA text?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6657,
+      "threshold": 0.5669,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 23,
+      "question": "What are the exact per-model prices listed on the Pricing Page at signing?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5778,
+      "threshold": 0.6001,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 24,
+      "question": "What calendar date is the Start Date for this specific customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.694,
+      "threshold": 0.5553,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 25,
+      "question": "What is the legal name of the customer organization that signed this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.7409,
+      "threshold": 0.5459,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 26,
+      "question": "What is the specific email address of the initial Authorized Purchaser for this customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.38,
+      "threshold": 0.6257,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 27,
+      "question": "What is the exact duration in months of the initial Services Term for this customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.7169,
+      "threshold": 0.5664,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 28,
+      "question": "Which specific countries are included in the Supported Countries and Territories list?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6743,
+      "threshold": 0.5412,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 29,
+      "question": "What dollar amount is the NAM arbitration filing fee under this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5654,
+      "threshold": 0.6494,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 30,
+      "question": "How many findings were reported in OpenAI's most recent Audit Reports?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5727,
+      "threshold": 0.6515,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 31,
+      "question": "What updates is OpenAI planning to make to this agreement next year?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.7419,
+      "threshold": 0.543,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 32,
+      "question": "What is the likely outcome of arbitration if Customer files a claim?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4198,
+      "threshold": 0.5709,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 33,
+      "question": "What internal negotiation led the parties to choose the liability cap language?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4415,
+      "threshold": 0.5936,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 34,
+      "question": "What confidential security incidents has OpenAI had in the past year?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2362,
+      "threshold": 0.6312,
+      "gate_reason": "outside_document_intent",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 35,
+      "question": "What exact discount percentage was offered to this customer in its Order Form?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6778,
+      "threshold": 0.5721,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 36,
+      "question": "What is the total annual minimum commitment value in dollars for this customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6723,
+      "threshold": 0.5726,
+      "gate_reason": "none",
+      "escape_hatch_triggered": true
+    },
+    {
+      "idx": 37,
+      "question": "Which Third-Party Services are pre-enabled by default for this customer's account?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.7233,
+      "threshold": 0.5352,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 38,
+      "question": "What are the exact substantive indemnity clauses in the Service-Specific Terms Indemnity document?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6992,
+      "threshold": 0.5559,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 39,
+      "question": "What revenue-sharing percentage applies between OpenAI and the customer's reseller?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6193,
+      "threshold": 0.5785,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 40,
+      "question": "Which specific stations are listed in Exhibit A to this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.416,
+      "threshold": 0.6398,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    }
+  ],
+  "errors": [
+    {
+      "idx": 5,
+      "question": "What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5629,
+      "threshold": 0.5945,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 6,
+      "question": "How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6483,
+      "threshold": 0.5756,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 12,
+      "question": "What must Customer do if it becomes aware of unauthorized access to the Account or Services?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5609,
+      "threshold": 0.5678,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 15,
+      "question": "How often can Customer request OpenAI's most recent Audit Reports?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4838,
+      "threshold": 0.6139,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 20,
+      "question": "What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5813,
+      "threshold": 0.599,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 21,
+      "question": "What exact security controls are listed in the Security Measures PDF referenced by the agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6476,
+      "threshold": 0.5619,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 22,
+      "question": "What are the exact processor and subprocessor obligations in the full DPA text?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6657,
+      "threshold": 0.5669,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 24,
+      "question": "What calendar date is the Start Date for this specific customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.694,
+      "threshold": 0.5553,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 25,
+      "question": "What is the legal name of the customer organization that signed this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.7409,
+      "threshold": 0.5459,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 28,
+      "question": "Which specific countries are included in the Supported Countries and Territories list?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6743,
+      "threshold": 0.5412,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 31,
+      "question": "What updates is OpenAI planning to make to this agreement next year?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.7419,
+      "threshold": 0.543,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 35,
+      "question": "What exact discount percentage was offered to this customer in its Order Form?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6778,
+      "threshold": 0.5721,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 36,
+      "question": "What is the total annual minimum commitment value in dollars for this customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6723,
+      "threshold": 0.5726,
+      "gate_reason": "none",
+      "escape_hatch_triggered": true
+    },
+    {
+      "idx": 37,
+      "question": "Which Third-Party Services are pre-enabled by default for this customer's account?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.7233,
+      "threshold": 0.5352,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 38,
+      "question": "What are the exact substantive indemnity clauses in the Service-Specific Terms Indemnity document?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6992,
+      "threshold": 0.5559,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    },
+    {
+      "idx": 39,
+      "question": "What revenue-sharing percentage applies between OpenAI and the customer's reseller?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.6193,
+      "threshold": 0.5785,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false
+    }
+  ]
+}

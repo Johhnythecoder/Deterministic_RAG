@@ -1,0 +1,10 @@
+openai
+python-dotenv
+numpy
+requests
+pypdf
+pdfplumber
+sentence-transformers
+fastapi
+uvicorn
+python-multipart

@@ -1,0 +1,479 @@
+{
+  "summary": {
+    "total": 40,
+    "accuracy": 0.95,
+    "confusion_matrix": {
+      "tp": 18,
+      "tn": 20,
+      "fp": 0,
+      "fn": 2
+    },
+    "total_seconds": 1987.2
+  },
+  "rows": [
+    {
+      "idx": 1,
+      "question": "What is the Effective Date of this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6925,
+      "threshold": 0.558,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 51.45
+    },
+    {
+      "idx": 2,
+      "question": "What is Women.com's principal place of business address?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7065,
+      "threshold": 0.5386,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 47.23
+    },
+    {
+      "idx": 3,
+      "question": "What state is Women.com Networks, Inc. incorporated in?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.9063,
+      "threshold": 0.4894,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 35.48
+    },
+    {
+      "idx": 4,
+      "question": "How many days after the Effective Date must eDiets deliver initial content to Women.com?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7385,
+      "threshold": 0.538,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 39.05
+    },
+    {
+      "idx": 5,
+      "question": "On how many Women.com channels must links to the Diet Center be located?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7228,
+      "threshold": 0.5526,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 48.18
+    },
+    {
+      "idx": 6,
+      "question": "How long after the Launch Date must eDiets add a back button to Diet Center pages?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7162,
+      "threshold": 0.5142,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 57.22
+    },
+    {
+      "idx": 7,
+      "question": "How many days after the end of a quarter does Women.com have to deliver make-good impressions before eDiets may terminate?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7761,
+      "threshold": 0.467,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 62.01
+    },
+    {
+      "idx": 8,
+      "question": "How many days after termination must Women.com reimburse eDiets for pre-paid impressions not delivered?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8035,
+      "threshold": 0.4427,
+      "gate_reason": "none",
+      "vote_fraction": 0.667,
+      "q_seconds": 46.74
+    },
+    {
+      "idx": 9,
+      "question": "Is the content license eDiets grants to Women.com exclusive or non-exclusive?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7533,
+      "threshold": 0.4524,
+      "gate_reason": "none",
+      "vote_fraction": 0.667,
+      "q_seconds": 72.87
+    },
+    {
+      "idx": 10,
+      "question": "How many hours written notice must Women.com give before withdrawing permission to use Women.com Marks?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7369,
+      "threshold": 0.4856,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 37.47
+    },
+    {
+      "idx": 11,
+      "question": "What is the maximum percentage by which Women.com can increase the Payment Schedule in any 12-month period?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8233,
+      "threshold": 0.4626,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 37.56
+    },
+    {
+      "idx": 12,
+      "question": "What is the Quarterly Impression Guarantee for Advertising Promotions under this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.5893,
+      "threshold": 0.5062,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 35.64
+    },
+    {
+      "idx": 13,
+      "question": "What percentage traffic differential triggers the dispute resolution procedure for media metrics?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8312,
+      "threshold": 0.5036,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 25.28
+    },
+    {
+      "idx": 14,
+      "question": "How many days does eDiets have to respond to Women.com's written notice about a Diet Promo opportunity?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.783,
+      "threshold": 0.4753,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 61.93
+    },
+    {
+      "idx": 15,
+      "question": "What percentage of the Quarterly Impression Guarantee must Women.com deliver each quarter to avoid a make-good obligation?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8285,
+      "threshold": 0.4686,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 105.83
+    },
+    {
+      "idx": 16,
+      "question": "What is the initial term length of this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7286,
+      "threshold": 0.5399,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 13.24
+    },
+    {
+      "idx": 17,
+      "question": "Who has sole responsibility for providing and maintaining the Diet Center beneath the Gateway Page?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8717,
+      "threshold": 0.4,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 22.25
+    },
+    {
+      "idx": 18,
+      "question": "How many days after Women.com's submission does eDiets have to provide content revisions before failure is deemed approval?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7684,
+      "threshold": 0.5086,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 73.0
+    },
+    {
+      "idx": 19,
+      "question": "Is Women.com registration required to enter and use the Gateway Page of the Diet Center?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.8762,
+      "threshold": 0.4,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 71.94
+    },
+    {
+      "idx": 20,
+      "question": "What system does Women.com use to generate advertising reports provided to eDiets?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5175,
+      "threshold": 0.6284,
+      "gate_reason": "none",
+      "vote_fraction": 0.667,
+      "q_seconds": 47.1
+    },
+    {
+      "idx": 21,
+      "question": "What is the monthly fee eDiets pays to Women.com under this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6521,
+      "threshold": 0.5508,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 74.61
+    },
+    {
+      "idx": 22,
+      "question": "What are the specific advertising rates and amounts in Exhibit B?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2218,
+      "threshold": 0.712,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 16.45
+    },
+    {
+      "idx": 23,
+      "question": "What are the specific eDiets Content production specifications listed in Exhibit D?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0956,
+      "threshold": 0.7974,
+      "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 79.87
+    },
+    {
+      "idx": 24,
+      "question": "What specific Women.com subchannels are designated for Diet Center links in Exhibit B?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0868,
+      "threshold": 0.811,
+      "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 61.01
+    },
+    {
+      "idx": 25,
+      "question": "What are the specific look-and-feel specifications for the Gateway Page in Exhibit A?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.092,
+      "threshold": 0.7985,
+      "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 28.19
+    },
+    {
+      "idx": 26,
+      "question": "How many registered eDiets members are currently active?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.563,
+      "threshold": 0.602,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 44.91
+    },
+    {
+      "idx": 27,
+      "question": "Has Women.com ever failed to meet its Quarterly Impression Guarantee under this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.7285,
+      "threshold": 0.6103,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 29.19
+    },
+    {
+      "idx": 28,
+      "question": "What specific production schedule have the parties developed for eDiets Content delivery?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.07,
+      "threshold": 0.7904,
+      "gate_reason": "external_artifact_contents_missing,q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 58.47
+    },
+    {
+      "idx": 29,
+      "question": "What amendments to this agreement have been signed since the Effective Date?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2049,
+      "threshold": 0.6682,
+      "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 48.89
+    },
+    {
+      "idx": 30,
+      "question": "Has any Women.com user filed a third-party claim based on eDiets nutritional facts?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6643,
+      "threshold": 0.6276,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 56.77
+    },
+    {
+      "idx": 31,
+      "question": "What is Women.com's current stock price?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0503,
+      "threshold": 0.741,
+      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing,speculative_intent",
+      "vote_fraction": 0.0,
+      "q_seconds": 61.7
+    },
+    {
+      "idx": 32,
+      "question": "What is the current CEO of Women.com Networks, Inc.?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.019,
+      "threshold": 0.8,
+      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 59.52
+    },
+    {
+      "idx": 33,
+      "question": "What is eDiets' current diet program subscriber count?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0178,
+      "threshold": 0.7838,
+      "gate_reason": "missing_artifact_contents,outside_document_intent,q2_missing_or_external,speculative_intent",
+      "vote_fraction": 0.333,
+      "q_seconds": 59.03
+    },
+    {
+      "idx": 34,
+      "question": "What is eDiets' current annual revenue?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0622,
+      "threshold": 0.706,
+      "gate_reason": "outside_document_intent,q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 59.25
+    },
+    {
+      "idx": 35,
+      "question": "What are the specific editorial guidelines Women.com has provided to eDiets?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.7669,
+      "threshold": 0.4929,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 51.09
+    },
+    {
+      "idx": 36,
+      "question": "What is Women.com's current privacy policy text?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5107,
+      "threshold": 0.6816,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 57.98
+    },
+    {
+      "idx": 37,
+      "question": "What will happen to the Diet Center if eDiets files for bankruptcy next month?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0711,
+      "threshold": 0.7183,
+      "gate_reason": "instance_or_runtime_missing,outside_document_intent,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 28.86
+    },
+    {
+      "idx": 38,
+      "question": "How many total page views has the Diet Center received since the Launch Date?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2812,
+      "threshold": 0.678,
+      "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 45.02
+    },
+    {
+      "idx": 39,
+      "question": "What specific eDiets Content has been approved and published on the Diet Center to date?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1674,
+      "threshold": 0.719,
+      "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 45.71
+    },
+    {
+      "idx": 40,
+      "question": "What is eDiets' current stock price?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.0716,
+      "threshold": 0.7012,
+      "gate_reason": "outside_document_intent,q2_missing_or_external,speculative_intent",
+      "vote_fraction": 0.0,
+      "q_seconds": 29.25
+    }
+  ],
+  "errors": [
+    {
+      "idx": 1,
+      "question": "What is the Effective Date of this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6925,
+      "threshold": 0.558,
+      "gate_reason": "none",
+      "vote_fraction": 0.333,
+      "q_seconds": 51.45
+    },
+    {
+      "idx": 20,
+      "question": "What system does Women.com use to generate advertising reports provided to eDiets?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5175,
+      "threshold": 0.6284,
+      "gate_reason": "none",
+      "vote_fraction": 0.667,
+      "q_seconds": 47.1
+    }
+  ]
+}

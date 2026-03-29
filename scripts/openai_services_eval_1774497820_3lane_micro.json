@@ -1,0 +1,386 @@
+{
+  "summary": {
+    "total": 40,
+    "accuracy": 0.825,
+    "answerable_accuracy": 0.65,
+    "unanswerable_accuracy": 1.0,
+    "false_positives": 0,
+    "false_negatives": 7,
+    "confusion_matrix": {
+      "tp": 13,
+      "tn": 20,
+      "fp": 0,
+      "fn": 7
+    }
+  },
+  "rows": [
+    {
+      "idx": 1,
+      "question": "What is the defined Effective Date of this agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.5802,
+      "threshold": 0.5336,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 2,
+      "question": "What are OpenAI and Customer each referred to as in the agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6489,
+      "threshold": 0.5496,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 3,
+      "question": "Where is the Services Term stated?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7461,
+      "threshold": 0.5182,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 4,
+      "question": "How much advance notice is required for non-renewal or scope reduction before a Renewal Term?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6372,
+      "threshold": 0.5885,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 5,
+      "question": "What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2153,
+      "threshold": 0.708,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 6,
+      "question": "How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1883,
+      "threshold": 0.7325,
+      "gate_reason": "low_exactness,q2_missing_or_external"
+    },
+    {
+      "idx": 7,
+      "question": "If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3881,
+      "threshold": 0.6636,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 8,
+      "question": "What must an Affiliate do if it wants separate purchase and use of Services from Customer?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6153,
+      "threshold": 0.538,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 9,
+      "question": "What right does OpenAI grant Customer under Section 2.2 regarding use of the API and Customer Applications?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.688,
+      "threshold": 0.5355,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 10,
+      "question": "If an update materially reduces Services functionality, what termination option does Customer have?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6814,
+      "threshold": 0.5285,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 11,
+      "question": "Are Account access credentials allowed to be shared between multiple users?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6777,
+      "threshold": 0.546,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 12,
+      "question": "What must Customer do if it becomes aware of unauthorized access to the Account or Services?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5615,
+      "threshold": 0.5675,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 13,
+      "question": "Who owns Input and Output as between Customer and OpenAI?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6523,
+      "threshold": 0.53,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 14,
+      "question": "Will OpenAI use Customer Content to develop or improve Services without explicit Customer agreement?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7332,
+      "threshold": 0.507,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 15,
+      "question": "How often can Customer request OpenAI's most recent Audit Reports?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1185,
+      "threshold": 0.7304,
+      "gate_reason": "low_exactness,q2_missing_or_external"
+    },
+    {
+      "idx": 16,
+      "question": "Can Customer process Protected Health Information without signing the Healthcare Addendum?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6163,
+      "threshold": 0.5822,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 17,
+      "question": "What must Customer do to dispute an invoice under Section 6.4?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.6561,
+      "threshold": 0.5632,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 18,
+      "question": "What finance charge can apply to overdue undisputed amounts?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.526,
+      "threshold": 0.6082,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 19,
+      "question": "Under what circumstances may OpenAI limit or suspend Customer's access to Services under Section 8.2?",
+      "gold_label": "answerable",
+      "predicted_label": "answerable",
+      "score": 0.7618,
+      "threshold": 0.5178,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 20,
+      "question": "What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3671,
+      "threshold": 0.6503,
+      "gate_reason": "low_exactness"
+    },
+    {
+      "idx": 21,
+      "question": "What exact security controls are listed in the Security Measures PDF referenced by the agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2135,
+      "threshold": 0.6602,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 22,
+      "question": "What are the exact processor and subprocessor obligations in the full DPA text?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2551,
+      "threshold": 0.7423,
+      "gate_reason": "no_answer_path,q2_missing_or_external"
+    },
+    {
+      "idx": 23,
+      "question": "What are the exact per-model prices listed on the Pricing Page at signing?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1637,
+      "threshold": 0.7177,
+      "gate_reason": "low_exactness,q2_missing_or_external"
+    },
+    {
+      "idx": 24,
+      "question": "What calendar date is the Start Date for this specific customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2309,
+      "threshold": 0.6759,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 25,
+      "question": "What is the legal name of the customer organization that signed this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3873,
+      "threshold": 0.639,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 26,
+      "question": "What is the specific email address of the initial Authorized Purchaser for this customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.257,
+      "threshold": 0.7016,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 27,
+      "question": "What is the exact duration in months of the initial Services Term for this customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2575,
+      "threshold": 0.6853,
+      "gate_reason": "low_exactness,q2_missing_or_external"
+    },
+    {
+      "idx": 28,
+      "question": "Which specific countries are included in the Supported Countries and Territories list?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2201,
+      "threshold": 0.6622,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 29,
+      "question": "What dollar amount is the NAM arbitration filing fee under this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4223,
+      "threshold": 0.6543,
+      "gate_reason": "low_exactness"
+    },
+    {
+      "idx": 30,
+      "question": "How many findings were reported in OpenAI's most recent Audit Reports?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1595,
+      "threshold": 0.7674,
+      "gate_reason": "low_exactness,q2_missing_or_external"
+    },
+    {
+      "idx": 31,
+      "question": "What updates is OpenAI planning to make to this agreement next year?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4471,
+      "threshold": 0.5951,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 32,
+      "question": "What is the likely outcome of arbitration if Customer files a claim?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4338,
+      "threshold": 0.5647,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 33,
+      "question": "What internal negotiation led the parties to choose the liability cap language?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.392,
+      "threshold": 0.6072,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 34,
+      "question": "What confidential security incidents has OpenAI had in the past year?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.231,
+      "threshold": 0.6339,
+      "gate_reason": "outside_document_intent,q2_missing_or_external"
+    },
+    {
+      "idx": 35,
+      "question": "What exact discount percentage was offered to this customer in its Order Form?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2252,
+      "threshold": 0.6921,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 36,
+      "question": "What is the total annual minimum commitment value in dollars for this customer?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.215,
+      "threshold": 0.6945,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 37,
+      "question": "Which Third-Party Services are pre-enabled by default for this customer's account?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3003,
+      "threshold": 0.6418,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 38,
+      "question": "What are the exact substantive indemnity clauses in the Service-Specific Terms Indemnity document?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.2947,
+      "threshold": 0.6585,
+      "gate_reason": "q2_missing_or_external"
+    },
+    {
+      "idx": 39,
+      "question": "What revenue-sharing percentage applies between OpenAI and the customer's reseller?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5021,
+      "threshold": 0.6072,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 40,
+      "question": "Which specific stations are listed in Exhibit A to this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1387,
+      "threshold": 0.7318,
+      "gate_reason": "none"
+    }
+  ],
+  "flips_vs_prev": [
+    {
+      "idx": 12,
+      "from": "answerable",
+      "to": "unanswerable",
+      "q": "What must Customer do if it becomes aware of unauthorized access to the Account or Services?"
+    }
+  ]
+}

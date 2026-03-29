@@ -1,0 +1,910 @@
+[
+  {
+    "idx": 5,
+    "question": "What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?",
+    "gold": "answerable",
+    "pred": "unanswerable",
+    "score": 0.3422,
+    "threshold": 0.6625,
+    "gate_reason": "q2_missing_or_external",
+    "slot_fill_ratio": 1.0,
+    "exact_frac": 1.0,
+    "features": {
+      "D": 0.6564,
+      "A": 0.8422,
+      "Q": 0.6414,
+      "Q2": 0.8502,
+      "M": 0.2,
+      "S_eff": 0.6833,
+      "instance_missing_field": 0.8502,
+      "external_reference_intent": 0.3646,
+      "speculative_intent": 0.0,
+      "outside_document_intent": 0.0
+    },
+    "z_terms": {
+      "A_term": 0.8538,
+      "topic_min_term": 0.2317,
+      "risk_term": 0.7278,
+      "D_term": -0.4267,
+      "G_term": -0.0,
+      "S_eff_X_term": -0.0,
+      "B_term": -0.0,
+      "M_term": -0.24,
+      "P_term": -0.0,
+      "O_term": -0.0,
+      "Q2_extra_term": -1.7004,
+      "bias": -0.1
+    },
+    "z_path_adjust": {},
+    "z_dominant_suppressors": [
+      [
+        "Q2_extra_term",
+        -1.7004
+      ],
+      [
+        "D_term",
+        -0.4267
+      ],
+      [
+        "M_term",
+        -0.24
+      ],
+      [
+        "bias",
+        -0.1
+      ]
+    ],
+    "threshold_terms": {
+      "base": 0.43,
+      "core_coverage_term": 0.0,
+      "evidence_coverage_term": 0.0,
+      "D_term": 0.0459,
+      "risk_term": 0.0,
+      "slot_offset": 0.05,
+      "S_eff_term": 0.041,
+      "G_term": 0.0,
+      "S_eff_X_term": 0.0,
+      "B_term": 0.0,
+      "M_term": 0.018,
+      "P_term": 0.0,
+      "O_term": 0.0,
+      "Q2_extra_term": 0.102
+    },
+    "threshold_rebates": {
+      "thr_rebate_disagreement": 0.0044,
+      "thr_rebate_support": 0.0,
+      "thr_rebate_clean_extract": 0.0,
+      "thr_rebate_nearmiss": 0.0,
+      "thr_rebate_safe_recover": 0.0,
+      "thr_rebate_rule_nearmiss": 0.0
+    },
+    "threshold_path_adjust": {},
+    "threshold_dominant_adders": [
+      [
+        "base",
+        0.43
+      ],
+      [
+        "Q2_extra_term",
+        0.102
+      ],
+      [
+        "slot_offset",
+        0.05
+      ],
+      [
+        "D_term",
+        0.0459
+      ],
+      [
+        "S_eff_term",
+        0.041
+      ]
+    ],
+    "pre_plumbing": {
+      "idx": 5,
+      "question": "What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1773,
+      "threshold": 0.7015,
+      "gate_reason": "q2_missing_or_external",
+      "escape_hatch_triggered": false,
+      "base_rule_despite_reference": false
+    }
+  },
+  {
+    "idx": 6,
+    "question": "How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?",
+    "gold": "answerable",
+    "pred": "unanswerable",
+    "score": 0.2409,
+    "threshold": 0.7211,
+    "gate_reason": "low_exactness,q2_missing_or_external",
+    "slot_fill_ratio": 1.0,
+    "exact_frac": 0.1818,
+    "features": {
+      "D": 0.1344,
+      "A": 0.7327,
+      "Q": 0.5655,
+      "Q2": 1.0,
+      "M": 0.0,
+      "S_eff": 0.8338,
+      "instance_missing_field": 1.0,
+      "external_reference_intent": 0.102,
+      "speculative_intent": 0.0,
+      "outside_document_intent": 0.0
+    },
+    "z_terms": {
+      "A_term": 0.5637,
+      "topic_min_term": 0.1929,
+      "risk_term": 0.6269,
+      "D_term": -0.0874,
+      "G_term": -0.0,
+      "S_eff_X_term": -0.344,
+      "B_term": -0.0,
+      "M_term": -0.0,
+      "P_term": -0.0,
+      "O_term": -0.0,
+      "Q2_extra_term": -2.0,
+      "bias": -0.1
+    },
+    "z_path_adjust": {},
+    "z_dominant_suppressors": [
+      [
+        "Q2_extra_term",
+        -2.0
+      ],
+      [
+        "S_eff_X_term",
+        -0.344
+      ],
+      [
+        "bias",
+        -0.1
+      ],
+      [
+        "D_term",
+        -0.0874
+      ]
+    ],
+    "threshold_terms": {
+      "base": 0.43,
+      "core_coverage_term": 0.02,
+      "evidence_coverage_term": 0.0078,
+      "D_term": 0.0094,
+      "risk_term": 0.0,
+      "slot_offset": 0.06,
+      "S_eff_term": 0.05,
+      "G_term": 0.0,
+      "S_eff_X_term": 0.0239,
+      "B_term": 0.0,
+      "M_term": 0.0,
+      "P_term": 0.0,
+      "O_term": 0.0,
+      "Q2_extra_term": 0.12
+    },
+    "threshold_rebates": {
+      "thr_rebate_disagreement": 0.0,
+      "thr_rebate_support": 0.0,
+      "thr_rebate_clean_extract": 0.0,
+      "thr_rebate_nearmiss": 0.0,
+      "thr_rebate_safe_recover": 0.0,
+      "thr_rebate_rule_nearmiss": 0.0
+    },
+    "threshold_path_adjust": {},
+    "threshold_dominant_adders": [
+      [
+        "base",
+        0.43
+      ],
+      [
+        "Q2_extra_term",
+        0.12
+      ],
+      [
+        "slot_offset",
+        0.06
+      ],
+      [
+        "S_eff_term",
+        0.05
+      ],
+      [
+        "S_eff_X_term",
+        0.0239
+      ]
+    ],
+    "pre_plumbing": {
+      "idx": 6,
+      "question": "How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1875,
+      "threshold": 0.7318,
+      "gate_reason": "low_exactness,q2_missing_or_external",
+      "escape_hatch_triggered": false,
+      "base_rule_despite_reference": false
+    }
+  },
+  {
+    "idx": 7,
+    "question": "If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",
+    "gold": "answerable",
+    "pred": "unanswerable",
+    "score": 0.4281,
+    "threshold": 0.6538,
+    "gate_reason": "none",
+    "slot_fill_ratio": 1.0,
+    "exact_frac": 1.0,
+    "features": {
+      "D": 0.2892,
+      "A": 0.9633,
+      "Q": 0.8441,
+      "Q2": 0.5718,
+      "M": 0.0,
+      "S_eff": 0.2226,
+      "instance_missing_field": 0.5718,
+      "external_reference_intent": 0.0187,
+      "speculative_intent": 0.0,
+      "outside_document_intent": 0.0
+    },
+    "z_terms": {
+      "A_term": 1.1747,
+      "topic_min_term": 0.2037,
+      "risk_term": 0.4237,
+      "D_term": -0.188,
+      "G_term": -0.0,
+      "S_eff_X_term": -0.0,
+      "B_term": -0.36,
+      "M_term": -0.0,
+      "P_term": -0.0,
+      "O_term": -0.0,
+      "Q2_extra_term": -1.1436,
+      "bias": -0.1
+    },
+    "z_path_adjust": {
+      "path_missing": -0.3
+    },
+    "z_dominant_suppressors": [
+      [
+        "Q2_extra_term",
+        -1.1436
+      ],
+      [
+        "B_term",
+        -0.36
+      ],
+      [
+        "path_missing",
+        -0.3
+      ],
+      [
+        "D_term",
+        -0.188
+      ]
+    ],
+    "threshold_terms": {
+      "base": 0.43,
+      "core_coverage_term": 0.02,
+      "evidence_coverage_term": 0.0078,
+      "D_term": 0.0202,
+      "risk_term": 0.0,
+      "slot_offset": 0.03,
+      "S_eff_term": 0.0134,
+      "G_term": 0.0,
+      "S_eff_X_term": 0.0,
+      "B_term": 0.024,
+      "M_term": 0.0,
+      "P_term": 0.0,
+      "O_term": 0.0,
+      "Q2_extra_term": 0.0686
+    },
+    "threshold_rebates": {
+      "thr_rebate_disagreement": 0.0,
+      "thr_rebate_support": 0.0002,
+      "thr_rebate_clean_extract": 0.0,
+      "thr_rebate_nearmiss": 0.0,
+      "thr_rebate_safe_recover": 0.0,
+      "thr_rebate_rule_nearmiss": 0.0
+    },
+    "threshold_path_adjust": {
+      "path_missing_add": 0.04
+    },
+    "threshold_dominant_adders": [
+      [
+        "base",
+        0.43
+      ],
+      [
+        "Q2_extra_term",
+        0.0686
+      ],
+      [
+        "path_missing_add",
+        0.04
+      ],
+      [
+        "slot_offset",
+        0.03
+      ],
+      [
+        "B_term",
+        0.024
+      ]
+    ],
+    "pre_plumbing": {
+      "idx": 7,
+      "question": "If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3877,
+      "threshold": 0.6636,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false,
+      "base_rule_despite_reference": false
+    }
+  },
+  {
+    "idx": 15,
+    "question": "How often can Customer request OpenAI's most recent Audit Reports?",
+    "gold": "answerable",
+    "pred": "unanswerable",
+    "score": 0.2678,
+    "threshold": 0.6731,
+    "gate_reason": "q2_missing_or_external",
+    "slot_fill_ratio": 1.0,
+    "exact_frac": 0.6667,
+    "features": {
+      "D": 0.0451,
+      "A": 0.8161,
+      "Q": 0.582,
+      "Q2": 0.9125,
+      "M": 0.45,
+      "S_eff": 0.8319,
+      "instance_missing_field": 0.0585,
+      "external_reference_intent": 0.9125,
+      "speculative_intent": 0.0,
+      "outside_document_intent": 0.0
+    },
+    "z_terms": {
+      "A_term": 0.7847,
+      "topic_min_term": 0.2541,
+      "risk_term": 0.4496,
+      "D_term": -0.0293,
+      "G_term": -0.0,
+      "S_eff_X_term": -0.0,
+      "B_term": -0.0,
+      "M_term": -0.54,
+      "P_term": -0.0,
+      "O_term": -0.0,
+      "Q2_extra_term": -1.825,
+      "bias": -0.1
+    },
+    "z_path_adjust": {},
+    "z_dominant_suppressors": [
+      [
+        "Q2_extra_term",
+        -1.825
+      ],
+      [
+        "M_term",
+        -0.54
+      ],
+      [
+        "bias",
+        -0.1
+      ],
+      [
+        "D_term",
+        -0.0293
+      ]
+    ],
+    "threshold_terms": {
+      "base": 0.43,
+      "core_coverage_term": 0.0,
+      "evidence_coverage_term": 0.0,
+      "D_term": 0.0032,
+      "risk_term": 0.0,
+      "slot_offset": 0.06,
+      "S_eff_term": 0.0499,
+      "G_term": 0.0,
+      "S_eff_X_term": 0.0,
+      "B_term": 0.0,
+      "M_term": 0.0405,
+      "P_term": 0.0,
+      "O_term": 0.0,
+      "Q2_extra_term": 0.1095
+    },
+    "threshold_rebates": {
+      "thr_rebate_disagreement": 0.0,
+      "thr_rebate_support": 0.0,
+      "thr_rebate_clean_extract": 0.0,
+      "thr_rebate_nearmiss": 0.0,
+      "thr_rebate_safe_recover": 0.0,
+      "thr_rebate_rule_nearmiss": 0.0
+    },
+    "threshold_path_adjust": {},
+    "threshold_dominant_adders": [
+      [
+        "base",
+        0.43
+      ],
+      [
+        "Q2_extra_term",
+        0.1095
+      ],
+      [
+        "slot_offset",
+        0.06
+      ],
+      [
+        "S_eff_term",
+        0.0499
+      ],
+      [
+        "M_term",
+        0.0405
+      ]
+    ],
+    "pre_plumbing": {
+      "idx": 15,
+      "question": "How often can Customer request OpenAI's most recent Audit Reports?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.1177,
+      "threshold": 0.7302,
+      "gate_reason": "low_exactness,q2_missing_or_external",
+      "escape_hatch_triggered": false,
+      "base_rule_despite_reference": false
+    }
+  },
+  {
+    "idx": 20,
+    "question": "What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",
+    "gold": "answerable",
+    "pred": "unanswerable",
+    "score": 0.589,
+    "threshold": 0.5985,
+    "gate_reason": "none",
+    "slot_fill_ratio": 1.0,
+    "exact_frac": 0.5,
+    "features": {
+      "D": 0.1851,
+      "A": 0.832,
+      "Q": 0.6452,
+      "Q2": 0.4005,
+      "M": 0.2,
+      "S_eff": 0.8245,
+      "instance_missing_field": 0.2117,
+      "external_reference_intent": 0.4005,
+      "speculative_intent": 0.0,
+      "outside_document_intent": 0.0
+    },
+    "z_terms": {
+      "A_term": 0.8268,
+      "topic_min_term": 0.228,
+      "risk_term": 0.5665,
+      "D_term": -0.1203,
+      "G_term": -0.0,
+      "S_eff_X_term": -0.0,
+      "B_term": -0.0,
+      "M_term": -0.24,
+      "P_term": -0.0,
+      "O_term": -0.0,
+      "Q2_extra_term": -0.801,
+      "bias": -0.1
+    },
+    "z_path_adjust": {},
+    "z_dominant_suppressors": [
+      [
+        "Q2_extra_term",
+        -0.801
+      ],
+      [
+        "M_term",
+        -0.24
+      ],
+      [
+        "D_term",
+        -0.1203
+      ],
+      [
+        "bias",
+        -0.1
+      ]
+    ],
+    "threshold_terms": {
+      "base": 0.43,
+      "core_coverage_term": 0.0,
+      "evidence_coverage_term": 0.0,
+      "D_term": 0.013,
+      "risk_term": 0.0,
+      "slot_offset": 0.06,
+      "S_eff_term": 0.0495,
+      "G_term": 0.0,
+      "S_eff_X_term": 0.0,
+      "B_term": 0.0,
+      "M_term": 0.018,
+      "P_term": 0.0,
+      "O_term": 0.0,
+      "Q2_extra_term": 0.0481
+    },
+    "threshold_rebates": {
+      "thr_rebate_disagreement": 0.0,
+      "thr_rebate_support": 0.0,
+      "thr_rebate_clean_extract": 0.0,
+      "thr_rebate_nearmiss": 0.0,
+      "thr_rebate_safe_recover": 0.0,
+      "thr_rebate_rule_nearmiss": 0.0
+    },
+    "threshold_path_adjust": {},
+    "threshold_dominant_adders": [
+      [
+        "base",
+        0.43
+      ],
+      [
+        "slot_offset",
+        0.06
+      ],
+      [
+        "S_eff_term",
+        0.0495
+      ],
+      [
+        "Q2_extra_term",
+        0.0481
+      ],
+      [
+        "M_term",
+        0.018
+      ]
+    ],
+    "pre_plumbing": {
+      "idx": 20,
+      "question": "What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3616,
+      "threshold": 0.651,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false,
+      "base_rule_despite_reference": false
+    }
+  },
+  {
+    "idx": 25,
+    "question": "What is the legal name of the customer organization that signed this agreement?",
+    "gold": "unanswerable",
+    "pred": "answerable",
+    "score": 0.6513,
+    "threshold": 0.6161,
+    "gate_reason": "none",
+    "slot_fill_ratio": 1.0,
+    "exact_frac": 0.875,
+    "features": {
+      "D": 0.0465,
+      "A": 0.9465,
+      "Q": 0.769,
+      "Q2": 0.7323,
+      "M": 0.0,
+      "S_eff": 0.4538,
+      "instance_missing_field": 0.7323,
+      "external_reference_intent": 0.1077,
+      "speculative_intent": 0.0,
+      "outside_document_intent": 0.0
+    },
+    "z_terms": {
+      "A_term": 1.1302,
+      "topic_min_term": 0.403,
+      "risk_term": 0.6867,
+      "D_term": -0.0302,
+      "G_term": -0.0,
+      "S_eff_X_term": -0.0,
+      "B_term": -0.0,
+      "M_term": -0.0,
+      "P_term": -0.0,
+      "O_term": -0.0,
+      "Q2_extra_term": -1.4646,
+      "bias": -0.1
+    },
+    "z_path_adjust": {},
+    "z_dominant_suppressors": [
+      [
+        "Q2_extra_term",
+        -1.4646
+      ],
+      [
+        "bias",
+        -0.1
+      ],
+      [
+        "D_term",
+        -0.0302
+      ]
+    ],
+    "threshold_terms": {
+      "base": 0.43,
+      "core_coverage_term": 0.02,
+      "evidence_coverage_term": 0.0078,
+      "D_term": 0.0033,
+      "risk_term": 0.0,
+      "slot_offset": 0.04,
+      "S_eff_term": 0.0272,
+      "G_term": 0.0,
+      "S_eff_X_term": 0.0,
+      "B_term": 0.0,
+      "M_term": 0.0,
+      "P_term": 0.0,
+      "O_term": 0.0,
+      "Q2_extra_term": 0.0879
+    },
+    "threshold_rebates": {
+      "thr_rebate_disagreement": 0.0,
+      "thr_rebate_support": 0.0,
+      "thr_rebate_clean_extract": 0.0,
+      "thr_rebate_nearmiss": 0.0,
+      "thr_rebate_safe_recover": 0.0,
+      "thr_rebate_rule_nearmiss": 0.0
+    },
+    "threshold_path_adjust": {},
+    "threshold_dominant_adders": [
+      [
+        "base",
+        0.43
+      ],
+      [
+        "Q2_extra_term",
+        0.0879
+      ],
+      [
+        "slot_offset",
+        0.04
+      ],
+      [
+        "S_eff_term",
+        0.0272
+      ],
+      [
+        "core_coverage_term",
+        0.02
+      ]
+    ],
+    "pre_plumbing": {
+      "idx": 25,
+      "question": "What is the legal name of the customer organization that signed this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3878,
+      "threshold": 0.6387,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false,
+      "base_rule_despite_reference": false
+    }
+  },
+  {
+    "idx": 29,
+    "question": "What dollar amount is the NAM arbitration filing fee under this agreement?",
+    "gold": "unanswerable",
+    "pred": "answerable",
+    "score": 0.6037,
+    "threshold": 0.6011,
+    "gate_reason": "none",
+    "slot_fill_ratio": 1.0,
+    "exact_frac": 0.5556,
+    "features": {
+      "D": 0.0704,
+      "A": 0.8055,
+      "Q": 0.558,
+      "Q2": 0.2965,
+      "M": 0.45,
+      "S_eff": 0.8347,
+      "instance_missing_field": 0.2194,
+      "external_reference_intent": 0.2965,
+      "speculative_intent": 0.0,
+      "outside_document_intent": 0.0
+    },
+    "z_terms": {
+      "A_term": 0.7566,
+      "topic_min_term": 0.3146,
+      "risk_term": 0.6286,
+      "D_term": -0.0458,
+      "G_term": -0.0,
+      "S_eff_X_term": -0.0,
+      "B_term": -0.0,
+      "M_term": -0.54,
+      "P_term": -0.0,
+      "O_term": -0.0,
+      "Q2_extra_term": -0.593,
+      "bias": -0.1
+    },
+    "z_path_adjust": {},
+    "z_dominant_suppressors": [
+      [
+        "Q2_extra_term",
+        -0.593
+      ],
+      [
+        "M_term",
+        -0.54
+      ],
+      [
+        "bias",
+        -0.1
+      ],
+      [
+        "D_term",
+        -0.0458
+      ]
+    ],
+    "threshold_terms": {
+      "base": 0.43,
+      "core_coverage_term": 0.0,
+      "evidence_coverage_term": 0.0,
+      "D_term": 0.0049,
+      "risk_term": 0.0,
+      "slot_offset": 0.06,
+      "S_eff_term": 0.0501,
+      "G_term": 0.0,
+      "S_eff_X_term": 0.0,
+      "B_term": 0.0,
+      "M_term": 0.0405,
+      "P_term": 0.0,
+      "O_term": 0.0,
+      "Q2_extra_term": 0.0356
+    },
+    "threshold_rebates": {
+      "thr_rebate_disagreement": 0.0,
+      "thr_rebate_support": 0.0,
+      "thr_rebate_clean_extract": 0.0,
+      "thr_rebate_nearmiss": 0.0,
+      "thr_rebate_safe_recover": 0.0,
+      "thr_rebate_rule_nearmiss": 0.0
+    },
+    "threshold_path_adjust": {},
+    "threshold_dominant_adders": [
+      [
+        "base",
+        0.43
+      ],
+      [
+        "slot_offset",
+        0.06
+      ],
+      [
+        "S_eff_term",
+        0.0501
+      ],
+      [
+        "M_term",
+        0.0405
+      ],
+      [
+        "Q2_extra_term",
+        0.0356
+      ]
+    ],
+    "pre_plumbing": {
+      "idx": 29,
+      "question": "What dollar amount is the NAM arbitration filing fee under this agreement?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.3879,
+      "threshold": 0.6919,
+      "gate_reason": "low_exactness",
+      "escape_hatch_triggered": false,
+      "base_rule_despite_reference": false
+    }
+  },
+  {
+    "idx": 39,
+    "question": "What revenue-sharing percentage applies between OpenAI and the customer's reseller?",
+    "gold": "unanswerable",
+    "pred": "answerable",
+    "score": 0.7897,
+    "threshold": 0.5472,
+    "gate_reason": "none",
+    "slot_fill_ratio": 1.0,
+    "exact_frac": 0.6667,
+    "features": {
+      "D": 0.0958,
+      "A": 0.8744,
+      "Q": 0.7145,
+      "Q2": 0.19,
+      "M": 0.0,
+      "S_eff": 0.7955,
+      "instance_missing_field": 0.19,
+      "external_reference_intent": 0.0356,
+      "speculative_intent": 0.0,
+      "outside_document_intent": 0.0
+    },
+    "z_terms": {
+      "A_term": 0.9392,
+      "topic_min_term": 0.3135,
+      "risk_term": 0.6125,
+      "D_term": -0.0623,
+      "G_term": -0.0,
+      "S_eff_X_term": -0.0,
+      "B_term": -0.0,
+      "M_term": -0.0,
+      "P_term": -0.0,
+      "O_term": -0.0,
+      "Q2_extra_term": -0.38,
+      "bias": -0.1
+    },
+    "z_path_adjust": {},
+    "z_dominant_suppressors": [
+      [
+        "Q2_extra_term",
+        -0.38
+      ],
+      [
+        "bias",
+        -0.1
+      ],
+      [
+        "D_term",
+        -0.0623
+      ]
+    ],
+    "threshold_terms": {
+      "base": 0.43,
+      "core_coverage_term": 0.0,
+      "evidence_coverage_term": 0.0,
+      "D_term": 0.0067,
+      "risk_term": 0.0,
+      "slot_offset": 0.06,
+      "S_eff_term": 0.0477,
+      "G_term": 0.0,
+      "S_eff_X_term": 0.0,
+      "B_term": 0.0,
+      "M_term": 0.0,
+      "P_term": 0.0,
+      "O_term": 0.0,
+      "Q2_extra_term": 0.0228
+    },
+    "threshold_rebates": {
+      "thr_rebate_disagreement": 0.0,
+      "thr_rebate_support": 0.0,
+      "thr_rebate_clean_extract": 0.0,
+      "thr_rebate_nearmiss": 0.0,
+      "thr_rebate_safe_recover": 0.0,
+      "thr_rebate_rule_nearmiss": 0.0
+    },
+    "threshold_path_adjust": {},
+    "threshold_dominant_adders": [
+      [
+        "base",
+        0.43
+      ],
+      [
+        "slot_offset",
+        0.06
+      ],
+      [
+        "S_eff_term",
+        0.0477
+      ],
+      [
+        "Q2_extra_term",
+        0.0228
+      ],
+      [
+        "D_term",
+        0.0067
+      ]
+    ],
+    "pre_plumbing": {
+      "idx": 39,
+      "question": "What revenue-sharing percentage applies between OpenAI and the customer's reseller?",
+      "gold_label": "unanswerable",
+      "predicted_label": "unanswerable",
+      "score": 0.5024,
+      "threshold": 0.6071,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false,
+      "base_rule_despite_reference": false
+    }
+  }
+]

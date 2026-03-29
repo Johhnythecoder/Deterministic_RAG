@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deterministic RAG — Legal Contract AI That Refuses to Guess</title>
+    <link rel="stylesheet" href="/web/styles.css" />
+  </head>
+  <body>
+    <aside class="debug-panel" id="debugPanel">
+      <div class="debug-head">
+        <strong>Debug Console</strong>
+        <button id="clearDebugBtn" type="button">Clear</button>
+      </div>
+      <div id="debugLog" class="debug-log"></div>
+    </aside>
+
+    <header class="site-header">
+      <div class="container nav">
+        <div class="brand">Deterministic RAG</div>
+        <nav>
+          <a href="#demo">Demo</a>
+          <a href="#how">Architecture</a>
+          <a href="#proof">Results</a>
+          <a href="#tech">Technical</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero-wrap">
+        <div class="container hero">
+          <div class="hero-content">
+            <p class="eyebrow">Legal AI Research Project</p>
+            <h1>Contract AI that refuses to guess</h1>
+            <p class="subtext">
+              When legal AI hallucinates, lawyers act on wrong answers. This system builds a typed knowledge graph from contracts, verifies every answer against real evidence, and abstains when evidence is missing — rather than confabulate.
+            </p>
+            <div class="hero-proof">
+              <span class="proof-tag">Abstention-first</span>
+              <span class="proof-tag">Graph-verified evidence</span>
+              <span class="proof-tag">Zero hallucination design</span>
+            </div>
+            <div class="hero-actions">
+              <a href="#demo" class="btn btn-primary">Try the demo</a>
+              <a href="#how" class="btn btn-ghost">How it works</a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="verdict-preview vp-answerable">
+              <div class="vp-header">
+                <span class="vp-badge ok">Answerable</span>
+                <span class="vp-conf">conf 0.94</span>
+              </div>
+              <p class="vp-q">"What is the renewal term?"</p>
+              <p class="vp-a">Renews automatically for successive one-year terms unless written notice is provided.</p>
+              <div class="vp-clause">
+                <span class="vp-clause-label">§4.2 — Supporting clause</span>
+                <p class="vp-clause-text">"...shall automatically renew for consecutive one (1) year periods unless either party provides written notice of non-renewal no less than sixty (60) days prior..."</p>
+              </div>
+            </div>
+            <div class="verdict-preview vp-unanswerable">
+              <div class="vp-header">
+                <span class="vp-badge bad">Unanswerable</span>
+                <span class="vp-conf">conf 0.11</span>
+              </div>
+              <p class="vp-q">"What emails were exchanged between the parties?"</p>
+              <p class="vp-a">The document does not contain records of email correspondence. This system abstains rather than speculate.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS BAR -->
+      <div class="stats-bar-wrap">
+        <div class="container stats-bar">
+          <div class="stat-item">
+            <span class="stat-num">90%+</span>
+            <span class="stat-desc">Overall accuracy</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">97%</span>
+            <span class="stat-desc">Unanswerable precision</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">540</span>
+            <span class="stat-desc">Ground-truth Q&amp;A pairs</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">12</span>
+            <span class="stat-desc">Real SEC filing contracts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEMO -->
+      <section class="container section" id="demo">
+        <h2>Live Demo</h2>
+        <p class="section-lead">Upload a contract or select a sample, then ask any question. The system either surfaces the exact supporting clause or explains why it cannot answer.</p>
+
+        <div class="demo-grid">
+          <div class="card">
+            <h3>Document</h3>
+            <label class="label" for="savedSelect">Saved documents</label>
+            <div class="row">
+              <select id="savedSelect"></select>
+              <button id="useSavedBtn" class="btn btn-secondary" type="button">Use</button>
+            </div>
+            <p class="or">— or —</p>
+            <label class="label" for="sampleSelect">Sample contract</label>
+            <select id="sampleSelect"></select>
+            <p class="or">— or —</p>
+            <label class="label" for="pdfFile">Upload PDF</label>
+            <input id="pdfFile" type="file" accept="application/pdf" />
+
+            <label class="label" for="questionInput">Question</label>
+            <textarea id="questionInput" rows="3" placeholder="Ask a question about the contract..."></textarea>
+
+            <label class="label" for="batchInput">
+              Batch questions
+              <span class="label-note">up to 40, one per line</span>
+            </label>
+            <textarea id="batchInput" rows="5" placeholder="What is the renewal term?&#10;Can either party terminate for breach?&#10;What law governs the agreement?"></textarea>
+
+            <button id="prepareBtn" class="btn btn-secondary full">Prepare document</button>
+            <div class="prep-wrap">
+              <div class="prep-meta">
+                <span id="prepLabel">Document not prepared yet.</span>
+                <span id="prepEta"></span>
+              </div>
+              <div class="progress-track" aria-hidden="true">
+                <div id="prepProgress" class="progress-bar"></div>
+              </div>
+            </div>
+            <button id="askBtn" class="btn btn-primary full">Submit question</button>
+            <button id="askBatchBtn" class="btn btn-secondary full">Run batch</button>
+            <p id="demoStatus" class="hint">Ready.</p>
+          </div>
+
+          <div class="card results" id="resultsCard">
+            <div class="empty-state" id="emptyState">
+              <div class="empty-icon">◎</div>
+              <p>Ask a question to see the verdict, answer, and supporting clauses.</p>
+            </div>
+
+            <div id="resultBody" class="hidden">
+              <div class="result-header">
+                <span id="statusBadge" class="status">Unknown</span>
+                <span id="docName" class="doc-name"></span>
+              </div>
+
+              <div class="result-block">
+                <h4>Answer</h4>
+                <p id="shortAnswer">-</p>
+              </div>
+
+              <div class="result-block">
+                <h4>Why this verdict</h4>
+                <p id="reasonText" class="reason-text">-</p>
+              </div>
+
+              <div class="result-block">
+                <h4>Supporting Clauses</h4>
+                <div id="clausesList" class="clauses"></div>
+              </div>
+
+              <div class="result-meta" id="metadataRow"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card batch-results" id="batchResultsCard">
+          <div class="empty-state" id="batchEmptyState">
+            Batch results will appear here.
+          </div>
+          <div id="batchBody" class="hidden">
+            <div class="result-header">
+              <span id="batchSummary" class="status">Batch Summary</span>
+              <span id="batchDocName" class="doc-name"></span>
+            </div>
+            <div class="batch-columns">
+              <div>
+                <h4>Answerable</h4>
+                <div id="answerableList" class="batch-list"></div>
+              </div>
+              <div>
+                <h4>Unanswerable</h4>
+                <div id="unanswerableList" class="batch-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXAMPLE QUESTIONS -->
+      <section class="container section" id="examples">
+        <h2>Try these questions</h2>
+        <p class="section-lead">Click to load into the question field. The last two are intentionally unanswerable — watch the system abstain instead of guess.</p>
+        <div class="examples" id="exampleQuestions">
+          <button class="chip chip-yes">What is the renewal term?</button>
+          <button class="chip chip-yes">Can either party terminate for breach?</button>
+          <button class="chip chip-yes">What law governs the agreement?</button>
+          <button class="chip chip-yes">What happens if one party materially breaches?</button>
+          <button class="chip chip-no">What emails were exchanged between the parties?</button>
+          <button class="chip chip-no">What is the CEO's compensation?</button>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="container section" id="how">
+        <h2>How It Works</h2>
+        <p class="section-lead">Four stages turn a raw PDF into a verifiable, abstention-capable Q&amp;A system.</p>
+
+        <div class="pipeline-v">
+          <div class="pipe-step">
+            <div class="pipe-num">1</div>
+            <div class="pipe-body">
+              <h4>Typed Graph Extraction</h4>
+              <p>The PDF is chunked and each chunk is processed by an LLM to extract typed nodes: <strong>party</strong>, <strong>obligation</strong>, <strong>right</strong>, <strong>numeric fact</strong>, <strong>condition</strong>, <strong>definition</strong>, <strong>blank</strong>, and <strong>reference</strong>. Co-occurring nodes within a chunk are connected by edges. This replaces untyped embedding search with a structured knowledge graph.</p>
+            </div>
+          </div>
+          <div class="pipe-connector"></div>
+          <div class="pipe-step">
+            <div class="pipe-num">2</div>
+            <div class="pipe-body">
+              <h4>Multi-Variant Retrieval</h4>
+              <p>At query time, three parallel LLM calls generate query variants (paraphrase, type-focused, clause-focused) and retrieve candidate clauses for each. A consensus filter keeps only clauses appearing in two or more variants, reducing noise from any single retrieval failure.</p>
+            </div>
+          </div>
+          <div class="pipe-connector"></div>
+          <div class="pipe-step">
+            <div class="pipe-num">3</div>
+            <div class="pipe-body">
+              <h4>Answerability Gate</h4>
+              <p>Two independent signals vote: (a) an LLM judges whether the retrieved evidence actually answers the question; (b) a topology scorer measures graph connectivity of retrieved nodes — high connectivity means the document genuinely covers the topic. Only when both signals pass does the system proceed to generate an answer.</p>
+            </div>
+          </div>
+          <div class="pipe-connector"></div>
+          <div class="pipe-step pipe-step-last">
+            <div class="pipe-num pipe-num-split">
+              <span class="pns-yes">✓</span>
+              <span class="pns-no">✗</span>
+            </div>
+            <div class="pipe-body">
+              <h4>Grounded Answer or Principled Abstention</h4>
+              <p>If the gate passes, an LLM generates an answer grounded strictly on the verified evidence set, citing the exact clause. If the gate fails, the response is <em>"unanswerable"</em> with a reason — no hallucination pathway exists in the design.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESULTS / PROOF -->
+      <section class="container section" id="proof">
+        <h2>Benchmark Results</h2>
+        <p class="section-lead">Evaluated on 540 ground-truth questions across 12 real SEC filing contracts — held-out documents not seen during development.</p>
+
+        <div class="proof-grid">
+          <article class="proof-card proof-primary">
+            <p class="proof-value">90%+</p>
+            <p class="proof-label">Overall accuracy</p>
+            <p class="proof-sub">on contracts not seen during development</p>
+          </article>
+          <article class="proof-card">
+            <p class="proof-value">97%</p>
+            <p class="proof-label">Unanswerable precision</p>
+            <p class="proof-sub">when the system says "can't answer," it's right</p>
+          </article>
+          <article class="proof-card">
+            <p class="proof-value">3× LLM</p>
+            <p class="proof-label">Parallel consensus</p>
+            <p class="proof-sub">query variants + majority vote for retrieval stability</p>
+          </article>
+          <article class="proof-card">
+            <p class="proof-value">Clause-cited</p>
+            <p class="proof-label">Every answer</p>
+            <p class="proof-sub">exact supporting text returned alongside the answer</p>
+          </article>
+        </div>
+
+        <div class="proof-callout">
+          <strong>Why this matters.</strong> When a contract AI confidently returns a wrong answer, lawyers act on it. A 97% unanswerable precision means the system almost never falsely claims it cannot answer — but when it does answer, the evidence is real. A well-calibrated "I don't know" is worth more than a fluent hallucination.
+        </div>
+      </section>
+
+      <!-- TECHNICAL NOTES -->
+      <section class="container section" id="tech">
+        <h2>Technical Notes</h2>
+        <div class="tech-grid">
+          <details class="tech-card">
+            <summary>Graph construction</summary>
+            <p>Contracts are chunked with overlap, then each chunk is passed to an LLM that extracts typed nodes. Node types: <code>definition</code>, <code>obligation</code>, <code>right</code>, <code>numeric</code>, <code>condition</code>, <code>blank</code>, <code>reference</code>. Edges connect co-occurring nodes within the same chunk. The resulting graph is stored and reused across all queries on the same document.</p>
+          </details>
+          <details class="tech-card">
+            <summary>Retrieval stability via query variants</summary>
+            <p>A single query can be ambiguous or phrased in ways that miss relevant clauses. Three variants (paraphrase, type-focused, clause-focused) each run retrieval independently. Only clauses appearing in two or more results pass the consensus filter, reducing variance from individual retrieval failures.</p>
+          </details>
+          <details class="tech-card">
+            <summary>Topology scoring</summary>
+            <p>Beyond LLM judgment, a topology signal quantifies how well-connected the retrieved nodes are in the graph. High connectivity (short paths, dense neighborhoods near retrieved nodes) correlates with the document genuinely covering the question topic. The threshold is calibrated relative to document size.</p>
+          </details>
+          <details class="tech-card">
+            <summary>Answerability decision logic</summary>
+            <p>The final gate combines two boolean signals: (1) LLM-judged answerability given the retrieved evidence; (2) topology score above the calibrated threshold. Both must pass. This reduces false positives (answering when we shouldn't) more aggressively than either signal alone.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="container section" id="about">
+        <h2>About</h2>
+        <p>
+          Deterministic RAG is a student research project building a legal AI system that is trustworthy by design: grounded retrieval, graph-verified evidence, and principled abstention when the document does not support an answer. It targets the hallucination problem that makes current legal AI unreliable in practice, where confident wrong answers carry real consequences.
+        </p>
+      </section>
+    </main>
+
+    <script src="/web/app.js" defer></script>
+  </body>
+</html>

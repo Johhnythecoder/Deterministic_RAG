@@ -1,0 +1,1124 @@
+{
+  "generated_at": 1774498431,
+  "pdf": "/Users/jonathang/Projects/Deterministic_RAG/uploads/1774488921_openai-services-agreement.pdf",
+  "report": [
+    {
+      "qid": 5,
+      "question": "What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?",
+      "retrieval_stage": {
+        "top_retrieved": [
+          {
+            "rank": 1,
+            "score": 0.6828,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "\u201cAuthorized Purchaser\u201d means a Customer employee designated by Customer to act as an authorized purchaser of the Services.",
+            "is_correct": false
+          },
+          {
+            "rank": 2,
+            "score": 0.6765,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "\u201cInitial Term\u201d means the initial term for the Services beginning on the Start Date and continuing for the duration set forth on the Order Form.",
+            "is_correct": false
+          },
+          {
+            "rank": 3,
+            "score": 0.6414,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "3.1. Customer Account.",
+            "is_correct": false
+          },
+          {
+            "rank": 4,
+            "score": 0.6378,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "\u201cUsage Limits\u201d means End User, messaging, token, throughput rate, or other limits on Customer\u2019s use of the Services as described in the applicable Order Form or Documentation.",
+            "is_correct": false
+          },
+          {
+            "rank": 5,
+            "score": 0.6325,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "The Agreement governs Customer\u2019s access to and use of the Services.",
+            "is_correct": false
+          },
+          {
+            "rank": 6,
+            "score": 0.6304,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "\u201cFees\u201d means all fees charged to Customer\u2019s Account in accordance with an Order Form, or if an Order Form does not exist, then according to the Pricing Page.",
+            "is_correct": false
+          },
+          {
+            "rank": 7,
+            "score": 0.6244,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "Customer: the organization agreeing to these terms | Party: OpenAI and Customer are each referred to as a \u201cParty\u201d | Parties: OpenAI and Customer collectively | Customer Affiliates: Customer and its Affiliates usage will ",
+            "is_correct": false
+          },
+          {
+            "rank": 8,
+            "score": 0.6188,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "Administrators are Authorized Purchasers.",
+            "is_correct": false
+          }
+        ],
+        "correct_clause_retrieved": true,
+        "correct_clause_rank": 26,
+        "correct_clause_score": 0.55
+      },
+      "typed_support_stage": {
+        "question_type": "DEFINITION",
+        "variants": [
+          "What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?",
+          "What details are required on the Order Form to set up the Services for the initial Authorized Purchaser?",
+          "What specific information should be provided on the Order Form to provision Services for the first Authorized Purchaser?",
+          "What must be included in the Order Form to initiate the Services for an initial Authorized Purchaser?",
+          "Can you specify the information that needs to be on the Order Form to provision Services for the initial Authorized Purchaser?",
+          "What elements are necessary on the Order Form for provisioning Services to the first Authorized Purchaser?",
+          "Which details must the Order Form contain to enable the provisioning of Services for an initial Authorized Purchaser?"
+        ],
+        "variant_retrieval_trace": [
+          {
+            "variant": "What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "What details are required on the Order Form to set up the Services for the initial Authorized Purchaser?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "What specific information should be provided on the Order Form to provision Services for the first Authorized Purchaser?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "What must be included in the Order Form to initiate the Services for an initial Authorized Purchaser?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "Can you specify the information that needs to be on the Order Form to provision Services for the initial Authorized Purchaser?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "What elements are necessary on the Order Form for provisioning Services to the first Authorized Purchaser?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "Which details must the Order Form contain to enable the provisioning of Services for an initial Authorized Purchaser?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          }
+        ],
+        "matched_candidate_nodes": [
+          {
+            "votes": 7,
+            "max_score": 0.55,
+            "node_type": "OBLIGATION",
+            "in_surviving": true,
+            "text": "To provision the Services, OpenAI requires the email address of the initial Authorized Purchaser to be included on the Order Form.",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.55,
+            "node_type": "OBLIGATION",
+            "in_surviving": true,
+            "text": "To provision the Services, OpenAI requires the email address of the initial Authorized Purchaser to be included on the Order Form.",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          }
+        ],
+        "surviving_nodes_count": 55
+      },
+      "slot_evidence_stage": {
+        "required_slot_type": "REQUIREMENT",
+        "slot_verdict": "uncertain",
+        "slot_score": 0.583,
+        "slot_slots_count": 1,
+        "slot_slots": [
+          {
+            "slot": "REQUIREMENT",
+            "subject": "must include"
+          }
+        ],
+        "supporting_fact_index": null,
+        "surviving_nodes_count": 56,
+        "exact_frac": 0.125,
+        "adjacent_frac": 0.875,
+        "slot_fill_ratio_meta": null,
+        "gate_reason": "q2_missing_or_external",
+        "topology_score": 0.2113,
+        "topology_threshold": 0.709,
+        "predicted": "unanswerable"
+      },
+      "final_diagnosis": "slot_or_exactness_feature_gap"
+    },
+    {
+      "qid": 6,
+      "question": "How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?",
+      "retrieval_stage": {
+        "top_retrieved": [
+          {
+            "rank": 1,
+            "score": 0.7593,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "Unless the Parties agree otherwise in writing, increases in the Services purchased during a Services Term will have a prorated term ending concurrently with the then-current Services Term.",
+            "is_correct": false
+          },
+          {
+            "rank": 2,
+            "score": 0.6444,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If Customer reduces its license count, quantity, or minimum commitment, OpenAI may adjust or remove discounts offered to Customer based on its prior purchase.",
+            "is_correct": false
+          },
+          {
+            "rank": 3,
+            "score": 0.6338,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If Customer purchases Services based on usage, Customer acknowledges that OpenAI will charge Customer the Fees for the Services based on the usage calculated by OpenAI.",
+            "is_correct": false
+          },
+          {
+            "rank": 4,
+            "score": 0.6097,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "Customer agrees to indemnify, defend, and hold OpenAI and its affiliates and licensors harmless against any liabilities, damages, and costs (including reasonable attorneys\u2019 fees) payable to a third party arising out of a",
+            "is_correct": false
+          },
+          {
+            "rank": 5,
+            "score": 0.5889,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If Customer elects to use new Services added to the Service-Specific Terms after the most recent effective date in the preceding sentence, then the OpenAI Policies in effect as of that Customer use will apply.",
+            "is_correct": false
+          },
+          {
+            "rank": 6,
+            "score": 0.5857,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "Customer agrees to indemnify, defend, and hold OpenAI and its affiliates and licensors harmless against any liabilities, damages, and costs (including reasonable attorneys\u2019 fees) payable to a third party arising out of a",
+            "is_correct": false
+          },
+          {
+            "rank": 7,
+            "score": 0.5823,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "Note that if Customer renews without a new Order Form, the Start Date for that Renewal Term will be calculated based on the original Start Date.",
+            "is_correct": false
+          },
+          {
+            "rank": 8,
+            "score": 0.5811,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "Note that if Customer renews without a new Order Form, the duration of that Renewal Term will be the same duration of the immediately preceding Initial Term or Renewal Term.",
+            "is_correct": false
+          }
+        ],
+        "correct_clause_retrieved": true,
+        "correct_clause_rank": 14,
+        "correct_clause_score": 0.55
+      },
+      "typed_support_stage": {
+        "question_type": "NUMERIC",
+        "variants": [
+          "How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?",
+          "What is the pricing structure for additional licenses or quantities acquired by Authorized Purchasers during the ongoing Services Term?",
+          "Can you explain how the cost for extra licenses or quantities is determined for Authorized Purchasers throughout the current Services Term?",
+          "What pricing applies to the purchase of additional licenses or quantities by Authorized Purchasers in the present Services Term?",
+          "How are the costs for extra licenses or quantities set for Authorized Purchasers in the current Services Term?",
+          "Could you clarify the pricing mechanisms for additional licenses or quantities that Authorized Purchasers buy during the current Services Term?",
+          "What are the financial terms for obtaining additional licenses or quantities by Authorized Purchasers within the current Services Term?"
+        ],
+        "variant_retrieval_trace": [
+          {
+            "variant": "How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 14
+          },
+          {
+            "variant": "What is the pricing structure for additional licenses or quantities acquired by Authorized Purchasers during the ongoing Services Term?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "Can you explain how the cost for extra licenses or quantities is determined for Authorized Purchasers throughout the current Services Term?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 15
+          },
+          {
+            "variant": "What pricing applies to the purchase of additional licenses or quantities by Authorized Purchasers in the present Services Term?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "How are the costs for extra licenses or quantities set for Authorized Purchasers in the current Services Term?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "Could you clarify the pricing mechanisms for additional licenses or quantities that Authorized Purchasers buy during the current Services Term?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          },
+          {
+            "variant": "What are the financial terms for obtaining additional licenses or quantities by Authorized Purchasers within the current Services Term?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 16
+          }
+        ],
+        "matched_candidate_nodes": [
+          {
+            "votes": 7,
+            "max_score": 0.55,
+            "node_type": "OBLIGATION",
+            "in_surviving": true,
+            "text": "OpenAI will charge Customer for additional licenses, quantities, or volumes of Services for the remainder of the then-current Services Term based on Customer\u2019s then-current price unless otherwise set forth on the Order Form.",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.55,
+            "node_type": "OBLIGATION",
+            "in_surviving": true,
+            "text": "OpenAI will charge Customer for additional licenses, quantities, or volumes of Services for the remainder of the then-current Services Term based on Customer\u2019s then-current price unless otherwise set forth on the Order Form.",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.55,
+            "node_type": "RIGHT",
+            "in_surviving": true,
+            "text": "The Services may be configured to allow Authorized Purchasers to purchase additional licenses, quantities, or volumes of Services.",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          }
+        ],
+        "surviving_nodes_count": 58
+      },
+      "slot_evidence_stage": {
+        "required_slot_type": "VALUE",
+        "slot_verdict": "uncertain",
+        "slot_score": 0.4171,
+        "slot_slots_count": 1,
+        "slot_slots": [
+          {
+            "slot": "VALUE",
+            "subject": "additional licenses or quantities"
+          }
+        ],
+        "supporting_fact_index": null,
+        "surviving_nodes_count": 58,
+        "exact_frac": 0.0517,
+        "adjacent_frac": 0.5345,
+        "slot_fill_ratio_meta": null,
+        "gate_reason": "low_exactness,q2_missing_or_external",
+        "topology_score": 0.1997,
+        "topology_threshold": 0.6975,
+        "predicted": "unanswerable"
+      },
+      "final_diagnosis": "slot_or_exactness_feature_gap"
+    },
+    {
+      "qid": 7,
+      "question": "If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",
+      "retrieval_stage": {
+        "top_retrieved": [
+          {
+            "rank": 1,
+            "score": 0.9421,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "Customer Affiliates may use the Services under Customer\u2019s Account, which means Customer and its Affiliates usage will occur in the same workspace and under the same organizational ID.",
+            "is_correct": true
+          },
+          {
+            "rank": 2,
+            "score": 0.9234,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "Customer\u2019s Account, which means Customer and its Affiliates usage will occur in the same workspace and under the same organizational ID.",
+            "is_correct": true
+          },
+          {
+            "rank": 3,
+            "score": 0.9107,
+            "type": "OBLIGATION",
+            "chunk": null,
+            "section": null,
+            "text": "If Customer Affiliates\u2019 purchase and use of the Services is intended to be separate from Customer\u2019s, then the Affiliate must execute a separate Order Form.",
+            "is_correct": false
+          },
+          {
+            "rank": 4,
+            "score": 0.889,
+            "type": "OBLIGATION",
+            "chunk": null,
+            "section": null,
+            "text": "If Customer Affiliates enter into Order Forms under this Agreement they will be bound by this Agreement.",
+            "is_correct": false
+          },
+          {
+            "rank": 5,
+            "score": 0.7505,
+            "type": "OBLIGATION",
+            "chunk": null,
+            "section": null,
+            "text": "OpenAI will then create a separate workspace and organizational ID for that Affiliate and provision the Services accordingly.",
+            "is_correct": false
+          },
+          {
+            "rank": 6,
+            "score": 0.7027,
+            "type": "DEFINITION",
+            "chunk": null,
+            "section": null,
+            "text": "Customer: the organization agreeing to these terms | Party: OpenAI and Customer are each referred to as a \u201cParty\u201d | Parties: OpenAI and Customer collectively | Customer Affiliates: Customer and its Affiliates usage will ",
+            "is_correct": true
+          },
+          {
+            "rank": 7,
+            "score": 0.6749,
+            "type": "OBLIGATION",
+            "chunk": null,
+            "section": null,
+            "text": "Customer is responsible for all activities that occur under its Account, including the activities of End Users with an End User Account or who access the Services through a Customer Application.",
+            "is_correct": false
+          },
+          {
+            "rank": 8,
+            "score": 0.6551,
+            "type": "OBLIGATION",
+            "chunk": null,
+            "section": null,
+            "text": "Except with express prior written permission in each instance, neither Party will: (i) include the other Party\u2019s name or logo on their websites, media, or marketing materials;",
+            "is_correct": false
+          }
+        ],
+        "correct_clause_retrieved": true,
+        "correct_clause_rank": 1,
+        "correct_clause_score": 0.9421
+      },
+      "typed_support_stage": {
+        "question_type": "GENERAL",
+        "variants": [
+          "If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",
+          "Do Customer Affiliates access Services through the same workspace and organizational ID as the Customer's Account?",
+          "When Customer Affiliates utilize Services linked to the Customer's Account, do they share the same workspace and organizational ID?",
+          "Are Customer Affiliates operating under the Customer's Account using a unified workspace and organizational ID?",
+          "If the Services are accessed by Customer Affiliates through the Customer's Account, will they be in the same workspace and have the same organizational ID?",
+          "Do the Services employed by Customer Affiliates under the Customer's Account reflect the same workspace and organizational ID?",
+          "In the case that Customer Affiliates engage with Services via the Customer's Account, do they operate within the same workspace and have the same organizational ID?"
+        ],
+        "variant_retrieval_trace": [
+          {
+            "variant": "If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "Do Customer Affiliates access Services through the same workspace and organizational ID as the Customer's Account?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "When Customer Affiliates utilize Services linked to the Customer's Account, do they share the same workspace and organizational ID?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "Are Customer Affiliates operating under the Customer's Account using a unified workspace and organizational ID?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "If the Services are accessed by Customer Affiliates through the Customer's Account, will they be in the same workspace and have the same organizational ID?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "Do the Services employed by Customer Affiliates under the Customer's Account reflect the same workspace and organizational ID?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "In the case that Customer Affiliates engage with Services via the Customer's Account, do they operate within the same workspace and have the same organizational ID?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          }
+        ],
+        "matched_candidate_nodes": [
+          {
+            "votes": 7,
+            "max_score": 0.9602,
+            "node_type": "DEFINITION",
+            "in_surviving": true,
+            "text": "Customer Affiliates may use the Services under Customer\u2019s Account, which means Customer and its Affiliates usage will occur in the same workspace and under the same organizational ID.",
+            "filter_notes": [
+              "def_soft_candidate",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.9264,
+            "node_type": "DEFINITION",
+            "in_surviving": true,
+            "text": "Customer\u2019s Account, which means Customer and its Affiliates usage will occur in the same workspace and under the same organizational ID.",
+            "filter_notes": [
+              "def_soft_candidate",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.7301,
+            "node_type": "DEFINITION",
+            "in_surviving": true,
+            "text": "Customer: the organization agreeing to these terms | Party: OpenAI and Customer are each referred to as a \u201cParty\u201d | Parties: OpenAI and Customer collectively | Customer Affiliates: Customer and its Affiliates usage will occur in the same workspace and under th",
+            "filter_notes": [
+              "score<0.82_soft",
+              "def_soft_candidate",
+              "priority_high_candidate",
+              "survived"
+            ]
+          }
+        ],
+        "surviving_nodes_count": 48
+      },
+      "slot_evidence_stage": {
+        "required_slot_type": "GENERAL",
+        "slot_verdict": "unanswerable",
+        "slot_score": 0.2722,
+        "slot_slots_count": 1,
+        "slot_slots": [
+          {
+            "slot": "GENERAL",
+            "subject": "Services under Customer's Account"
+          }
+        ],
+        "supporting_fact_index": null,
+        "surviving_nodes_count": 43,
+        "exact_frac": 1.0,
+        "adjacent_frac": 0.0,
+        "slot_fill_ratio_meta": null,
+        "gate_reason": "none",
+        "topology_score": 0.3753,
+        "topology_threshold": 0.6515,
+        "predicted": "unanswerable"
+      },
+      "final_diagnosis": "slot_or_exactness_feature_gap"
+    },
+    {
+      "qid": 15,
+      "question": "How often can Customer request OpenAI's most recent Audit Reports?",
+      "retrieval_stage": {
+        "top_retrieved": [
+          {
+            "rank": 1,
+            "score": 0.6824,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If an End User: (b) causes, or will cause, a Security Emergency, then OpenAI may request that Customer suspend or terminate the relevant End User account.",
+            "is_correct": false
+          },
+          {
+            "rank": 2,
+            "score": 0.682,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If Customer elects to use new Services added to the Service-Specific Terms after the most recent effective date in the preceding sentence, then the OpenAI Policies in effect as of that Customer use will apply.",
+            "is_correct": false
+          },
+          {
+            "rank": 3,
+            "score": 0.6695,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If Customer uses the Services to process Personal Data, OpenAI and Customer will comply with the DPA, which is incorporated by this reference into the Agreement.",
+            "is_correct": false
+          },
+          {
+            "rank": 4,
+            "score": 0.665,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "but no more than once per year",
+            "is_correct": true
+          },
+          {
+            "rank": 5,
+            "score": 0.6644,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "if: (b) Customer violates the Agreement or OpenAI Policies;",
+            "is_correct": false
+          },
+          {
+            "rank": 6,
+            "score": 0.6358,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "if OpenAI, L.L.C., 1455 3rd Street, San Francisco, California 94158;",
+            "is_correct": false
+          },
+          {
+            "rank": 7,
+            "score": 0.6132,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "if OpenAI, L.L.C., 1455 3rd Street, San Francisco, California 94158;",
+            "is_correct": false
+          },
+          {
+            "rank": 8,
+            "score": 0.6095,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If OpenAI determines in its sole judgment that an update materially impacts Customer\u2019s rights or obligations, OpenAI will provide Customer at least thirty days\u2019 notice before the update is effective.",
+            "is_correct": false
+          }
+        ],
+        "correct_clause_retrieved": true,
+        "correct_clause_rank": 4,
+        "correct_clause_score": 0.665
+      },
+      "typed_support_stage": {
+        "question_type": "NUMERIC",
+        "variants": [
+          "How often can Customer request OpenAI's most recent Audit Reports?",
+          "What is the frequency with which a Customer can obtain the latest Audit Reports from OpenAI?",
+          "How many times is a Customer permitted to ask for OpenAI's most up-to-date Audit Reports?",
+          "At what intervals can a Customer request the most recent Audit Reports from OpenAI?",
+          "What is the allowable frequency for a Customer to request OpenAI's latest Audit Reports?",
+          "How frequently may a Customer seek access to OpenAI's most current Audit Reports?",
+          "What is the maximum number of times a Customer can request the latest Audit Reports from OpenAI?"
+        ],
+        "variant_retrieval_trace": [
+          {
+            "variant": "How often can Customer request OpenAI's most recent Audit Reports?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 4
+          },
+          {
+            "variant": "What is the frequency with which a Customer can obtain the latest Audit Reports from OpenAI?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 3
+          },
+          {
+            "variant": "How many times is a Customer permitted to ask for OpenAI's most up-to-date Audit Reports?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 5
+          },
+          {
+            "variant": "At what intervals can a Customer request the most recent Audit Reports from OpenAI?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 5
+          },
+          {
+            "variant": "What is the allowable frequency for a Customer to request OpenAI's latest Audit Reports?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 5
+          },
+          {
+            "variant": "How frequently may a Customer seek access to OpenAI's most current Audit Reports?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 5
+          },
+          {
+            "variant": "What is the maximum number of times a Customer can request the latest Audit Reports from OpenAI?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 2
+          }
+        ],
+        "matched_candidate_nodes": [
+          {
+            "votes": 7,
+            "max_score": 0.665,
+            "node_type": "NUMERIC",
+            "in_surviving": true,
+            "text": "but no more than once per year",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.51,
+            "node_type": "OBLIGATION",
+            "in_surviving": true,
+            "text": "OpenAI will provide Customer a copy of the most recent Audit Reports",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          }
+        ],
+        "surviving_nodes_count": 52
+      },
+      "slot_evidence_stage": {
+        "required_slot_type": "VALUE",
+        "slot_verdict": "uncertain",
+        "slot_score": 0.5264,
+        "slot_slots_count": 1,
+        "slot_slots": [
+          {
+            "slot": "VALUE",
+            "subject": "request"
+          }
+        ],
+        "supporting_fact_index": null,
+        "surviving_nodes_count": 53,
+        "exact_frac": 0.0943,
+        "adjacent_frac": 0.4528,
+        "slot_fill_ratio_meta": null,
+        "gate_reason": "low_exactness,q2_missing_or_external",
+        "topology_score": 0.1146,
+        "topology_threshold": 0.7368,
+        "predicted": "unanswerable"
+      },
+      "final_diagnosis": "slot_or_exactness_feature_gap"
+    },
+    {
+      "qid": 18,
+      "question": "What finance charge can apply to overdue undisputed amounts?",
+      "retrieval_stage": {
+        "top_retrieved": [
+          {
+            "rank": 1,
+            "score": 0.8159,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "Overdue undisputed amounts may be subject to a finance charge of 1.5% of the unpaid balance per month.",
+            "is_correct": true
+          },
+          {
+            "rank": 2,
+            "score": 0.8132,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "Overdue undisputed amounts may be subject to a finance charge of 1.5% of the unpaid balance per month.",
+            "is_correct": true
+          },
+          {
+            "rank": 3,
+            "score": 0.598,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "EXCEPT FOR: (A) A PARTY\u2019S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT, (B) A PARTY\u2019S INDEMNIFICATION OBLIGATIONS UNDER THIS AGREEMENT, OR (C) CUSTOMER\u2019S PAYMENT OBLIGATIONS, EACH PARTY\u2019S TOTAL LIABILITY UNDER THE AGREEMENT WI",
+            "is_correct": false
+          },
+          {
+            "rank": 4,
+            "score": 0.596,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "This excludes claims to the extent arising from: (d) Customer Applications (if any and the claim would not have arisen but for the Customer Application).",
+            "is_correct": false
+          },
+          {
+            "rank": 5,
+            "score": 0.5933,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "within thirty days of the date the disputed invoice was issued",
+            "is_correct": false
+          },
+          {
+            "rank": 6,
+            "score": 0.5904,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If Customer\u2019s Order Form includes a minimum commitment, the minimum commitment amount is non-cancellable except as required by law or as otherwise specifically permitted in the Agreement.",
+            "is_correct": false
+          },
+          {
+            "rank": 7,
+            "score": 0.5887,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "Unless the Parties agree otherwise in writing, increases in the Services purchased during a Services Term will have a prorated term ending concurrently with the then-current Services Term.",
+            "is_correct": false
+          },
+          {
+            "rank": 8,
+            "score": 0.5885,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "the total amount customer paid to OpenAI during the twelve months immediately prior to the event giving rise to liability",
+            "is_correct": false
+          }
+        ],
+        "correct_clause_retrieved": true,
+        "correct_clause_rank": 1,
+        "correct_clause_score": 0.8159
+      },
+      "typed_support_stage": {
+        "question_type": "NUMERIC",
+        "variants": [
+          "What finance charge can apply to overdue undisputed amounts?",
+          "What financial penalties can be imposed on overdue and uncontested payments?",
+          "What interest rates may be applied to amounts that are past due and not in dispute?",
+          "Which finance charges are applicable to overdue amounts that are not being contested?",
+          "What are the potential finance charges for amounts that are overdue and undisputed?",
+          "What types of finance charges can be levied on overdue payments that have not been challenged?",
+          "What finance charges could be applicable to amounts that are overdue and accepted as valid?"
+        ],
+        "variant_retrieval_trace": [
+          {
+            "variant": "What finance charge can apply to overdue undisputed amounts?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "What financial penalties can be imposed on overdue and uncontested payments?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "What interest rates may be applied to amounts that are past due and not in dispute?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "Which finance charges are applicable to overdue amounts that are not being contested?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "What are the potential finance charges for amounts that are overdue and undisputed?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "What types of finance charges can be levied on overdue payments that have not been challenged?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "What finance charges could be applicable to amounts that are overdue and accepted as valid?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          }
+        ],
+        "matched_candidate_nodes": [
+          {
+            "votes": 7,
+            "max_score": 0.8445,
+            "node_type": "NUMERIC",
+            "in_surviving": true,
+            "text": "Overdue undisputed amounts may be subject to a finance charge of 1.5% of the unpaid balance per month.",
+            "filter_notes": [
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.8485,
+            "node_type": "NUMERIC",
+            "in_surviving": true,
+            "text": "Overdue undisputed amounts may be subject to a finance charge of 1.5% of the unpaid balance per month.",
+            "filter_notes": [
+              "survived"
+            ]
+          }
+        ],
+        "surviving_nodes_count": 72
+      },
+      "slot_evidence_stage": {
+        "required_slot_type": "VALUE",
+        "slot_verdict": "uncertain",
+        "slot_score": 0.6094,
+        "slot_slots_count": 1,
+        "slot_slots": [
+          {
+            "slot": "VALUE",
+            "subject": "overdue undisputed amounts"
+          }
+        ],
+        "supporting_fact_index": null,
+        "surviving_nodes_count": 65,
+        "exact_frac": 0.1846,
+        "adjacent_frac": 0.3846,
+        "slot_fill_ratio_meta": null,
+        "gate_reason": "none",
+        "topology_score": 0.5426,
+        "topology_threshold": 0.6055,
+        "predicted": "unanswerable"
+      },
+      "final_diagnosis": "slot_or_exactness_feature_gap"
+    },
+    {
+      "qid": 20,
+      "question": "What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",
+      "retrieval_stage": {
+        "top_retrieved": [
+          {
+            "rank": 1,
+            "score": 0.6997,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "[PARENT: 7.] -> 7.2. Exceptions.",
+            "is_correct": false
+          },
+          {
+            "rank": 2,
+            "score": 0.6724,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "EXCEPT FOR: (A) A PARTY\u2019S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT, (B) A PARTY\u2019S INDEMNIFICATION OBLIGATIONS UNDER THIS AGREEMENT, OR (C) CUSTOMER\u2019S PAYMENT OBLIGATIONS, EACH PARTY\u2019S TOTAL LIABILITY UNDER THE AGREEMENT WI",
+            "is_correct": true
+          },
+          {
+            "rank": 3,
+            "score": 0.6524,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "the total amount customer paid to OpenAI during the twelve months immediately prior to the event giving rise to liability",
+            "is_correct": true
+          },
+          {
+            "rank": 4,
+            "score": 0.6473,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "If an End User: (a) violates the Agreement;",
+            "is_correct": false
+          },
+          {
+            "rank": 5,
+            "score": 0.6452,
+            "type": "CONDITION",
+            "chunk": null,
+            "section": null,
+            "text": "Limitation on Indirect Liability. TO THE FULLEST EXTENT PERMITTED BY LAW, EXCEPT FOR: (A) A PARTY\u2019S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT; (B) CUSTOMER\u2019S BREACH OF SECTION 3.3 (RESTRICTIONS); (C) OPENAI\u2019S BREACH OF SECT",
+            "is_correct": false
+          },
+          {
+            "rank": 6,
+            "score": 0.6126,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "DURING THE TWELVE MONTHS IMMEDIATELY PRIOR TO THE EVENT GIVING RISE TO LIABILITY.",
+            "is_correct": true
+          },
+          {
+            "rank": 7,
+            "score": 0.6111,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "[PARENT: 15.]",
+            "is_correct": false
+          },
+          {
+            "rank": 8,
+            "score": 0.5988,
+            "type": "NUMERIC",
+            "chunk": null,
+            "section": null,
+            "text": "[PARENT: 15.]",
+            "is_correct": false
+          }
+        ],
+        "correct_clause_retrieved": true,
+        "correct_clause_rank": 2,
+        "correct_clause_score": 0.6724
+      },
+      "typed_support_stage": {
+        "question_type": "NUMERIC",
+        "variants": [
+          "What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",
+          "What is the overall limit on liability for each party as outlined in Section 14.2, taking into account the specified exceptions?",
+          "Can you clarify the maximum liability cap for each party under Section 14.2, considering the exceptions mentioned?",
+          "What is the total liability limit for each party as stipulated in Section 14.2, with reference to the exceptions provided?",
+          "Under Section 14.2, what is the cap on total liability for each party, subject to the exceptions that are detailed?",
+          "How much can each party be held liable for according to Section 14.2, excluding the exceptions that are listed?",
+          "What is the liability ceiling for each party under Section 14.2, while factoring in the exceptions that apply?"
+        ],
+        "variant_retrieval_trace": [
+          {
+            "variant": "What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 2
+          },
+          {
+            "variant": "What is the overall limit on liability for each party as outlined in Section 14.2, taking into account the specified exceptions?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "Can you clarify the maximum liability cap for each party under Section 14.2, considering the exceptions mentioned?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 2
+          },
+          {
+            "variant": "What is the total liability limit for each party as stipulated in Section 14.2, with reference to the exceptions provided?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 1
+          },
+          {
+            "variant": "Under Section 14.2, what is the cap on total liability for each party, subject to the exceptions that are detailed?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 2
+          },
+          {
+            "variant": "How much can each party be held liable for according to Section 14.2, excluding the exceptions that are listed?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 3
+          },
+          {
+            "variant": "What is the liability ceiling for each party under Section 14.2, while factoring in the exceptions that apply?",
+            "correct_clause_retrieved": true,
+            "correct_rank": 2
+          }
+        ],
+        "matched_candidate_nodes": [
+          {
+            "votes": 7,
+            "max_score": 0.7072,
+            "node_type": "CONDITION",
+            "in_surviving": true,
+            "text": "EXCEPT FOR: (A) A PARTY\u2019S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT, (B) A PARTY\u2019S INDEMNIFICATION OBLIGATIONS UNDER THIS AGREEMENT, OR (C) CUSTOMER\u2019S PAYMENT OBLIGATIONS, EACH PARTY\u2019S TOTAL LIABILITY UNDER THE AGREEMENT WILL NOT EXCEED THE TOTAL AMOUNT CUSTOMER ",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.6793,
+            "node_type": "NUMERIC",
+            "in_surviving": true,
+            "text": "the total amount customer paid to OpenAI during the twelve months immediately prior to the event giving rise to liability",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.647,
+            "node_type": "NUMERIC",
+            "in_surviving": true,
+            "text": "DURING THE TWELVE MONTHS IMMEDIATELY PRIOR TO THE EVENT GIVING RISE TO LIABILITY.",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          },
+          {
+            "votes": 7,
+            "max_score": 0.47,
+            "node_type": "OBLIGATION",
+            "in_surviving": true,
+            "text": "each party\u2019s total liability under the agreement will not exceed the total amount customer paid to OpenAI during the twelve months immediately prior to the event giving rise to liability",
+            "filter_notes": [
+              "score<0.82_soft",
+              "survived"
+            ]
+          }
+        ],
+        "surviving_nodes_count": 76
+      },
+      "slot_evidence_stage": {
+        "required_slot_type": "VALUE",
+        "slot_verdict": "answerable",
+        "slot_score": 0.7764,
+        "slot_slots_count": 1,
+        "slot_slots": [
+          {
+            "slot": "VALUE",
+            "subject": "listed exceptions"
+          }
+        ],
+        "supporting_fact_index": null,
+        "surviving_nodes_count": 74,
+        "exact_frac": 0.1216,
+        "adjacent_frac": 0.3243,
+        "slot_fill_ratio_meta": null,
+        "gate_reason": "low_exactness",
+        "topology_score": 0.3702,
+        "topology_threshold": 0.6502,
+        "predicted": "unanswerable"
+      },
+      "final_diagnosis": "slot_or_exactness_feature_gap"
+    }
+  ]
+}

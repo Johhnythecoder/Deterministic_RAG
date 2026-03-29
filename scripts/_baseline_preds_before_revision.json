@@ -1,0 +1,322 @@
+[
+  {
+    "row": 1,
+    "q": "QA2",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.7108,
+    "threshold": 0.5736
+  },
+  {
+    "row": 2,
+    "q": "QA3",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.4959,
+    "threshold": 0.7157
+  },
+  {
+    "row": 3,
+    "q": "QA1",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.656,
+    "threshold": 0.5848
+  },
+  {
+    "row": 4,
+    "q": "QA5",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.449,
+    "threshold": 0.5679
+  },
+  {
+    "row": 5,
+    "q": "QA4",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.6679,
+    "threshold": 0.6286
+  },
+  {
+    "row": 6,
+    "q": "QA6",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.7244,
+    "threshold": 0.5781
+  },
+  {
+    "row": 7,
+    "q": "QA10",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.5004,
+    "threshold": 0.6167
+  },
+  {
+    "row": 8,
+    "q": "QA12",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.5802,
+    "threshold": 0.7032
+  },
+  {
+    "row": 9,
+    "q": "QA11",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.742,
+    "threshold": 0.6101
+  },
+  {
+    "row": 10,
+    "q": "QA7",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.7936,
+    "threshold": 0.6013
+  },
+  {
+    "row": 11,
+    "q": "QA8",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.5078,
+    "threshold": 0.6254
+  },
+  {
+    "row": 12,
+    "q": "QA9",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.7257,
+    "threshold": 0.6141
+  },
+  {
+    "row": 13,
+    "q": "QA16",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.6359,
+    "threshold": 0.6089
+  },
+  {
+    "row": 14,
+    "q": "QA15",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.692,
+    "threshold": 0.6248
+  },
+  {
+    "row": 15,
+    "q": "QA13",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.692,
+    "threshold": 0.6066
+  },
+  {
+    "row": 16,
+    "q": "QA14",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.6892,
+    "threshold": 0.5702
+  },
+  {
+    "row": 17,
+    "q": "QA18",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.5441,
+    "threshold": 0.6194
+  },
+  {
+    "row": 18,
+    "q": "QA17",
+    "expected": 1,
+    "predicted": 0,
+    "score": 0.5729,
+    "threshold": 0.7083
+  },
+  {
+    "row": 19,
+    "q": "QB4",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.4044,
+    "threshold": 0.5727
+  },
+  {
+    "row": 20,
+    "q": "QB1",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.6268,
+    "threshold": 0.6951
+  },
+  {
+    "row": 21,
+    "q": "QB2",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.5365,
+    "threshold": 0.7115
+  },
+  {
+    "row": 22,
+    "q": "QA19",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.6434,
+    "threshold": 0.6032
+  },
+  {
+    "row": 23,
+    "q": "QB3",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.5312,
+    "threshold": 0.6988
+  },
+  {
+    "row": 24,
+    "q": "QB9",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.3972,
+    "threshold": 0.5627
+  },
+  {
+    "row": 25,
+    "q": "QB8",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.5176,
+    "threshold": 0.6974
+  },
+  {
+    "row": 26,
+    "q": "QA20",
+    "expected": 1,
+    "predicted": 1,
+    "score": 0.7553,
+    "threshold": 0.5789
+  },
+  {
+    "row": 27,
+    "q": "QB5",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.479,
+    "threshold": 0.5598
+  },
+  {
+    "row": 28,
+    "q": "QB10",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.4062,
+    "threshold": 0.5596
+  },
+  {
+    "row": 29,
+    "q": "QB6",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.5091,
+    "threshold": 0.5709
+  },
+  {
+    "row": 30,
+    "q": "QB7",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.5433,
+    "threshold": 0.6983
+  },
+  {
+    "row": 31,
+    "q": "QB12",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.5072,
+    "threshold": 0.6995
+  },
+  {
+    "row": 32,
+    "q": "QB13",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.5438,
+    "threshold": 0.7038
+  },
+  {
+    "row": 33,
+    "q": "QB11",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.3988,
+    "threshold": 0.5537
+  },
+  {
+    "row": 34,
+    "q": "QB16",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.3143,
+    "threshold": 0.5773
+  },
+  {
+    "row": 35,
+    "q": "QB15",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.3113,
+    "threshold": 0.5539
+  },
+  {
+    "row": 36,
+    "q": "QB14",
+    "expected": 0,
+    "predicted": 1,
+    "score": 0.712,
+    "threshold": 0.5724
+  },
+  {
+    "row": 37,
+    "q": "QB17",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.3762,
+    "threshold": 0.5613
+  },
+  {
+    "row": 38,
+    "q": "QB18",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.5401,
+    "threshold": 0.6971
+  },
+  {
+    "row": 39,
+    "q": "QB19",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.4376,
+    "threshold": 0.5705
+  },
+  {
+    "row": 40,
+    "q": "QB20",
+    "expected": 0,
+    "predicted": 0,
+    "score": 0.4939,
+    "threshold": 0.7107
+  }
+]

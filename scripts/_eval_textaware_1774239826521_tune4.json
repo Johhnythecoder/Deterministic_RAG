@@ -1,0 +1,425 @@
+{
+  "report": {
+    "n": 40,
+    "metrics": {
+      "accuracy": 0.525,
+      "answerable_accuracy": 0.5,
+      "unanswerable_accuracy": 0.55,
+      "fp": 9,
+      "fn": 10,
+      "confusion": {
+        "tp": 10,
+        "tn": 11,
+        "fp": 9,
+        "fn": 10
+      }
+    },
+    "intent_exercised": {
+      "P_nonzero": 2,
+      "O_nonzero": 2,
+      "M_nonzero": 1
+    }
+  },
+  "rows": [
+    {
+      "idx": 1,
+      "question": "What services or rights are being granted under the agreement?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 2,
+      "question": "What is the name of the agreement?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 3,
+      "question": "Who are the parties to the agreement?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 4,
+      "question": "What is the purpose of the agreement?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 5,
+      "question": "What is the effective date of the agreement?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 6,
+      "question": "What type of business is each party classified as?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 7,
+      "question": "How often must reports or records be provided?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.45,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 8,
+      "question": "What obligations does one party have toward the other?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 9,
+      "question": "What records must be maintained under the agreement?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 10,
+      "question": "What restrictions are placed on the use of the product or service?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 11,
+      "question": "Are there any limitations on redistribution or resale?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 12,
+      "question": "What payment terms are specified in the agreement?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 13,
+      "question": "What happens if a payment is made late?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.3,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 14,
+      "question": "What is the duration of the agreement?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 15,
+      "question": "Does the agreement automatically renew?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 16,
+      "question": "What responsibilities exist regarding intellectual property?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 17,
+      "question": "Can proprietary notices be removed or modified?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 18,
+      "question": "What legal jurisdiction governs the agreement?",
+      "expected": 1,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 19,
+      "question": "What is the total revenue generated under this agreement?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 20,
+      "question": "What are the names of specific customers using the service?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 21,
+      "question": "How many customers have purchased the product or service?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 22,
+      "question": "What is the profit margin earned per transaction?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 23,
+      "question": "Is there a defined geographic territory in the agreement?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 24,
+      "question": "Under what conditions can the agreement be terminated?",
+      "expected": 1,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 25,
+      "question": "What is the internal cost structure of the company?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.45,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 26,
+      "question": "What marketing strategies are most effective for this agreement?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 27,
+      "question": "How many employees work at each company?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 28,
+      "question": "What training materials are provided in full detail?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 29,
+      "question": "What is the valuation of each company involved?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 30,
+      "question": "What software architecture is used in the product?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 31,
+      "question": "What are the server or technical infrastructure requirements?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 32,
+      "question": "What is the customer satisfaction rate?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 33,
+      "question": "What is the long-term strategic goal of the partnership?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 34,
+      "question": "What prior legal disputes exist between the parties?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 35,
+      "question": "What internal KPIs are used to measure performance?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.45,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 36,
+      "question": "Who are the competitors in this market?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    },
+    {
+      "idx": 37,
+      "question": "What is the churn rate of customers?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 38,
+      "question": "What is the expected future growth rate from this agreement?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.8,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 39,
+      "question": "What is the breakdown of costs per unit sold?",
+      "expected": 0,
+      "predicted": 0,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "no_targets"
+    },
+    {
+      "idx": 40,
+      "question": "What specific advertising channels are used?",
+      "expected": 0,
+      "predicted": 1,
+      "P": 0.0,
+      "O": 0.0,
+      "M": 0.0,
+      "gate_reason": "none"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+idx,question,gold_label,predicted_label,score,threshold,gate_reason,escape_hatch_triggered
+1,What is the defined Effective Date of this agreement?,answerable,answerable,0.6115,0.5323,none,False
+2,What are OpenAI and Customer each referred to as in the agreement?,answerable,answerable,0.6455,0.5482,none,False
+3,Where is the Services Term stated?,answerable,answerable,0.7472,0.5195,none,False
+4,How much advance notice is required for non-renewal or scope reduction before a Renewal Term?,answerable,answerable,0.6424,0.5939,none,False
+5,What information must be included on the Order Form to provision the Services for an initial Authorized Purchaser?,answerable,unanswerable,0.1792,0.7012,q2_missing_or_external,False
+6,How are additional licenses or quantities purchased by Authorized Purchasers priced during the current Services Term?,answerable,unanswerable,0.1859,0.7325,"low_exactness,q2_missing_or_external",False
+7,"If Customer Affiliates use Services under Customer's Account, do they use the same workspace and organizational ID?",answerable,unanswerable,0.5474,0.6543,none,False
+8,What must an Affiliate do if it wants separate purchase and use of Services from Customer?,answerable,answerable,0.6163,0.56,none,False
+9,What right does OpenAI grant Customer under Section 2.2 regarding use of the API and Customer Applications?,answerable,answerable,0.6947,0.5145,none,False
+10,"If an update materially reduces Services functionality, what termination option does Customer have?",answerable,answerable,0.6869,0.5461,none,False
+11,Are Account access credentials allowed to be shared between multiple users?,answerable,answerable,0.7262,0.524,none,False
+12,What must Customer do if it becomes aware of unauthorized access to the Account or Services?,answerable,unanswerable,0.564,0.5669,none,False
+13,Who owns Input and Output as between Customer and OpenAI?,answerable,answerable,0.6824,0.5105,none,False
+14,Will OpenAI use Customer Content to develop or improve Services without explicit Customer agreement?,answerable,answerable,0.7307,0.5075,none,False
+15,How often can Customer request OpenAI's most recent Audit Reports?,answerable,unanswerable,0.118,0.7309,"low_exactness,q2_missing_or_external",False
+16,Can Customer process Protected Health Information without signing the Healthcare Addendum?,answerable,unanswerable,0.3779,0.6104,none,False
+17,What must Customer do to dispute an invoice under Section 6.4?,answerable,answerable,0.6615,0.5643,none,False
+18,What finance charge can apply to overdue undisputed amounts?,answerable,unanswerable,0.5971,0.6071,none,False
+19,Under what circumstances may OpenAI limit or suspend Customer's access to Services under Section 8.2?,answerable,answerable,0.7597,0.5183,none,False
+20,"What is the general cap on each party's total liability under Section 14.2, subject to listed exceptions?",answerable,unanswerable,0.3652,0.6514,low_exactness,False
+21,What exact security controls are listed in the Security Measures PDF referenced by the agreement?,unanswerable,unanswerable,0.2106,0.6615,q2_missing_or_external,False
+22,What are the exact processor and subprocessor obligations in the full DPA text?,unanswerable,unanswerable,0.2578,0.741,"no_answer_path,q2_missing_or_external",False
+23,What are the exact per-model prices listed on the Pricing Page at signing?,unanswerable,unanswerable,0.1632,0.7177,"low_exactness,q2_missing_or_external",False
+24,What calendar date is the Start Date for this specific customer?,unanswerable,unanswerable,0.2361,0.6748,q2_missing_or_external,False
+25,What is the legal name of the customer organization that signed this agreement?,unanswerable,unanswerable,0.3873,0.639,none,False
+26,What is the specific email address of the initial Authorized Purchaser for this customer?,unanswerable,unanswerable,0.1688,0.6916,"low_exactness,q2_missing_or_external",False
+27,What is the exact duration in months of the initial Services Term for this customer?,unanswerable,unanswerable,0.258,0.6898,"low_exactness,q2_missing_or_external",False
+28,Which specific countries are included in the Supported Countries and Territories list?,unanswerable,unanswerable,0.2142,0.6618,q2_missing_or_external,False
+29,What dollar amount is the NAM arbitration filing fee under this agreement?,unanswerable,unanswerable,0.395,0.69,low_exactness,False
+30,How many findings were reported in OpenAI's most recent Audit Reports?,unanswerable,unanswerable,0.1585,0.7689,"low_exactness,q2_missing_or_external",False
+31,What updates is OpenAI planning to make to this agreement next year?,unanswerable,unanswerable,0.4398,0.5937,none,False
+32,What is the likely outcome of arbitration if Customer files a claim?,unanswerable,unanswerable,0.4329,0.5684,none,False
+33,What internal negotiation led the parties to choose the liability cap language?,unanswerable,unanswerable,0.4022,0.603,none,False
+34,What confidential security incidents has OpenAI had in the past year?,unanswerable,unanswerable,0.2334,0.6343,"outside_document_intent,q2_missing_or_external",False
+35,What exact discount percentage was offered to this customer in its Order Form?,unanswerable,unanswerable,0.2234,0.6903,q2_missing_or_external,False
+36,What is the total annual minimum commitment value in dollars for this customer?,unanswerable,unanswerable,0.2199,0.691,q2_missing_or_external,True
+37,Which Third-Party Services are pre-enabled by default for this customer's account?,unanswerable,unanswerable,0.3224,0.6362,q2_missing_or_external,False
+38,What are the exact substantive indemnity clauses in the Service-Specific Terms Indemnity document?,unanswerable,unanswerable,0.2986,0.6584,q2_missing_or_external,False
+39,What revenue-sharing percentage applies between OpenAI and the customer's reseller?,unanswerable,unanswerable,0.5027,0.607,none,False
+40,Which specific stations are listed in Exhibit A to this agreement?,unanswerable,unanswerable,0.1499,0.7288,none,False

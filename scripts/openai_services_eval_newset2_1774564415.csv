@@ -1,0 +1,41 @@
+idx,question,gold_label,predicted_label,score,threshold,gate_reason,escape_hatch_triggered,q_seconds
+1,What is the effective date of the OpenAI Services Agreement?,answerable,answerable,0.6393,0.5648,none,False,7.201
+2,How does the agreement define 'Confidential Information'?,answerable,answerable,0.7641,0.5223,none,False,5.812
+3,What are the payment terms specified in the agreement?,answerable,answerable,0.8875,0.407,none,False,6.796
+4,Under what conditions can OpenAI suspend or terminate services?,answerable,answerable,0.8621,0.4,none,False,6.128
+5,What warranties does OpenAI disclaim in the agreement?,answerable,answerable,0.8776,0.4122,none,False,6.566
+6,What is the governing law for disputes under this agreement?,answerable,answerable,0.6618,0.5749,none,False,5.633
+7,How long does the confidentiality obligation last after termination?,answerable,answerable,0.7113,0.5575,none,False,5.3
+8,What liability limitations are imposed on OpenAI?,answerable,answerable,0.8431,0.4143,none,False,9.005
+9,What rights does the customer have to use the services?,answerable,answerable,0.847,0.4,none,False,6.177
+10,Are there any restrictions on the customer's use of the services?,answerable,answerable,0.7779,0.4397,none,False,6.898
+11,What indemnification obligations does the customer have?,answerable,answerable,0.857,0.4509,none,False,5.704
+12,How are modifications to the agreement communicated?,answerable,answerable,0.7404,0.5494,none,False,5.311
+13,What is the term length of the agreement before renewal?,answerable,answerable,0.7654,0.484,none,False,6.346
+14,What data privacy commitments does OpenAI make?,answerable,answerable,0.8028,0.463,none,False,5.361
+15,What happens to customer data upon termination of the agreement?,answerable,answerable,0.7756,0.4734,none,False,5.727
+16,Does the agreement include a force majeure clause?,answerable,unanswerable,0.1384,0.7678,q2_missing_or_external,False,6.044
+17,What is the process for dispute resolution outlined in the agreement?,answerable,unanswerable,0.5411,0.5896,none,False,9.11
+18,Are there any export control restrictions mentioned?,answerable,answerable,0.7138,0.5434,none,False,5.822
+19,What responsibilities does the customer have regarding compliance?,answerable,answerable,0.7664,0.4763,none,False,6.933
+20,How does the agreement address intellectual property rights?,answerable,answerable,0.5874,0.5775,none,False,6.087
+21,What is the customer's current monthly usage volume under the agreement?,unanswerable,unanswerable,0.1346,0.701,"instance_or_runtime_missing,runtime_lookup_missing",False,6.283
+22,Who is the designated account manager for the customer?,unanswerable,unanswerable,0.3319,0.6309,customer_identity_not_instantiated,False,5.447
+23,What specific API keys has the customer been issued?,unanswerable,answerable,0.6718,0.5871,none,False,6.075
+24,What are the customer's internal policies for data retention?,unanswerable,unanswerable,0.2083,0.6811,q2_missing_or_external,False,5.286
+25,What is the uptime percentage achieved by OpenAI in the last month?,unanswerable,answerable,0.6902,0.5757,none,False,7.24
+26,Has the customer requested any custom features or modifications?,unanswerable,unanswerable,0.5398,0.6258,no_answer_path,False,5.448
+27,What is the customer's billing address?,unanswerable,unanswerable,0.4814,0.6742,none,False,6.413
+28,What are the exact contents of the customer's privacy policy?,unanswerable,unanswerable,0.1907,0.7151,none,False,6.325
+29,What is the current status of any ongoing support tickets?,unanswerable,unanswerable,0.2096,0.6364,"instance_or_runtime_missing,runtime_lookup_missing",False,6.763
+30,What are the customer's internal security protocols?,unanswerable,unanswerable,0.1924,0.7048,none,False,6.018
+31,What is the customer's organizational structure?,unanswerable,unanswerable,0.5158,0.6683,none,False,5.611
+32,What third-party integrations does the customer use with OpenAI services?,unanswerable,answerable,0.641,0.5687,none,False,9.215
+33,What is the customer's internal SLA for service availability?,unanswerable,unanswerable,0.4718,0.6672,none,False,6.414
+34,What are the customer's employee training procedures for using OpenAI services?,unanswerable,unanswerable,0.3347,0.6722,no_answer_path,False,5.587
+35,What is the customer's current subscription plan pricing?,unanswerable,unanswerable,0.1546,0.7501,"external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",False,5.709
+36,What is the customer's feedback on OpenAI's service performance?,unanswerable,answerable,0.7033,0.5964,none,False,6.728
+37,What are the customer's plans for scaling usage in the next quarter?,unanswerable,unanswerable,0.1831,0.6363,"q2_missing_or_external,speculative_intent",False,5.492
+38,What is the customer's internal process for contract approval?,unanswerable,unanswerable,0.2589,0.6864,no_answer_path,False,5.34
+39,What are the customer's specific data encryption standards?,unanswerable,unanswerable,0.2324,0.6808,none,False,4.663
+40,What is the customer's current incident response plan?,unanswerable,unanswerable,0.3873,0.6615,no_answer_path,False,5.041

@@ -1,0 +1,76 @@
+{
+  "from_tune1_to_tune4": {
+    "QA3": {
+      "tune1": {
+        "pred": "unanswerable",
+        "score": 0.5058,
+        "thr": 0.6105
+      },
+      "tune4": {
+        "pred": "unanswerable",
+        "score": 0.5058,
+        "thr": 0.6105
+      }
+    },
+    "QA8": {
+      "tune1": {
+        "pred": "unanswerable",
+        "score": 0.5489,
+        "thr": 0.5491
+      },
+      "tune4": {
+        "pred": "answerable",
+        "score": null,
+        "thr": null
+      }
+    },
+    "QA10": {
+      "tune1": {
+        "pred": "unanswerable",
+        "score": 0.5295,
+        "thr": 0.5443
+      },
+      "tune4": {
+        "pred": "unanswerable",
+        "score": 0.5295,
+        "thr": 0.5443
+      }
+    },
+    "QA12": {
+      "tune1": {
+        "pred": "answerable",
+        "score": null,
+        "thr": null
+      },
+      "tune4": {
+        "pred": "answerable",
+        "score": null,
+        "thr": null
+      }
+    },
+    "QA17": {
+      "tune1": {
+        "pred": "unanswerable",
+        "score": 0.5611,
+        "thr": 0.6068
+      },
+      "tune4": {
+        "pred": "unanswerable",
+        "score": 0.5611,
+        "thr": 0.6068
+      }
+    }
+  },
+  "conf_tune1": {
+    "tp": 15,
+    "tn": 18,
+    "fp": 2,
+    "fn": 5
+  },
+  "conf_tune4": {
+    "tp": 16,
+    "tn": 18,
+    "fp": 2,
+    "fn": 4
+  }
+}
