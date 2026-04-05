@@ -3,10 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deterministic RAG — Legal Contract AI That Refuses to Guess</title>
-    <link rel="stylesheet" href="/web/styles.css" />
+    <title>Deterministic RAG: Legal Contract AI That Refuses to Guess</title>
+    <link rel="stylesheet" href="/web/styles.css?v=36" />
   </head>
   <body>
+    <!-- PASSWORD WALL -->
+    <div id="passwordWall" style="display:none;position:fixed;inset:0;background:#ffffff;z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+      <div style="text-align:center;margin-bottom:8px;">
+        <div style="font-size:1.5rem;font-weight:700;color:#111;letter-spacing:-0.02em;">Deterministic RAG</div>
+        <div style="color:#333;font-size:0.9rem;margin-top:4px;">Enter access code to continue</div>
+      </div>
+      <input id="passwordInput" type="text" placeholder="Enter" autofocus
+        style="padding:12px 16px;border-radius:8px;border:1px solid #111;background:#fff;color:#111;font-size:1rem;width:260px;outline:none;" />
+      <button onclick="checkPassword()"
+        style="padding:12px 24px;border-radius:8px;background:#fff;color:#111;font-size:1rem;font-weight:600;border:1px solid #111;cursor:pointer;width:260px;">
+        Enter
+      </button>
+      <div id="passwordError" style="color:#b00020;font-size:0.85rem;display:none;">Incorrect code. Try again.</div>
+    </div>
+    <script>
+      (function() {
+        var granted = localStorage.getItem('rag_access') === 'granted';
+        var hasCode = !!(localStorage.getItem('rag_access_code') || '').trim();
+        if (!(granted && hasCode)) {
+          var wall = document.getElementById('passwordWall');
+          wall.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') checkPassword();
+        });
+      })();
+      function checkPassword() {
+        const val = document.getElementById('passwordInput').value;
+        if (val.toLowerCase() === 'chatgpt26') {
+          localStorage.setItem('rag_access', 'granted');
+          localStorage.setItem('rag_access_code', val.toLowerCase());
+          document.getElementById('passwordWall').style.display = 'none';
+          document.body.style.overflow = '';
+        } else {
+          document.getElementById('passwordError').style.display = 'block';
+          document.getElementById('passwordInput').value = '';
+          document.getElementById('passwordInput').focus();
+        }
+      }
+    </script>
+
     <aside class="debug-panel" id="debugPanel">
       <div class="debug-head">
         <strong>Debug Console</strong>
@@ -35,13 +77,8 @@
             <p class="eyebrow">Legal AI Research Project</p>
             <h1>Contract AI that refuses to guess</h1>
             <p class="subtext">
-              When legal AI hallucinates, lawyers act on wrong answers. This system builds a typed knowledge graph from contracts, verifies every answer against real evidence, and abstains when evidence is missing — rather than confabulate.
+              When legal AI hallucinates, people act on answers that are not actually in the document. I am building a system that turns contracts into a structured graph, checks whether the evidence is actually there, and if it is not, it does not answer. Instead of guessing, it knows when to stop.
             </p>
-            <div class="hero-proof">
-              <span class="proof-tag">Abstention-first</span>
-              <span class="proof-tag">Graph-verified evidence</span>
-              <span class="proof-tag">Zero hallucination design</span>
-            </div>
             <div class="hero-actions">
               <a href="#demo" class="btn btn-primary">Try the demo</a>
               <a href="#how" class="btn btn-ghost">How it works</a>
@@ -51,19 +88,17 @@
             <div class="verdict-preview vp-answerable">
               <div class="vp-header">
                 <span class="vp-badge ok">Answerable</span>
-                <span class="vp-conf">conf 0.94</span>
               </div>
               <p class="vp-q">"What is the renewal term?"</p>
               <p class="vp-a">Renews automatically for successive one-year terms unless written notice is provided.</p>
               <div class="vp-clause">
-                <span class="vp-clause-label">§4.2 — Supporting clause</span>
+                <span class="vp-clause-label">§4.2 Supporting clause</span>
                 <p class="vp-clause-text">"...shall automatically renew for consecutive one (1) year periods unless either party provides written notice of non-renewal no less than sixty (60) days prior..."</p>
               </div>
             </div>
             <div class="verdict-preview vp-unanswerable">
               <div class="vp-header">
                 <span class="vp-badge bad">Unanswerable</span>
-                <span class="vp-conf">conf 0.11</span>
               </div>
               <p class="vp-q">"What emails were exchanged between the parties?"</p>
               <p class="vp-a">The document does not contain records of email correspondence. This system abstains rather than speculate.</p>
@@ -76,23 +111,23 @@
       <div class="stats-bar-wrap">
         <div class="container stats-bar">
           <div class="stat-item">
-            <span class="stat-num">90%+</span>
-            <span class="stat-desc">Overall accuracy</span>
+            <span class="stat-num">87%</span>
+            <span class="stat-desc">Answerable detection accuracy</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <span class="stat-num">97%</span>
-            <span class="stat-desc">Unanswerable precision</span>
+            <span class="stat-num">~98%</span>
+            <span class="stat-desc">Unanswerable detection accuracy</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <span class="stat-num">540</span>
-            <span class="stat-desc">Ground-truth Q&amp;A pairs</span>
+            <span class="stat-num">500+</span>
+            <span class="stat-desc">Evaluated questions</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <span class="stat-num">12</span>
-            <span class="stat-desc">Real SEC filing contracts</span>
+            <span class="stat-num">12+</span>
+            <span class="stat-desc">Real contracts</span>
           </div>
         </div>
       </div>
@@ -100,51 +135,106 @@
       <!-- DEMO -->
       <section class="container section" id="demo">
         <h2>Live Demo</h2>
-        <p class="section-lead">Upload a contract or select a sample, then ask any question. The system either surfaces the exact supporting clause or explains why it cannot answer.</p>
+        <p class="section-lead">Upload a contract or select a sample, then ask any question. The system either returns the relevant supporting text from the document or explains why it cannot answer.</p>
 
         <div class="demo-grid">
-          <div class="card">
-            <h3>Document</h3>
-            <label class="label" for="savedSelect">Saved documents</label>
-            <div class="row">
-              <select id="savedSelect"></select>
-              <button id="useSavedBtn" class="btn btn-secondary" type="button">Use</button>
-            </div>
-            <p class="or">— or —</p>
-            <label class="label" for="sampleSelect">Sample contract</label>
-            <select id="sampleSelect"></select>
-            <p class="or">— or —</p>
-            <label class="label" for="pdfFile">Upload PDF</label>
-            <input id="pdfFile" type="file" accept="application/pdf" />
+          <div class="card control-card">
+            <h3>Document &amp; Questions</h3>
+            <div class="control-strip">
+              <div class="control-col control-doc">
+                <p class="label" style="margin-bottom:8px;">Choose a sample</p>
+                <div id="sampleBoxes" class="sample-boxes-grid"></div>
+                <select id="sampleSelect" style="display:none;"></select>
+                <div id="sampleActiveLabel" class="sample-active-label"></div>
 
-            <label class="label" for="questionInput">Question</label>
-            <textarea id="questionInput" rows="3" placeholder="Ask a question about the contract..."></textarea>
+                <label class="label" style="margin-top:16px;" for="pdfFile">Or upload your own PDF</label>
+                <label class="upload-drop-zone" id="uploadDropZone" for="pdfFile">
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                    <path d="M11 2v12M6 7l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 17h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="3" y="17" width="16" height="3" rx="1.5" fill="currentColor" opacity="0.1"/>
+                  </svg>
+                  <span id="uploadDropLabel">Click to choose or drag &amp; drop a PDF</span>
+                  <input id="pdfFile" type="file" accept="application/pdf" style="position:absolute;inset:0;opacity:0;cursor:pointer;" />
+                </label>
 
-            <label class="label" for="batchInput">
-              Batch questions
-              <span class="label-note">up to 40, one per line</span>
-            </label>
-            <textarea id="batchInput" rows="5" placeholder="What is the renewal term?&#10;Can either party terminate for breach?&#10;What law governs the agreement?"></textarea>
+                <div class="prep-wrap" id="prepWrap">
+                  <div class="prep-loading-block" id="prepLoadingBlock" style="display:none;">
+                    <div class="prep-loading-header">
+                      <div class="prep-spinner" aria-hidden="true"></div>
+                      <div class="prep-loading-text">
+                        <span id="prepLabel">Building knowledge graph…</span>
+                        <span id="prepEta" class="prep-eta-text"></span>
+                      </div>
+                    </div>
+                    <div class="progress-track" aria-hidden="true">
+                      <div id="prepProgress" class="progress-bar"></div>
+                    </div>
+                    <div class="prep-detail" id="prepDetail">
+                      <span id="prepStageBadge" class="prep-stage-badge">starting</span>
+                      <span id="prepChunkStat" class="prep-stat-item">chunks 0/0</span>
+                      <span id="prepNodeStat" class="prep-stat-item">0 nodes</span>
+                      <span id="prepLLMStat" class="prep-stat-item">0 LLM calls</span>
+                    </div>
+                  </div>
+                  <div class="prep-ready-block" id="prepReadyBlock" style="display:none;">
+                    <div class="prep-ready-icon">✓</div>
+                    <span id="prepReadyLabel">Ready for questions</span>
+                  </div>
+                </div>
 
-            <button id="prepareBtn" class="btn btn-secondary full">Prepare document</button>
-            <div class="prep-wrap">
-              <div class="prep-meta">
-                <span id="prepLabel">Document not prepared yet.</span>
-                <span id="prepEta"></span>
+                <label class="label" style="margin-top:8px;">Open selected document</label>
+                <div class="row doc-open-row">
+                  <button id="openPdfBtn" class="btn btn-secondary" type="button">Open PDF</button>
+                  <button id="openNodesBtn" class="btn btn-secondary" type="button">Open Nodes JSON</button>
+                </div>
               </div>
-              <div class="progress-track" aria-hidden="true">
-                <div id="prepProgress" class="progress-bar"></div>
+
+              <div class="control-col control-question">
+                <label class="label" for="questionInput">Question</label>
+                <textarea id="questionInput" rows="6" placeholder="Ask a question about the contract…"></textarea>
+                <button id="prepareBtn" class="btn btn-secondary full" style="display:none;">Prepare document</button>
+                <button id="askBtn" class="btn btn-primary full">Submit question</button>
+                <p id="demoStatus" class="hint">Select a document above to get started.</p>
               </div>
             </div>
-            <button id="askBtn" class="btn btn-primary full">Submit question</button>
-            <button id="askBatchBtn" class="btn btn-secondary full">Run batch</button>
-            <p id="demoStatus" class="hint">Ready.</p>
           </div>
 
           <div class="card results" id="resultsCard">
             <div class="empty-state" id="emptyState">
-              <div class="empty-icon">◎</div>
-              <p>Ask a question to see the verdict, answer, and supporting clauses.</p>
+              <p>Ask a question to see the answer and supporting text.</p>
+            </div>
+            <div class="ask-loading hidden" id="askLoading">
+              <div class="ask-loading-spinner-wrap" aria-hidden="true">
+                <div class="ask-big-spinner"></div>
+              </div>
+              <p class="ask-loading-label" id="askLoadingLabel">Running pipeline…</p>
+              <div class="ask-step-row">
+                <div class="ask-step-item" id="stepVariants">
+                  <div class="ask-step-dot"></div>
+                  <span>Query variants</span>
+                </div>
+                <div class="ask-step-connector"></div>
+                <div class="ask-step-item" id="stepRetrieve">
+                  <div class="ask-step-dot"></div>
+                  <span>Clause retrieval</span>
+                </div>
+                <div class="ask-step-connector"></div>
+                <div class="ask-step-item" id="stepTopology">
+                  <div class="ask-step-dot"></div>
+                  <span>Topology scoring</span>
+                </div>
+                <div class="ask-step-connector"></div>
+                <div class="ask-step-item" id="stepGate">
+                  <div class="ask-step-dot"></div>
+                  <span>Answerability gate</span>
+                </div>
+                <div class="ask-step-connector"></div>
+                <div class="ask-step-item" id="stepAnswer">
+                  <div class="ask-step-dot"></div>
+                  <span>Generate answer</span>
+                </div>
+              </div>
             </div>
 
             <div id="resultBody" class="hidden">
@@ -159,55 +249,19 @@
               </div>
 
               <div class="result-block">
-                <h4>Why this verdict</h4>
+                <h4>Evidence Summary</h4>
                 <p id="reasonText" class="reason-text">-</p>
               </div>
 
               <div class="result-block">
-                <h4>Supporting Clauses</h4>
+                <h4>Evidence From Document</h4>
                 <div id="clausesList" class="clauses"></div>
               </div>
 
-              <div class="result-meta" id="metadataRow"></div>
             </div>
           </div>
         </div>
 
-        <div class="card batch-results" id="batchResultsCard">
-          <div class="empty-state" id="batchEmptyState">
-            Batch results will appear here.
-          </div>
-          <div id="batchBody" class="hidden">
-            <div class="result-header">
-              <span id="batchSummary" class="status">Batch Summary</span>
-              <span id="batchDocName" class="doc-name"></span>
-            </div>
-            <div class="batch-columns">
-              <div>
-                <h4>Answerable</h4>
-                <div id="answerableList" class="batch-list"></div>
-              </div>
-              <div>
-                <h4>Unanswerable</h4>
-                <div id="unanswerableList" class="batch-list"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- EXAMPLE QUESTIONS -->
-      <section class="container section" id="examples">
-        <h2>Try these questions</h2>
-        <p class="section-lead">Click to load into the question field. The last two are intentionally unanswerable — watch the system abstain instead of guess.</p>
-        <div class="examples" id="exampleQuestions">
-          <button class="chip chip-yes">What is the renewal term?</button>
-          <button class="chip chip-yes">Can either party terminate for breach?</button>
-          <button class="chip chip-yes">What law governs the agreement?</button>
-          <button class="chip chip-yes">What happens if one party materially breaches?</button>
-          <button class="chip chip-no">What emails were exchanged between the parties?</button>
-          <button class="chip chip-no">What is the CEO's compensation?</button>
-        </div>
       </section>
 
       <!-- HOW IT WORKS -->
@@ -220,7 +274,7 @@
             <div class="pipe-num">1</div>
             <div class="pipe-body">
               <h4>Typed Graph Extraction</h4>
-              <p>The PDF is chunked and each chunk is processed by an LLM to extract typed nodes: <strong>party</strong>, <strong>obligation</strong>, <strong>right</strong>, <strong>numeric fact</strong>, <strong>condition</strong>, <strong>definition</strong>, <strong>blank</strong>, and <strong>reference</strong>. Co-occurring nodes within a chunk are connected by edges. This replaces untyped embedding search with a structured knowledge graph.</p>
+              <p>The PDF is chunked and each chunk is processed by an LLM to extract structured nodes like obligations, definitions, conditions, and key facts. Co-occurring nodes within a chunk are connected by edges, creating a structured knowledge graph.</p>
             </div>
           </div>
           <div class="pipe-connector"></div>
@@ -228,7 +282,7 @@
             <div class="pipe-num">2</div>
             <div class="pipe-body">
               <h4>Multi-Variant Retrieval</h4>
-              <p>At query time, three parallel LLM calls generate query variants (paraphrase, type-focused, clause-focused) and retrieve candidate clauses for each. A consensus filter keeps only clauses appearing in two or more variants, reducing noise from any single retrieval failure.</p>
+              <p>At query time, the system generates multiple versions of the question and retrieves evidence for each. The system keeps overlapping results and high-confidence supporting nodes, reducing noise from any single retrieval path.</p>
             </div>
           </div>
           <div class="pipe-connector"></div>
@@ -236,7 +290,7 @@
             <div class="pipe-num">3</div>
             <div class="pipe-body">
               <h4>Answerability Gate</h4>
-              <p>Two independent signals vote: (a) an LLM judges whether the retrieved evidence actually answers the question; (b) a topology scorer measures graph connectivity of retrieved nodes — high connectivity means the document genuinely covers the topic. Only when both signals pass does the system proceed to generate an answer.</p>
+              <p>The system combines multiple signals, including LLM judgment and graph structure, to determine whether the evidence is strong enough to answer.</p>
             </div>
           </div>
           <div class="pipe-connector"></div>
@@ -247,7 +301,7 @@
             </div>
             <div class="pipe-body">
               <h4>Grounded Answer or Principled Abstention</h4>
-              <p>If the gate passes, an LLM generates an answer grounded strictly on the verified evidence set, citing the exact clause. If the gate fails, the response is <em>"unanswerable"</em> with a reason — no hallucination pathway exists in the design.</p>
+              <p>If sufficient evidence is found, the system generates an answer grounded in the verified evidence and cites supporting text from the document. If not, it abstains.</p>
             </div>
           </div>
         </div>
@@ -256,33 +310,10 @@
       <!-- RESULTS / PROOF -->
       <section class="container section" id="proof">
         <h2>Benchmark Results</h2>
-        <p class="section-lead">Evaluated on 540 ground-truth questions across 12 real SEC filing contracts — held-out documents not seen during development.</p>
-
-        <div class="proof-grid">
-          <article class="proof-card proof-primary">
-            <p class="proof-value">90%+</p>
-            <p class="proof-label">Overall accuracy</p>
-            <p class="proof-sub">on contracts not seen during development</p>
-          </article>
-          <article class="proof-card">
-            <p class="proof-value">97%</p>
-            <p class="proof-label">Unanswerable precision</p>
-            <p class="proof-sub">when the system says "can't answer," it's right</p>
-          </article>
-          <article class="proof-card">
-            <p class="proof-value">3× LLM</p>
-            <p class="proof-label">Parallel consensus</p>
-            <p class="proof-sub">query variants + majority vote for retrieval stability</p>
-          </article>
-          <article class="proof-card">
-            <p class="proof-value">Clause-cited</p>
-            <p class="proof-label">Every answer</p>
-            <p class="proof-sub">exact supporting text returned alongside the answer</p>
-          </article>
-        </div>
+        <p class="section-lead">Evaluated on 500+ questions across 12+ real contracts not seen during development.</p>
 
         <div class="proof-callout">
-          <strong>Why this matters.</strong> When a contract AI confidently returns a wrong answer, lawyers act on it. A 97% unanswerable precision means the system almost never falsely claims it cannot answer — but when it does answer, the evidence is real. A well-calibrated "I don't know" is worth more than a fluent hallucination.
+          <strong>Why this matters.</strong> In legal settings, a confident wrong answer can cost real money and real trust. This system avoids that by only answering when the evidence is actually there, and refusing to answer when it is not. A well-calibrated "I don't know" is more valuable than a fluent hallucination.
         </div>
       </section>
 
@@ -290,22 +321,22 @@
       <section class="container section" id="tech">
         <h2>Technical Notes</h2>
         <div class="tech-grid">
-          <details class="tech-card">
-            <summary>Graph construction</summary>
+          <article class="tech-card">
+            <h4>Graph construction</h4>
             <p>Contracts are chunked with overlap, then each chunk is passed to an LLM that extracts typed nodes. Node types: <code>definition</code>, <code>obligation</code>, <code>right</code>, <code>numeric</code>, <code>condition</code>, <code>blank</code>, <code>reference</code>. Edges connect co-occurring nodes within the same chunk. The resulting graph is stored and reused across all queries on the same document.</p>
-          </details>
-          <details class="tech-card">
-            <summary>Retrieval stability via query variants</summary>
-            <p>A single query can be ambiguous or phrased in ways that miss relevant clauses. Three variants (paraphrase, type-focused, clause-focused) each run retrieval independently. Only clauses appearing in two or more results pass the consensus filter, reducing variance from individual retrieval failures.</p>
-          </details>
-          <details class="tech-card">
-            <summary>Topology scoring</summary>
-            <p>Beyond LLM judgment, a topology signal quantifies how well-connected the retrieved nodes are in the graph. High connectivity (short paths, dense neighborhoods near retrieved nodes) correlates with the document genuinely covering the question topic. The threshold is calibrated relative to document size.</p>
-          </details>
-          <details class="tech-card">
-            <summary>Answerability decision logic</summary>
-            <p>The final gate combines two boolean signals: (1) LLM-judged answerability given the retrieved evidence; (2) topology score above the calibrated threshold. Both must pass. This reduces false positives (answering when we shouldn't) more aggressively than either signal alone.</p>
-          </details>
+          </article>
+          <article class="tech-card">
+            <h4>Retrieval stability via query variants</h4>
+            <p>A single query can be ambiguous or phrased in ways that miss relevant clauses. Keeping overlapping results and high-confidence supporting nodes reduces noise from any single retrieval path.</p>
+          </article>
+          <article class="tech-card">
+            <h4>Topology scoring</h4>
+            <p>Beyond LLM judgment, a topology signal quantifies how well-connected the retrieved nodes are in the graph. High connectivity (short paths, dense neighborhoods near retrieved nodes) correlates with the document genuinely covering the question topic. The threshold adapts based on the structure and coverage of the retrieved nodes.</p>
+          </article>
+          <article class="tech-card">
+            <h4>Answerability decision logic</h4>
+            <p>The system combines multiple signals, including LLM judgment and graph structure, to determine whether the evidence is strong enough to answer.</p>
+          </article>
         </div>
       </section>
 
@@ -313,11 +344,26 @@
       <section class="container section" id="about">
         <h2>About</h2>
         <p>
-          Deterministic RAG is a student research project building a legal AI system that is trustworthy by design: grounded retrieval, graph-verified evidence, and principled abstention when the document does not support an answer. It targets the hallucination problem that makes current legal AI unreliable in practice, where confident wrong answers carry real consequences.
+          I'm a student builder, and this project started with a simple question: what would legal AI look like if it actually cared about being right, not just sounding right?
+        </p>
+        <p>
+          I started by experimenting with standard RAG, trying to see if better retrieval could improve accuracy. At first it was general, but I focused on legal documents because the problem became much clearer there. In law, answers need to be backed by exact text, so it was easy to see when the system was guessing versus actually supported.
+        </p>
+        <p>
+          As I kept testing, I realized the real problem was not just retrieval, but knowing whether the answer is actually in the document, not just something that sounds topically similar.
+        </p>
+        <p>
+          So instead of building a system that always responds, I built one that checks whether the evidence is really there, and if it is not, it just does not answer.
+        </p>
+        <p>
+          I used ChatGPT as a build partner the whole way through, designing the system, debugging retrieval, and testing it across hundreds of questions. What you see here is a real system tested on real contracts.
+        </p>
+        <p>
+          Right now it works on one document at a time, but the goal is to extend this across multiple documents while keeping the same idea: only answer when the evidence is actually there.
         </p>
       </section>
     </main>
 
-    <script src="/web/app.js" defer></script>
+    <script src="/web/app.js?v=38" defer></script>
   </body>
 </html>

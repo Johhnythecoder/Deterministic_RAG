@@ -7,4 +7,5 @@ pdfplumber
 sentence-transformers
 fastapi
 uvicorn
+gunicorn
 python-multipart

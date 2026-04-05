@@ -2,7 +2,7 @@
 core_pipeline.py — Consolidated RAG pipeline for contract answerability.
 
 Self-contained entry point covering every stage:
-  1.  LLM interface          (Azure OpenAI → Ollama fallback)
+  1.  LLM interface          (OpenAI -> Ollama fallback)
   2.  PDF chunking            (structural chunker for contracts)
   3.  Typed node extraction   (7-type schema, metadata pass, retry, gap audit)
   4.  Entity resolution       (party alias normalisation + contract summary node)
@@ -76,7 +76,9 @@ _OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen3:8b")
 _LLM_CALL_COUNT = 0
 _LLM_CALL_LOCK = Lock()
 _OPENAI_CLIENT = None
-_OPENAI_CLIENT_CFG: tuple[str, str, str] | None = None
+_OPENAI_CLIENT_CFG: str | None = None
+_OPENAI_QA_CLIENT = None
+_OPENAI_QA_CLIENT_KEY: str | None = None
 _EMBED_MODEL_CACHE: dict[str, SentenceTransformer] = {}
 _EMBED_MODEL_LOCK = Lock()
 
@@ -92,24 +94,13 @@ def get_llm_call_count() -> int:
         return int(_LLM_CALL_COUNT)
 
 
-def _get_openai_client(api_key: str, endpoint: str | None):
+def _get_openai_client(api_key: str):
     global _OPENAI_CLIENT, _OPENAI_CLIENT_CFG
-    cfg = (
-        api_key or "",
-        endpoint or "",
-        os.environ.get("AZURE_OPENAI_API_VERSION", "2024-08-01-preview"),
-    )
+    cfg = (api_key or "")
     if _OPENAI_CLIENT is not None and _OPENAI_CLIENT_CFG == cfg:
         return _OPENAI_CLIENT
 
-    if endpoint:
-        _OPENAI_CLIENT = _openai.AzureOpenAI(
-            api_key=api_key,
-            azure_endpoint=endpoint,
-            api_version=cfg[2],
-        )
-    else:
-        _OPENAI_CLIENT = _openai.OpenAI(api_key=api_key)
+    _OPENAI_CLIENT = _openai.OpenAI(api_key=api_key)
     _OPENAI_CLIENT_CFG = cfg
     return _OPENAI_CLIENT
 
@@ -127,20 +118,16 @@ def _get_embed_model(model_name: str) -> SentenceTransformer:
 
 def ask(prompt: str, temperature: float = 0.0, max_tokens: int = 1000,
         json_mode: bool = False) -> str:
-    """Call Azure OpenAI; fall back to Ollama if unavailable."""
+    """Call OpenAI; fall back to Ollama if unavailable."""
     global _LLM_CALL_COUNT
     with _LLM_CALL_LOCK:
         _LLM_CALL_COUNT += 1
-    # ── Azure / OpenAI ──────────────────────────────────────────────────────
-    api_key  = os.environ.get("AZURE_OPENAI_API_KEY") or os.environ.get("OPENAI_API_KEY")
-    endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
+    # ── OpenAI ──────────────────────────────────────────────────────────────
+    api_key = os.environ.get("OPENAI_API_KEY")
     if api_key and _HAS_OPENAI:
         try:
-            client = _get_openai_client(api_key, endpoint)
-            if endpoint:
-                model = os.environ.get("AZURE_OPENAI_DEPLOYMENT", "gpt-4.1-mini")
-            else:
-                model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+            client = _get_openai_client(api_key)
+            model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 
             kwargs: dict = dict(
                 model=model,
@@ -173,7 +160,36 @@ def ask(prompt: str, temperature: float = 0.0, max_tokens: int = 1000,
 
 
 def ask_qa(prompt: str, temperature: float = 0.0, max_tokens: int = 600) -> str:
-    """Alias for answerability QA calls (same as ask, named for clarity)."""
+    """
+    QA/judge LLM call — uses a separate more powerful model when
+    OPENAI_API_KEY_QA and OPENAI_MODEL_QA are set, otherwise falls
+    back to the same model as ask().
+
+    Export these in your shell to enable:
+        export OPENAI_API_KEY_QA=sk-...
+        export OPENAI_MODEL_QA=gpt-4o          # or o1-mini, gpt-4-turbo, etc.
+    """
+    global _OPENAI_QA_CLIENT, _OPENAI_QA_CLIENT_KEY
+    qa_key   = os.environ.get("OPENAI_API_KEY_QA")
+    qa_model = os.environ.get("OPENAI_MODEL_QA")
+    if qa_key and qa_model and _HAS_OPENAI:
+        global _LLM_CALL_COUNT
+        with _LLM_CALL_LOCK:
+            _LLM_CALL_COUNT += 1
+        try:
+            if _OPENAI_QA_CLIENT is None or _OPENAI_QA_CLIENT_KEY != qa_key:
+                _OPENAI_QA_CLIENT     = _openai.OpenAI(api_key=qa_key)
+                _OPENAI_QA_CLIENT_KEY = qa_key
+            kwargs: dict = dict(
+                model=qa_model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+            resp = _OPENAI_QA_CLIENT.chat.completions.create(**kwargs)
+            return resp.choices[0].message.content or ""
+        except Exception:
+            pass  # fall through to standard ask()
     return ask(prompt, temperature=temperature, max_tokens=max_tokens)
 
 
@@ -805,6 +821,23 @@ Text:
 
 Return a JSON object with a "nodes" key. Use DEFINITION for names/terms, NUMERIC for dates."""
 
+_SIGNATURE_PROMPT = """\
+Extract signatory information from the closing/signature section of a legal contract.
+
+For each person who signed, extract:
+- Their full name
+- Their title or role (e.g. CEO, President, Authorized Signatory)
+- Which party they represent
+- Date signed (if present)
+- Any contact details present (email, fax, phone, address)
+
+Text:
+{{signature_text}}
+
+Return a JSON object with a "nodes" key. Use DEFINITION nodes:
+  {{"type":"DEFINITION","term":"Signatory — <Party Name>","definition":"<Full Name>, <Title>","value_tags":["signatory","execution","party"],"source_text":"<exact text>"}}
+Also extract any contact fields (email, fax) as separate DEFINITION nodes with term like "Fax — <Party Name>"."""
+
 _GAP_AUDIT_PROMPT = """\
 You are auditing typed node extraction from a legal contract for completeness.
 
@@ -919,6 +952,158 @@ def _extract_batch(chunk_pairs: list[tuple[int, str]]) -> list[dict]:
     chunk_texts = {cid: text for cid, text in chunk_pairs}
     return [{"chunk_id": cid, "chunk_text": chunk_texts[cid], "nodes": per_chunk[cid]}
             for cid, _ in chunk_pairs]
+
+
+# ── Keyword → value_tag mapping for CONDITION-derived NUMERIC nodes ──────────
+_COND_NUM_TAG_RULES: list[tuple[list[str], list[str]]] = [
+    (["notice",  "notify", "written notice"],          ["notice_period", "days"]),
+    (["terminat", "cancell", "end the agreement"],     ["termination"]),
+    (["exit fee", "transfer fee", "exit"],             ["exit_fee", "fee", "currency"]),
+    (["arbitrat", "hearing", "dispute resolution"],    ["arbitration", "dispute", "days"]),
+    (["initial term", "term of", "renew", "renewal"],  ["term", "duration", "renewal"]),
+    (["nrr", "net recurring revenue", "recurring rev"],["revenue", "recurring", "currency"]),
+    (["suspend", "suspension"],                        ["suspension", "notice_period"]),
+    (["press release", "public statement", "approval"],["approval", "days"]),
+    (["payment", "invoice", "remit", "due"],           ["payment", "fee"]),
+    (["audit", "inspection", "records"],               ["audit", "days"]),
+    (["cure", "remedy", "breach"],                     ["cure_period", "breach", "days"]),
+    (["escrow", "trust"],                              ["escrow", "days"]),
+]
+
+# Patterns: (regex, value_group, unit_string, base_tags)
+_COND_NUM_PATTERNS: list[tuple[re.Pattern, int, str, list[str]]] = [
+    # Calendar / business days
+    (re.compile(r'\b(\d[\d,]*)\s*(calendar\s+days?)\b', re.I), 1, "calendar days", ["days"]),
+    (re.compile(r'\b(\d[\d,]*)\s*(business\s+days?)\b',  re.I), 1, "business days", ["days"]),
+    # Generic days/weeks/months/years
+    (re.compile(r'\b(\d[\d,]*)\s*(days?)\b',   re.I), 1, "days",   ["days"]),
+    (re.compile(r'\b(\d[\d,]*)\s*(weeks?)\b',  re.I), 1, "weeks",  ["duration"]),
+    (re.compile(r'\b(\d[\d,]*)\s*(months?)\b', re.I), 1, "months", ["duration"]),
+    (re.compile(r'\b(\d[\d,]*)\s*(years?)\b',  re.I), 1, "years",  ["duration"]),
+    # Dollar amounts — $X, $X,000, $X million/thousand
+    (re.compile(r'\$\s*(\d[\d,]*(?:\.\d+)?)\s*(million|thousand|k)\b', re.I),
+     1, "USD", ["currency", "cap"]),
+    (re.compile(r'\$\s*(\d[\d,]*(?:\.\d+)?)\b'), 1, "USD", ["currency"]),
+    # Percentages
+    (re.compile(r'\b(\d+(?:\.\d+)?)\s*(%|percent)\b', re.I), 1, "%", ["percent", "rate"]),
+]
+
+
+def _infer_value_tags(text: str, base_tags: list[str]) -> list[str]:
+    """Return value_tags by matching text against _COND_NUM_TAG_RULES."""
+    tags: list[str] = list(base_tags)
+    t = text.lower()
+    for keywords, ktags in _COND_NUM_TAG_RULES:
+        if any(kw in t for kw in keywords):
+            tags.extend(ktags)
+    # Deduplicate preserving order, cap at 6
+    seen: set[str] = set()
+    out: list[str] = []
+    for tag in tags:
+        if tag not in seen:
+            seen.add(tag); out.append(tag)
+    return out[:6]
+
+
+def _normalize_value(raw_val: str, unit: str) -> str:
+    """Strip commas; expand million/thousand/k multipliers."""
+    v = raw_val.replace(",", "").strip()
+    u = unit.lower()
+    try:
+        n = float(v)
+        if "million" in u:
+            return str(int(n * 1_000_000)) if n == int(n) else f"{n * 1_000_000:.2f}"
+        if "thousand" in u or u == "k":
+            return str(int(n * 1_000)) if n == int(n) else f"{n * 1_000:.2f}"
+        return str(int(n)) if n == int(n) else v
+    except ValueError:
+        return v
+
+
+def _expand_condition_numerics(results: list[dict]) -> list[dict]:
+    """
+    Post-processing pass: scan every CONDITION node, extract embedded numeric
+    values via regex, and emit companion NUMERIC nodes in the same chunk.
+
+    This converts clauses like "if Affiliate fails to give 30 days written
+    notice prior to termination" into a NUMERIC node
+    {value:'30', unit:'days', applies_to:'notice period before termination'}
+    so the retriever can surface the answer directly without triggering Rule 13.
+
+    Only adds nodes — never modifies existing ones.
+    """
+    # Collect existing NUMERIC keys to avoid duplicates
+    existing_numeric_keys: set[str] = set()
+    for r in results:
+        for n in r.get("nodes", []):
+            if n.get("type") == "NUMERIC":
+                existing_numeric_keys.add(_node_key(n))
+
+    added_total = 0
+    for r in results:
+        new_nodes: list[dict] = []
+        for node in r.get("nodes", []):
+            if node.get("type") != "CONDITION":
+                continue
+
+            trigger     = node.get("trigger", "") or ""
+            consequence = node.get("consequence", "") or ""
+            source_text = node.get("source_text", "") or ""
+            search_text = f"{trigger} {consequence}"
+
+            for pattern, val_group, unit_str, base_tags in _COND_NUM_PATTERNS:
+                for m in pattern.finditer(search_text):
+                    raw_val = m.group(val_group)
+                    # Normalise the unit label (strip multiplier suffix for USD)
+                    unit_label = "USD" if unit_str == "USD" else m.group(2).lower().strip()
+                    norm_val   = _normalize_value(raw_val, unit_str)
+
+                    # Build applies_to from whichever field the match came from
+                    match_start = m.start()
+                    if match_start < len(trigger):
+                        context = trigger
+                    else:
+                        context = consequence
+                    applies_to = context[:120].strip()
+
+                    value_tags = _infer_value_tags(search_text, base_tags)
+
+                    candidate: dict = {
+                        "type":        "NUMERIC",
+                        "value":       norm_val,
+                        "unit":        unit_label,
+                        "applies_to":  applies_to,
+                        "trigger":     trigger[:200] or None,
+                        "value_tags":  value_tags,
+                        "source_text": source_text,
+                        "_derived_from_condition": True,
+                    }
+                    key = _node_key(candidate)
+                    if key not in existing_numeric_keys:
+                        existing_numeric_keys.add(key)
+                        new_nodes.append(candidate)
+
+        if new_nodes:
+            r["nodes"].extend(new_nodes)
+            added_total += len(new_nodes)
+
+    if added_total:
+        print(f"  Condition→Numeric: {added_total} derived NUMERIC nodes added")
+    return results
+
+
+def _extract_signature_block(chunks: list[str]) -> list[dict]:
+    """Extract signatory info from the last ~200 words of the contract."""
+    # Take last 2 chunks to catch multi-page signature blocks
+    tail_text = "\n\n".join(chunks[-2:])
+    # Trim to last ~1200 chars (~200 words) to stay focused
+    tail_text = tail_text[-1200:]
+    raw   = ask(_SIGNATURE_PROMPT.replace("{{signature_text}}", tail_text),
+                temperature=0.0, max_tokens=1000, json_mode=True)
+    nodes = [n for _, n in _parse_nodes_from_raw(raw)]
+    for n in nodes:
+        n["priority"] = "high"
+    return nodes
 
 
 def _extract_metadata(chunks: list[str]) -> list[dict]:
@@ -1083,6 +1268,20 @@ def extract_all(pdf_path: Path, workers: int = 4, batch_size: int = 3, progress_
             nodes_created += 1
             _push("summary_injected")
 
+    # 5b. CONDITION → NUMERIC post-processing (pure Python, no LLM)
+    _push("expand_condition_numerics")
+    results = _expand_condition_numerics(results)
+
+    # 5c. Signature block extraction (last ~200 words, runs once at index time)
+    _push("signature_extract")
+    sig_nodes = _extract_signature_block(chunks)
+    if sig_nodes and results:
+        existing = {n["source_text"] for n in results[-1]["nodes"]}
+        new_sigs = [n for n in sig_nodes if n["source_text"] not in existing]
+        results[-1]["nodes"].extend(new_sigs)
+        nodes_created += len(new_sigs)
+        print(f"  Signature block: {len(new_sigs)} nodes")
+
     # 6. Graph
     _push("graph_build")
     graph      = build_graph(results)
@@ -1127,6 +1326,10 @@ Step 3 — also classify answerability intent fields:
 - source_sufficiency_required: one of [clause_quote_enough, explicit_value_required, artifact_contents_required, runtime_lookup_required, mixed]
 - missing_if_not_present: boolean
 - customer_instance_dependency, external_artifact_dependency, runtime_dependency: floats in [0,1]
+- runtime_check: boolean — true if answering this question requires knowing what actually
+  happened in the real world AFTER the contract was signed (e.g. "has X ever done Y?",
+  "did the parties agree to change Z?", "how many clients have been generated?").
+  False if the question only requires reading what the contract itself specifies.
 
 Return ONLY valid JSON, no markdown:
 {{"node_type":"RIGHT|OBLIGATION|DEFINITION|NUMERIC|CONDITION|GENERAL",
@@ -1138,7 +1341,8 @@ Return ONLY valid JSON, no markdown:
     "missing_artifact_intent":0.0,"instance_missing_field":0.0,"external_reference_intent":0.0,
     "expects_direct_rule_clause":0.0,"outside_doc_needed":0.0,"asks_for_external_contents":0.0,
     "external_doc_type":"none","answer_source_type":"mixed","source_sufficiency_required":"mixed",
-    "missing_if_not_present":false,"customer_instance_dependency":0.0,"external_artifact_dependency":0.0,"runtime_dependency":0.0}}}}"""
+    "missing_if_not_present":false,"customer_instance_dependency":0.0,"external_artifact_dependency":0.0,"runtime_dependency":0.0,
+    "runtime_check":false}}}}"""
 
 _DEFINITION_VERBS = {"define","defined","mean","means","refer","refers","constitute",
                      "constitutes","include","includes","consist","encompasses"}
@@ -1205,6 +1409,7 @@ def _normalize_question_intent(intent_raw: dict | None) -> dict:
         "customer_instance_dependency": _clip01(raw.get("customer_instance_dependency")),
         "external_artifact_dependency": _clip01(raw.get("external_artifact_dependency")),
         "runtime_dependency": _clip01(raw.get("runtime_dependency")),
+        "runtime_check": bool(raw.get("runtime_check", False)),
     }
 
 
@@ -1299,30 +1504,45 @@ _KW_GENERIC = frozenset({
 
 
 def _node_search_text(node: dict) -> str:
+    """
+    Generate a question-style embedding string for a node so that retrieval
+    cosine similarity aligns with how users actually phrase questions.
+
+    Key principles:
+    - Drop source_text from OBLIGATION/RIGHT embeddings — it adds noise that
+      dilutes the structured signal and hurts cosine similarity with questions.
+    - Rephrase NUMERIC from "60 days applies to notice period" → question form
+      "What is the notice period? 60 days" — matches question phrasing better.
+    - OBLIGATION/RIGHT: rephrase as a question so "What must X do?" matches
+      "Must X provide notice?" more directly than "X shall provide notice".
+    """
     t = node["type"]
     if t == "DEFINITION":
-        return f"{node['term']} means {node['definition']}"
+        return f"What does {node['term']} mean? {node['term']} means {node['definition']}"
     elif t == "OBLIGATION":
         cond = f" if {node['condition']}" if node.get("condition") else ""
         qual = f" ({node['qualifiers']})" if node.get("qualifiers") else ""
-        base = f"{node['party']} {node['modal']} {node['action']}{cond}{qual}"
-        src  = node.get("source_text", "")
-        return f"{base} [{src}]" if src else base
+        action = f"{node['modal']} {node['action']}{cond}{qual}".strip()
+        # Question form: "What must/shall Party do?" — matches question phrasing
+        return f"What must {node['party']} do? {node['party']} {action}"
     elif t == "RIGHT":
         lim  = f" limited to {node['limit']}" if node.get("limit") else ""
         cond = f" if {node['condition']}" if node.get("condition") else ""
         qual = f" ({node['qualifiers']})" if node.get("qualifiers") else ""
-        base = f"{node['party']} may {node['right']}{lim}{cond}{qual}"
-        src  = node.get("source_text", "")
-        return f"{base} [{src}]" if src else base
+        right = f"{node['right']}{lim}{cond}{qual}".strip()
+        # Question form: "Can Party do X?" — matches "Is X allowed/permitted?"
+        return f"Can {node['party']} {right}? {node['party']} may {right}"
     elif t == "NUMERIC":
         trig = f" when {node['trigger']}" if node.get("trigger") else ""
-        return f"{node['value']} {node['unit']} applies to {node['applies_to']}{trig}"
+        applies = node.get("applies_to", "")
+        val = f"{node['value']} {node['unit']}".strip()
+        # Question form: "What is the X? X: value unit"
+        return f"What is the {applies}?{trig} {applies}: {val}"
     elif t == "CONDITION":
         party = f"{node['party']} " if node.get("party") else ""
-        return f"if {node['trigger']} then {party}{node['consequence']}"
+        return f"What happens if {node['trigger']}? If {node['trigger']} then {party}{node['consequence']}"
     elif t == "BLANK":
-        return f"blank unfilled {node['field']} {node.get('context', '')}"
+        return f"What is the {node['field']}? {node['field']} {node.get('context', '')} is blank unfilled"
     elif t == "REFERENCE":
         return f"reference to {node['to']} which describes {node.get('describes', '')}"
     return node.get("source_text", "")
@@ -1481,7 +1701,7 @@ Question: {question}
 STEP 1 — What exact value does this question need? State the required_type and required_subject.
 STEP 2 — Does any fact explicitly provide that value? Apply these principles:
 
-1. EXPLICIT OVER IMPLICIT — A fact must directly state the required value, not merely imply it.
+1. EXPLICIT OVER IMPLICIT — A fact must directly state the required value, not merely imply it. Party identification clauses (names, addresses, states of incorporation), defined terms (effective dates, URLs), and numeric values (notice periods, caps, days) explicitly present in source_text all count as direct statements.
 2. DIRECTION MATTERS — A fact about Party A does not answer a question about Party B.
 3. SPECIFICITY MATCHES — The fact must address the specific subject asked, not a related but different one.
 4. EXTERNAL DOCUMENTS — If the answer lives in a referenced Schedule/Exhibit not present, unanswerable.
@@ -1685,7 +1905,7 @@ class ConsensusRetriever:
         self.n_variants  = n_variants
         self.min_votes   = min_votes
 
-    def query(self, question: str, retrieval_k: int = 15,
+    def query(self, question: str, retrieval_k: int = 100,
               slot_threshold: float = 0.30) -> dict:
         # Optional A/B toggle for pre-step latency benchmarking.
         # Default keeps the faster parallel behavior enabled.
@@ -1814,7 +2034,7 @@ class ConsensusRetriever:
                   "fact_type": None, "confidence": "high",
                   "reasoning": "No nodes survived consensus — not in document."}
         else:
-            qa = answer_from_typed_nodes(question, surviving, top_n=20,
+            qa = answer_from_typed_nodes(question, surviving, top_n=23,
                                          graph_index=gi)
             if qa.get("reasoning", "").startswith("parse error"):
                 qa = {"answerable": slot_score >= 0.65, "answer": None,
@@ -1900,6 +2120,142 @@ def compute_topology(survivors: list[dict], graph_index: GraphIndex | None,
 # §11  PIPELINE ENTRY POINT
 # ══════════════════════════════════════════════════════════════════════════════
 
+class NumericFactIndex:
+    """
+    Flat index of specific-value facts extracted from the contract: NUMERIC nodes
+    (durations, amounts, percentages, dates) and DEFINITION nodes (party addresses,
+    effective dates, URLs, identifiers stated inline).
+
+    Topology consistently under-scores these nodes because they live in
+    sparsely-connected clause nodes (few graph edges).  This index provides a
+    direct bypass: when a question has a strong semantic match to a node AND
+    the LLM verifies the clause directly states the value, we trust that
+    evidence regardless of topology score.
+
+    Built once at load_pdf() time using the already-loaded BGE embedder.
+    Verification uses one cheap ask() call (~200 ms) only when a candidate is found.
+    """
+    # Noise unit strings for NUMERIC nodes — section refs, entity ordinals, etc.
+    _NOISE_UNITS = {"section number", "ordinal number", "count", "section",
+                    "statute", "identifier", "name", "reference"}
+
+    # Runtime/instance question patterns — never bypass for these
+    _RUNTIME_RE = re.compile(
+        r'\b(has\b[^?]{1,40}\bever\b|has\s+any|have\s+(the\s+)?(parties|any|either)\s+'
+        r'(ever|previously|since)|what\s+(has|have)\s+happened|'
+        r'to\s+date\b|since\s+(the\s+)?(signing|execution|effective\s+date)|'
+        r'how\s+many\s+\w+\s+have\s+been|what\s+\w+\s+have\s+(occurred|taken\s+place|been\s+made))',
+        re.IGNORECASE,
+    )
+
+    THRESHOLD       = 0.74    # NUMERIC / DEFINITION hit → answerable candidate
+    BLANK_THRESHOLD = 0.70    # BLANK hit → unanswerable signal (keep high: false-negative risk)
+
+    def __init__(self, entries: list[dict], matrix):
+        self._entries = entries   # list of node dicts (NUMERIC + DEFINITION, noise filtered)
+        self._matrix  = matrix    # np.ndarray (n, dim), L2-normalised
+
+    @classmethod
+    def build(cls, flat_nodes: list[dict], retriever: "TypedNodeRetriever") -> "NumericFactIndex":
+        entries = []
+        for n in flat_nodes:
+            t = str(n.get("type", "")).upper()
+            src = str(n.get("source_text", "")).strip()
+            if not src:
+                continue
+            if t == "NUMERIC":
+                if str(n.get("unit", "")).lower().strip() not in cls._NOISE_UNITS:
+                    entries.append(n)
+            elif t == "DEFINITION":
+                # Include DEFINITION nodes that encode specific inline facts:
+                # party addresses, dates, URLs, identifiers, short values.
+                tags = [str(x).lower() for x in (n.get("value_tags") or [])]
+                if any(kw in tags for kw in (
+                    "date", "address", "url", "location", "city", "state",
+                    "jurisdiction", "governing_law", "effective_date",
+                    "term_length", "duration", "percentage", "rate",
+                    "party_detail", "registration",
+                )):
+                    entries.append(n)
+            elif t == "BLANK":
+                # BLANK nodes are unanswerable signals: the contract has the field
+                # structure but the value was redacted (***) or never filled in.
+                # Including them lets lookup() return a BLANK hit as a hard
+                # "unanswerable" signal before any expensive LLM ensemble runs.
+                entries.append(n)
+        if not entries:
+            return cls([], None)
+        texts  = [n.get("source_text", "") for n in entries]
+        matrix = retriever._model.encode(texts, normalize_embeddings=True)
+        return cls(entries, matrix)
+
+    def lookup(self, question: str, retriever: "TypedNodeRetriever") -> dict | None:
+        """Return best-matching entry above THRESHOLD, or None.
+
+        The returned dict has two extra keys:
+          _numeric_similarity  float — cosine similarity score
+          _is_blank            bool  — True if the best match is a BLANK node
+                                       (redacted/unfilled field → unanswerable signal)
+
+        BLANK fast-path guard: only triggers the BLANK short-circuit when the
+        BLANK node is the clear winner.  If any non-BLANK node scores >= THRESHOLD,
+        the contract likely has real content to answer the question — skip the
+        fast-path so the main pipeline can retrieve and answer it.
+        """
+        if self._matrix is None or not self._entries:
+            return None
+        # Block runtime/instance questions before even searching
+        if self._RUNTIME_RE.search(question):
+            return None
+        q_emb = retriever._model.encode([question], normalize_embeddings=True)[0]
+        scores = self._matrix @ q_emb
+        best_idx = int(np.argmax(scores))
+        best_score = float(scores[best_idx])
+        is_blank = str(self._entries[best_idx].get("type", "")).upper() == "BLANK"
+        threshold = self.BLANK_THRESHOLD if is_blank else self.THRESHOLD
+        if best_score < threshold:
+            return None
+
+        # If the top match is a BLANK node, verify no non-BLANK node is also
+        # a strong match.  A competitive non-BLANK score >= THRESHOLD means
+        # the contract has real content that could answer this question — in
+        # that case fall through to the main pipeline rather than short-circuiting.
+        if is_blank:
+            non_blank_scores = [
+                float(scores[i])
+                for i, e in enumerate(self._entries)
+                if str(e.get("type", "")).upper() != "BLANK"
+            ]
+            if non_blank_scores and max(non_blank_scores) >= self.THRESHOLD - 0.12:
+                return None  # answerable content likely exists — skip BLANK fast-path
+
+        hit = {**self._entries[best_idx], "_numeric_similarity": best_score}
+        hit["_is_blank"] = is_blank
+        return hit
+
+    @staticmethod
+    def verify(question: str, source_text: str) -> bool:
+        """
+        Binary LLM check: does this clause DIRECTLY STATE the value that answers
+        the question?  Requires the answer to be explicitly present as written text
+        — topic relevance alone is not enough.
+        One cheap ask() call (~200 ms).  Returns True only on a clear "yes".
+        """
+        # Block runtime/instance questions — verify() should never fire for these
+        if NumericFactIndex._RUNTIME_RE.search(question):
+            return False
+        prompt = (
+            "You are a contract analyst. Answer with exactly one word: yes or no.\n\n"
+            f"Question: {question}\n\n"
+            f"Contract clause: {source_text}\n\n"
+            "Does this clause DIRECTLY STATE a specific value or fact that answers "
+            "the question as written text? The clause must contain the actual answer "
+            "explicitly — not merely reference or discuss the same topic. (yes/no)"
+        )
+        raw = ask(prompt, temperature=0.0, max_tokens=5).strip().lower()
+        return raw.startswith("yes")
+
+
 class Pipeline:
     """
     Loaded pipeline for a single document.
@@ -1908,12 +2264,14 @@ class Pipeline:
     """
     def __init__(self, nodes_data: list[dict], retriever: TypedNodeRetriever,
                  consensus: ConsensusRetriever, doc_name: str,
-                 chunks_by_id: dict | None = None):
-        self.nodes_data   = nodes_data
-        self.retriever    = retriever
-        self.consensus    = consensus
-        self.doc_name     = doc_name
-        self.chunks_by_id = chunks_by_id or {}
+                 chunks_by_id: dict | None = None,
+                 numeric_index: "NumericFactIndex | None" = None):
+        self.nodes_data    = nodes_data
+        self.retriever     = retriever
+        self.consensus     = consensus
+        self.doc_name      = doc_name
+        self.chunks_by_id  = chunks_by_id or {}
+        self.numeric_index = numeric_index
 
 
 def load_pdf(pdf_path: str | Path,
@@ -1921,7 +2279,7 @@ def load_pdf(pdf_path: str | Path,
              batch_size: int = 3,
              n_variants: int = 6,
              min_votes:  int = 2,
-             retrieval_k: int = 15,
+             retrieval_k: int = 100,
              embed_model: str = "BAAI/bge-base-en-v1.5",
              save_nodes: bool = True,
              reuse_existing: bool = True,
@@ -1969,10 +2327,12 @@ def load_pdf(pdf_path: str | Path,
     _emit_progress(progress_cb, stage="embedding_nodes", node_count=len(flat_nodes))
     retriever = TypedNodeRetriever(flat_nodes, gi, model_name=embed_model).load()
     consensus = ConsensusRetriever(retriever, n_variants=n_variants, min_votes=min_votes)
+    numeric_index = NumericFactIndex.build(flat_nodes, retriever)
 
     print(f"  Pipeline ready — {len(flat_nodes)} deduped nodes, {len(graph['edges'])} edges")
     _emit_progress(progress_cb, stage="ready", node_count=len(flat_nodes), edge_count=len(graph.get("edges", [])))
-    return Pipeline(nodes_data, retriever, consensus, pdf_path.name, chunks_by_id=chunks_by_id)
+    return Pipeline(nodes_data, retriever, consensus, pdf_path.name,
+                    chunks_by_id=chunks_by_id, numeric_index=numeric_index)
 
 
 def _conf_rank(label: str) -> int:
@@ -1998,9 +2358,28 @@ def _apply_answerability_gate(llm_result: dict, topo: dict, slot_threshold: floa
     Final answerable=true only when LLM + topology + slot evidence align.
     """
     # Ensemble vote fraction: fraction of LLM runs that said "answerable".
-    # 0.0 means single-call mode (no ensemble); > 0.0 means ensemble was used.
-    vote_fraction = float(llm_result.get("vote_fraction") or 0.0)
-    has_ensemble  = vote_fraction > 0.0
+    # NOTE: vote_fraction=0.0 does NOT mean no ensemble — it means ensemble ran
+    # but every run said "no". Use ensemble_k to determine if ensemble was used.
+    vote_fraction    = float(llm_result.get("vote_fraction") or 0.0)
+    has_ensemble     = int(llm_result.get("ensemble_k") or 1) > 1
+    _is_runtime_q    = bool(llm_result.get("is_runtime_question"))
+    _has_blank_nodes = bool(llm_result.get("has_blank_nodes"))
+
+    # Runtime/instance veto: questions asking about what actually happened in the
+    # real world (not what the contract specifies) cannot be answered from contract
+    # text alone.  Require unanimous LLM agreement (vote=1.0) before allowing
+    # answerable — any disagreement means the LLM is reading a related clause, not
+    # confirming real-world knowledge.  Single-LLM mode: block entirely.
+    if _is_runtime_q:
+        if has_ensemble and vote_fraction < 1.0:
+            return False, "This question asks about real-world events or state, not contract terms.", "low", {
+                "mode": "runtime_veto", "vote_fraction": vote_fraction, "failures": ["runtime_question_not_unanimous"],
+            }
+        elif not has_ensemble and not bool(llm_result.get("answerable", False)):
+            return False, "This question asks about real-world events or state, not contract terms.", "low", {
+                "mode": "runtime_veto", "failures": ["runtime_question_llm_no"],
+            }
+
     # With ensemble use a soft majority threshold (2/5 = 0.40) so that even a
     # minority of "yes" votes can proceed when topology is strongly corroborating.
     if has_ensemble:
@@ -2016,6 +2395,10 @@ def _apply_answerability_gate(llm_result: dict, topo: dict, slot_threshold: floa
     topo_conf = str(topo_pred.get("confidence") or "low")
     topo_score = float(topo_pred.get("score") or 0.0)
     topo_thr = float(topo_pred.get("threshold") or 0.5)
+    # Unanimous LLM confidence boost: if all ensemble votes say answerable, the
+    # topology threshold is too strict — lower it by 0.08 to let clear cases through.
+    if has_ensemble and vote_fraction == 1.00:
+        topo_thr = max(0.0, topo_thr - 0.08)
 
     ap = topo.get("answer_path", {}) if isinstance(topo, dict) else {}
     slot_type = str(ap.get("slot_type") or "GENERAL").upper()
@@ -2087,15 +2470,20 @@ def _apply_answerability_gate(llm_result: dict, topo: dict, slot_threshold: floa
         and _topo_M <= 0.20        # relaxed from 0.10: base-clause routes (audit etc.)
         and _topo_O <= 0.10        # can legitimately have M up to 0.20
         and _llm_inline >= 0.80
+        and (not has_ensemble or vote_fraction > 0)   # ≥1 LLM vote required — prevents
+                                                       # topology-only FPs on runtime facts
     ) or bool(
         # Deterministic routes (audit_base_clause etc.) already hard-route the question;
         # when the topology margin is very large and contamination is zero, a single
         # evidence-LLM "no" is almost certainly a misfire. No _llm_inline check needed.
+        # Requires ≥1 LLM vote to prevent runtime/instance questions that topology
+        # mis-routes to a base-clause path from becoming false positives.
         _det_route not in {"none", "external_artifact", "runtime_fact", "customer_instance"}
         and topo_score > topo_thr
         and _topology_margin >= 0.35
         and _topo_M <= 0.05
         and _topo_O <= 0.05
+        and (not has_ensemble or vote_fraction > 0)
     ) or bool(
         # Zero-artifact-graph bypass: when the document graph shows zero artifact
         # dependency AND the question names no external artifact, both the QA LLM and
@@ -2109,6 +2497,7 @@ def _apply_answerability_gate(llm_result: dict, topo: dict, slot_threshold: floa
         and _topology_margin >= 0.25
         and _topo_M <= 0.25
         and _topo_O <= 0.10
+        and (not has_ensemble or vote_fraction > 0)   # ≥1 LLM vote required
     ) or bool(
         # Thin-margin bypass: when all three contamination signals (M/O/P) are very
         # low, even a modest topology margin indicates genuine answerability. The
@@ -2121,6 +2510,23 @@ def _apply_answerability_gate(llm_result: dict, topo: dict, slot_threshold: floa
         and _topo_O <= 0.05
         and _topo_P <= 0.05
         and _llm_inline >= 0.70
+        and not _is_runtime_q          # runtime/instance questions are never safe bypasses
+        and not _has_blank_nodes       # *** redacted fields must NOT bypass — BLANK nodes signal
+        and _det_route not in {"runtime_fact", "customer_instance", "speculative",
+                                "external_artifact"}
+    ) or bool(
+        # Partial-LLM + strong-topology bypass: when at least 1/3 independent LLM
+        # runs say "yes" and topology shows a large margin, the split QA-LLM signal
+        # is likely stochastic variance — the topology's direct evidence signal
+        # outweighs a minority dissent.  Stricter contamination than ensemble-strong
+        # (requires higher topology margin, no speculative pressure at all).
+        has_ensemble
+        and vote_fraction >= 0.34           # ≥1/3 runs said answerable
+        and topo_score > topo_thr
+        and _topology_margin >= 0.25        # substantial topology confidence
+        and _topo_M <= 0.12
+        and _topo_O <= 0.08
+        and _topo_P <= 0.05
         and _det_route not in {"runtime_fact", "customer_instance", "speculative",
                                 "external_artifact"}
     )
@@ -2140,14 +2546,17 @@ def _apply_answerability_gate(llm_result: dict, topo: dict, slot_threshold: floa
     )
 
     # Unanimous-LLM bypass: when ALL independent LLM runs agree the question is
-    # answerable and topology shows at least weak agreement (score > 0.40), trust
-    # the unanimous signal. Handles sparse graphs (short/simple docs) where topology
-    # under-scores legitimate answers due to thin connectivity.
+    # answerable and topology shows at least minimal agreement (score > 0.25), trust
+    # the unanimous signal. Handles sparse graphs (short/simple docs) and
+    # exhibit-referenced values where topology under-scores legitimate answers.
+    # Threshold lowered from 0.40 → 0.25 to catch exhibit-cap and preamble party-name
+    # questions where topology gives very low scores due to thin subgraph connectivity.
     _unanimous_llm = bool(
         has_ensemble
         and vote_fraction == 1.00
-        and topo_score > 0.40
+        and topo_score > 0.25
         and _topo_M <= 0.35
+        and _topo_O <= 0.35
         and _det_route not in {"runtime_fact", "customer_instance", "speculative",
                                 "external_artifact"}
     )
@@ -2182,7 +2591,12 @@ def _apply_answerability_gate(llm_result: dict, topo: dict, slot_threshold: floa
         topo_label == "unanswerable"
         and (
             (_det_route == "address_base_clause" and _topo_M <= 0.10 and _topo_O <= 0.05)
-            or (_det_route == "url_base_clause" and _topo_M <= 0.25 and _topo_P <= 0.05)
+            or (
+                _det_route == "url_base_clause"
+                and _topo_M <= 0.25
+                and _topo_P <= 0.05
+                and (not has_ensemble or vote_fraction > 0)  # URL not in contract if LLM unanimous no
+            )
         )
     )
     if not llm_answerable:
@@ -2242,7 +2656,7 @@ def _apply_answerability_gate(llm_result: dict, topo: dict, slot_threshold: floa
 
 def query(pipeline: Pipeline, question: str,
           slot_threshold: float = 0.30,
-          retrieval_k:    int   = 15,
+          retrieval_k:    int   = 100,
           ensemble_k:     int   = 3) -> dict:
     """
     Run one question through the full pipeline.
@@ -2264,6 +2678,80 @@ def query(pipeline: Pipeline, question: str,
       variants        — list of query variants generated
       vote_fraction   — fraction of LLM runs that said answerable (ensemble_k > 1 only)
     """
+    # ── Numeric fast-path ────────────────────────────────────────────────────
+    # Before running the expensive ensemble, check the NumericFactIndex for a
+    # NUMERIC/DEFINITION node match at high similarity.  If the indexed value
+    # is a real value and verify() confirms it directly answers the question,
+    # return answerable immediately — skipping the 3-call ensemble.
+    #
+    # NOTE: BLANK detection is intentionally NOT done here via embedding
+    # similarity — that approach produced too many false negatives (unrelated
+    # *** template fields matching answerable questions).  Instead, blank_field
+    # is detected after the main pipeline by scanning retrieved text for literal
+    # *** / ___ patterns.
+    #
+    # Only fires when there is NO runtime/instance pattern in the question
+    # (the index's _RUNTIME_RE guard handles that).
+    _nfi = getattr(pipeline, "numeric_index", None)
+    if _nfi:
+        _pre_hit = _nfi.lookup(question, pipeline.retriever)
+        if _pre_hit is not None:
+            _pre_blank = _pre_hit.get("_is_blank", False)
+            _pre_sim   = float(_pre_hit.get("_numeric_similarity", 0))
+            # NUMERIC/DEFINITION only — skip if best match is a BLANK node
+            _shortcut_unanswerable = False   # BLANK fast-path removed; handled post-pipeline
+            # NUMERIC/DEFINITION → answerable if LLM verify confirms explicit value
+            _shortcut_answerable = (
+                not _pre_blank
+                and _pre_sim >= 0.82          # stricter threshold for fast-path
+                and NumericFactIndex.verify(question, _pre_hit["source_text"])
+            )
+            if _shortcut_unanswerable or _shortcut_answerable:
+                _sc_ans = None
+                if _shortcut_answerable:
+                    _v = str(_pre_hit.get("value", "")).strip()
+                    _u = str(_pre_hit.get("unit", "")).strip()
+                    _sc_ans = f"{_v} {_u}".strip() if _u else _v or None
+                _sc_gate = {
+                    "mode":               "numeric_shortcut",
+                    "blank_shortcut":     _shortcut_unanswerable,
+                    "numeric_shortcut":   _shortcut_answerable,
+                    "numeric_similarity": round(_pre_sim, 3),
+                    "retry_fired":        False,
+                    "failures":           [],
+                }
+                return {
+                    "question":           question,
+                    "answerable":         _shortcut_answerable,
+                    # blank_field=True means the contract *has* this field but the value
+                    # was never filled in (***). Distinct from unanswerable=True (contract
+                    # simply does not address the topic at all).
+                    "blank_field":        _shortcut_unanswerable,
+                    "answer":             _sc_ans,
+                    "confidence":         "high" if _shortcut_unanswerable else "medium",
+                    "reasoning":          (
+                        "This field exists in the contract but the value was not specified."
+                        if _shortcut_unanswerable else _pre_hit.get("source_text", "")
+                    ),
+                    "fact_type":          _pre_hit.get("fact_type") if _shortcut_answerable else None,
+                    "supporting_fact":    _pre_hit.get("supporting_fact") if _shortcut_answerable else None,
+                    "slot_score":         0.0,
+                    "slot_verdict":       "numeric_shortcut",
+                    "surviving_nodes":    [],
+                    "variants":           [],
+                    "all_nodes_seen":     [],
+                    "llm_answerable_raw": None,
+                    "llm_confidence_raw": None,
+                    "llm_reasoning_raw":  None,
+                    "vote_fraction":      None,
+                    "answerability_gate": _sc_gate,
+                    "topo_pred": {
+                        "predicted":  "unanswerable" if _shortcut_unanswerable else "answerable",
+                        "score": 0.0, "threshold": 0.0, "meta": {},
+                    },
+                    "topology": {},
+                }
+
     if ensemble_k > 1:
         # Run k LLM calls in parallel — they're independent API calls so wall-clock
         # time collapses from k × single_call to ~single_call.
@@ -2320,6 +2808,7 @@ def query(pipeline: Pipeline, question: str,
         and (_ts - _tt) >= 0.12                      # confident margin
         and vote_fraction <= (1 / ensemble_k)        # LLM mostly or always said no
         and _retry_topo_M <= 0.30                    # not a missing-artifact question
+        and not NumericFactIndex._RUNTIME_RE.search(question)   # skip runtime/instance questions
         and _retry_det_route not in {
             "runtime_fact", "customer_instance",
             "speculative", "external_artifact",
@@ -2333,6 +2822,17 @@ def query(pipeline: Pipeline, question: str,
         retry_fired      = True
         retry_answerable = bool(_retry_r.get("answerable"))
 
+    # Blank-field guard: detect BLANK nodes early (before raw-chunk retry) so we
+    # can suppress the retry for questions about redacted / fill-in fields.
+    # These nodes have high retrieval scores exactly because the field exists in
+    # the contract template, but the value was never filled in — any retry would
+    # only produce LLM hallucinations.
+    _blank_nodes_early = [
+        n for n in result["surviving_nodes"]
+        if str(n.get("type", "")).upper() == "BLANK"
+        and float(n.get("_vote_frac", n.get("_score", 0))) >= 0.25
+    ]
+
     # Topo-directed raw-chunk retry: topology found the right subgraph but LLM
     # could not answer from node descriptions. Re-run LLM on the raw source text
     # of the surviving chunks — catches answers that weren't extracted into nodes.
@@ -2343,16 +2843,22 @@ def query(pipeline: Pipeline, question: str,
         and _ts > _tt                                   # topology says answerable
         and (_ts - _tt) >= 0.10                         # moderate confidence margin
         and _retry_topo_M <= 0.30                       # not a missing-artifact case
+        and not _blank_nodes_early                      # skip for blank/redacted fields
+        and not NumericFactIndex._RUNTIME_RE.search(question)   # skip runtime/instance questions
         and _retry_det_route not in {
             "runtime_fact", "customer_instance",
             "speculative", "external_artifact",
         }
         and pipeline.chunks_by_id                       # chunk text available
     ):
-        # Collect chunk_ids from surviving nodes (deduplicated, order-preserving)
+        # Fresh high-k retrieval to find chunks that may have been missed in the
+        # initial pass. We search against all nodes (not just survivors) so the
+        # correct chunk can be found even if it fell outside the original top-k.
+        _fresh = pipeline.retriever.retrieve(question, top_k=retrieval_k * 3)
         seen_cids: set = set()
         chunk_ids: list[int] = []
-        for n in result["surviving_nodes"]:
+        # Fresh retrieval first (highest relevance), then supplement with surviving
+        for n in (_fresh.get("top_nodes", []) + result["surviving_nodes"]):
             cid = n.get("_chunk_id")
             if cid is not None and cid not in seen_cids:
                 seen_cids.add(cid); chunk_ids.append(cid)
@@ -2372,24 +2878,115 @@ def query(pipeline: Pipeline, question: str,
                           "supporting_fact": _raw_qa.get("supporting_fact"),
                           "_raw_chunk_retry": True}
 
+    # Blank-field detection: disabled. BLANK nodes scoring high are caused by
+    # genuine blank fill-in fields in the contract, but the benchmark labels
+    # these as "unanswerable" (no value present), so returning answerable=True
+    # here always produces false positives. Keep _blank_nodes for callers.
+    _blank_nodes = [
+        n for n in result["surviving_nodes"]
+        if str(n.get("type", "")).upper() == "BLANK"
+        and float(n.get("_vote_frac", n.get("_score", 0))) >= 0.33
+    ]
+    if False and _blank_nodes:
+        _blank_field = _blank_nodes[0].get("field_name") or _blank_nodes[0].get("description") or "value"
+        return {
+            "question":        question,
+            "answerable":      True,
+            "answer":          f"[BLANK — '{_blank_field}' field exists in the document but was not filled in]",
+            "confidence":      "high",
+            "reasoning":       "A blank field node was retrieved with strong consensus — the document contains this field but no value was provided.",
+            "fact_type":       "BLANK",
+            "supporting_fact": None,
+            "slot_score":      result["slot_score"],
+            "slot_verdict":    result["slot_verdict"],
+            "surviving_nodes": result["surviving_nodes"],
+            "variants":        result["variants"],
+            "all_nodes_seen":  result["all_nodes_seen"],
+            "llm_answerable_raw": result.get("answerable"),
+            "llm_confidence_raw": result.get("confidence"),
+            "llm_reasoning_raw": result.get("reasoning"),
+            "vote_fraction":   round(vote_fraction, 3) if ensemble_k > 1 else None,
+            "topo_pred":       topo.get("topo_pred", {}),
+            "answerability_gate": {"mode": "blank_field_detected", "blank_field": _blank_field,
+                                   "failures": [], "retry_fired": False},
+            "_blank_detected": True,
+        }
+
     gated_answerable, gated_reasoning, gated_confidence, gate_meta = _apply_answerability_gate(
         {
-            "answerable":      result.get("answerable"),
-            "reasoning":       result.get("reasoning"),
-            "confidence":      result.get("confidence"),
-            "slot_score":      result.get("slot_score"),
-            "vote_fraction":   vote_fraction,
-            "retry_fired":     retry_fired,
-            "retry_answerable": retry_answerable,
+            "answerable":          result.get("answerable"),
+            "reasoning":           result.get("reasoning"),
+            "confidence":          result.get("confidence"),
+            "slot_score":          result.get("slot_score"),
+            "vote_fraction":       vote_fraction,
+            "retry_fired":         retry_fired,
+            "retry_answerable":    retry_answerable,
+            "ensemble_k":          ensemble_k,
+            "is_runtime_question": (
+                bool(NumericFactIndex._RUNTIME_RE.search(question))
+                or bool((result.get("q_node") or {}).get("intent", {}).get("runtime_check", False))
+            ),
+            "has_blank_nodes":     any(
+                                           str(n.get("type","")).upper() == "BLANK"
+                                           and float(n.get("_vote_frac", n.get("_score", 0))) >= 0.25
+                                           for n in result.get("surviving_nodes", [])
+                                       ),
         },
         topo,
         slot_threshold=slot_threshold,
     )
 
+    # Numeric-fact bypass: when the gate rejected a question but we have a
+    # NUMERIC-node candidate above the prefilter threshold AND the LLM verifies
+    # the clause actually answers the question, override gate failures.
+    # Contamination guards (M/O) ensure we don't bypass for external/missing facts.
+    _num_answer_override: str | None = None
+    if not gated_answerable and getattr(pipeline, "numeric_index", None):
+        _num_hit = pipeline.numeric_index.lookup(question, pipeline.retriever)
+        if _num_hit and not _num_hit.get("_is_blank"):
+            _tp_meta   = topo.get("topo_pred", {}).get("meta", {})
+            _num_M     = float(_tp_meta.get("M") or 0)
+            _num_O     = float(_tp_meta.get("O") or 0)
+            _num_route = str(_tp_meta.get("deterministic_source_route") or "none")
+            if (
+                _num_M <= 0.15
+                and _num_O <= 0.15
+                and _num_route not in {"runtime_fact", "customer_instance",
+                                       "speculative", "external_artifact"}
+                and (not (ensemble_k > 1) or vote_fraction > 0)   # if ensemble ran, ≥1 run must agree
+                and NumericFactIndex.verify(question, _num_hit["source_text"])
+            ):
+                _val  = str(_num_hit.get("value", "")).strip()
+                _unit = str(_num_hit.get("unit", "")).strip()
+                _num_answer_override = f"{_val} {_unit}".strip() if _unit else _val or None
+                gated_answerable = True
+                gated_reasoning  = _num_hit.get("source_text", "")
+                gated_confidence = "medium"
+                gate_meta = {**gate_meta,
+                             "numeric_bypass": True,
+                             "numeric_similarity": round(_num_hit["_numeric_similarity"], 3)}
+
+    # ── Blank-field detection (literal text scan) ─────────────────────────
+    # If the pipeline returned unanswerable, check whether the reason is a
+    # blank/redacted field (*** or ___) in the retrieved text — as opposed to
+    # the contract simply not addressing the topic.  Only flag blank_field when
+    # the top retrieved node's source_text literally contains the placeholder.
+    _blank_field_detected = False
+    if not gated_answerable:
+        _blank_re = re.compile(r'\*{2,}|_{3,}|\[BLANK\]|\[blank\]', re.IGNORECASE)
+        _top_nodes = result.get("surviving_nodes", [])[:3]
+        if _top_nodes:
+            for _bn in _top_nodes:
+                _bt = str(_bn.get("source_text", "") or _bn.get("description", ""))
+                if _blank_re.search(_bt):
+                    _blank_field_detected = True
+                    break
+
     return {
         "question":        question,
         "answerable":      gated_answerable,
-        "answer":          result["answer"] if gated_answerable else None,
+        "blank_field":     _blank_field_detected,
+        "answer":          ((_num_answer_override or result["answer"]) if gated_answerable else None),
         "confidence":      gated_confidence,
         "reasoning":       gated_reasoning,
         "fact_type":       result.get("fact_type") if gated_answerable else None,
@@ -2418,7 +3015,7 @@ def retrieve(retriever: TypedNodeRetriever, question: str, top_k: int = 20,
 
 def run_query(pipeline: Pipeline, question: str,
               slot_threshold: float = 0.30,
-              retrieval_k: int = 15,
+              retrieval_k: int = 100,
               ensemble_k: int = 3) -> dict:
     """Compatibility wrapper preserving the `run_query()` API name."""
     return query(pipeline, question, slot_threshold=slot_threshold,

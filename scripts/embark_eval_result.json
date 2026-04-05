@@ -1,14 +1,14 @@
 {
   "summary": {
     "total": 40,
-    "accuracy": 0.975,
+    "accuracy": 0.9,
     "confusion_matrix": {
-      "tp": 19,
+      "tp": 16,
       "tn": 20,
       "fp": 0,
-      "fn": 1
+      "fn": 4
     },
-    "total_seconds": 1227.5
+    "total_seconds": 4281.5
   },
   "rows": [
     {
@@ -16,453 +16,486 @@
       "question": "What is the date of this agreement?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8117,
-      "threshold": 0.4693,
+      "score": 0.8112,
+      "threshold": 0.4653,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 6.17
+      "q_seconds": 8.55
     },
     {
       "idx": 2,
       "question": "What is Snap's principal place of business address?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6629,
-      "threshold": 0.5557,
+      "score": 0.6294,
+      "threshold": 0.563,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 40.3
+      "vote_fraction": 1.0,
+      "q_seconds": 134.27
     },
     {
       "idx": 3,
       "question": "What state is Snap Technologies, Inc. incorporated in?",
       "gold_label": "answerable",
-      "predicted_label": "answerable",
-      "score": 0.8951,
-      "threshold": 0.494,
-      "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 19.88
+      "predicted_label": "unanswerable",
+      "score": 0.4963,
+      "threshold": 0.6644,
+      "gate_reason": "q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 387.9
     },
     {
       "idx": 4,
       "question": "What state is United Airlines incorporated in?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7488,
-      "threshold": 0.5557,
+      "score": 0.7466,
+      "threshold": 0.5515,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 44.3
+      "vote_fraction": 1.0,
+      "q_seconds": 249.94
     },
     {
       "idx": 5,
       "question": "What URL is the primary home page of the Snap Web Site?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.4705,
-      "threshold": 0.6769,
+      "score": 0.0,
+      "threshold": 0.0,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 7.84
+      "vote_fraction": null,
+      "q_seconds": 0.8
     },
     {
       "idx": 6,
       "question": "What URL is the primary home page of the Sponsor Web Site?",
       "gold_label": "answerable",
-      "predicted_label": "answerable",
-      "score": 0.4655,
-      "threshold": 0.6271,
+      "predicted_label": "unanswerable",
+      "score": 0.6316,
+      "threshold": 0.5818,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 53.61
+      "q_seconds": 385.63
     },
     {
       "idx": 7,
       "question": "What is the end date of the Term of this agreement?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8308,
-      "threshold": 0.4652,
+      "score": 0.8003,
+      "threshold": 0.4516,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 13.31
+      "q_seconds": 131.11
     },
     {
       "idx": 8,
       "question": "How many days prior written notice is required to terminate for breach?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7579,
-      "threshold": 0.4893,
+      "score": 0.8412,
+      "threshold": 0.4176,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 36.16
+      "q_seconds": 254.7
     },
     {
       "idx": 9,
       "question": "How many days prior to expiration must Sponsor deliver notice to exercise the right of first refusal?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7958,
-      "threshold": 0.4288,
+      "score": 0.6946,
+      "threshold": 0.4798,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 12.52
+      "vote_fraction": 0.333,
+      "q_seconds": 348.14
     },
     {
       "idx": 10,
       "question": "How many days does Snap have to negotiate with Sponsor after Sponsor delivers the right-of-first-refusal notice before Snap is free to deal with third parties?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6774,
-      "threshold": 0.5578,
+      "score": 0.6505,
+      "threshold": 0.545,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 46.32
+      "q_seconds": 8.38
     },
     {
       "idx": 11,
       "question": "Is the license Sponsor grants Snap to use Sponsor Marks revocable?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8715,
+      "score": 0.838,
       "threshold": 0.4,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 20.57
+      "q_seconds": 12.56
     },
     {
       "idx": 12,
       "question": "What governing law applies to this agreement?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.659,
-      "threshold": 0.535,
+      "score": 0.6401,
+      "threshold": 0.5347,
       "gate_reason": "none",
       "vote_fraction": 0.667,
-      "q_seconds": 46.65
+      "q_seconds": 11.8
     },
     {
       "idx": 13,
       "question": "In what city must disputes be brought under this agreement?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.7667,
-      "threshold": 0.5047,
+      "score": 0.7564,
+      "threshold": 0.5003,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 20.05
+      "q_seconds": 9.8
     },
     {
       "idx": 14,
       "question": "For how many years after the Term must the receiving party keep Confidential Information confidential?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7099,
-      "threshold": 0.5339,
+      "score": 0.7117,
+      "threshold": 0.5356,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 53.94
+      "q_seconds": 97.9
     },
     {
       "idx": 15,
       "question": "What types of damages does each party waive under the limitation of liability provision?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8723,
+      "score": 0.8442,
       "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 45.45
+      "vote_fraction": 1.0,
+      "q_seconds": 10.18
     },
     {
       "idx": 16,
       "question": "Does Snap warrant that the Snap Web Site will be free from bugs, faults, or defects?",
       "gold_label": "answerable",
-      "predicted_label": "answerable",
-      "score": 0.7692,
-      "threshold": 0.471,
+      "predicted_label": "unanswerable",
+      "score": 0.4643,
+      "threshold": 0.5998,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 17.47
+      "vote_fraction": 0.0,
+      "q_seconds": 13.61
     },
     {
       "idx": 17,
       "question": "Can either party assign this agreement without consent to a corporate affiliate?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8144,
-      "threshold": 0.4085,
+      "score": 0.8308,
+      "threshold": 0.4025,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 8.92
+      "q_seconds": 137.01
     },
     {
       "idx": 18,
       "question": "Does this agreement create a partnership or joint venture between Snap and United Airlines?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6673,
-      "threshold": 0.5443,
+      "score": 0.6384,
+      "threshold": 0.5536,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 49.82
+      "vote_fraction": 1.0,
+      "q_seconds": 95.34
     },
     {
       "idx": 19,
       "question": "Who retains all right, title and interest in the Snap Web Site?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8635,
-      "threshold": 0.4013,
+      "score": 0.8522,
+      "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 9.91
+      "vote_fraction": 1.0,
+      "q_seconds": 15.66
     },
     {
       "idx": 20,
       "question": "What obligation does Sponsor have to promote and market Snap throughout the Term?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.806,
-      "threshold": 0.4086,
+      "score": 0.7198,
+      "threshold": 0.4761,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 51.44
+      "q_seconds": 132.0
     },
     {
       "idx": 21,
       "question": "What is the Up-Front Fee Sponsor pays to Snap upon execution?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.7209,
-      "threshold": 0.5191,
+      "score": 0.6299,
+      "threshold": 0.5556,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 68.8
+      "q_seconds": 13.03
     },
     {
       "idx": 22,
       "question": "What are the quarterly fee payment amounts Sponsor pays Snap?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.6434,
-      "threshold": 0.573,
+      "score": 0.6959,
+      "threshold": 0.517,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 37.63
+      "q_seconds": 142.55
     },
     {
       "idx": 23,
       "question": "What is the Exclusive Category identified in Exhibit A?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1628,
-      "threshold": 0.7943,
+      "score": 0.1724,
+      "threshold": 0.7096,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 19.39
+      "q_seconds": 134.34
     },
     {
       "idx": 24,
       "question": "What specific Snap Marks are listed in Exhibit B?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0758,
-      "threshold": 0.8194,
+      "score": 0.0866,
+      "threshold": 0.7999,
       "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 55.09
+      "q_seconds": 11.65
     },
     {
       "idx": 25,
       "question": "What specific Sponsor Marks are listed in Exhibit B?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0927,
-      "threshold": 0.7982,
+      "score": 0.0874,
+      "threshold": 0.7902,
       "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 14.11
+      "q_seconds": 133.82
     },
     {
       "idx": 26,
       "question": "What specific content is described in Exhibit C?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0863,
-      "threshold": 0.7967,
+      "score": 0.0857,
+      "threshold": 0.7899,
       "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 47.95
+      "q_seconds": 13.79
     },
     {
       "idx": 27,
       "question": "What specific promotional and marketing services are listed in Exhibit D?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1132,
-      "threshold": 0.7715,
+      "score": 0.0861,
+      "threshold": 0.789,
       "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 45.08
+      "q_seconds": 140.52
     },
     {
       "idx": 28,
       "question": "How many Snap end users have been enrolled in United's frequent flier program under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3785,
-      "threshold": 0.6766,
+      "score": 0.4394,
+      "threshold": 0.6422,
       "gate_reason": "missing_artifact_contents",
       "vote_fraction": 0.0,
-      "q_seconds": 22.19
+      "q_seconds": 143.01
     },
     {
       "idx": 29,
       "question": "Has this agreement been amended since execution?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2046,
-      "threshold": 0.6795,
-      "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,runtime_lookup_missing",
-      "vote_fraction": 1.0,
-      "q_seconds": 55.37
+      "score": 0.1179,
+      "threshold": 0.703,
+      "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
+      "vote_fraction": 0.0,
+      "q_seconds": 257.81
     },
     {
       "idx": 30,
       "question": "What specific travel-related content has been developed for the Co-Branded Pages to date?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1793,
-      "threshold": 0.693,
+      "score": 0.1668,
+      "threshold": 0.6872,
       "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 5.81
+      "q_seconds": 115.62
     },
     {
       "idx": 31,
       "question": "Has any dispute arisen between Snap and United Airlines under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3336,
-      "threshold": 0.6573,
-      "gate_reason": "none",
+      "score": 0.0284,
+      "threshold": 0.7583,
+      "gate_reason": "q2_missing_or_external,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 39.27
+      "q_seconds": 13.17
     },
     {
       "idx": 32,
       "question": "How many page views have the Co-Branded Pages received since launch?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2073,
-      "threshold": 0.7001,
+      "score": 0.1914,
+      "threshold": 0.7023,
       "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,runtime_lookup_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 21.46
+      "q_seconds": 8.22
     },
     {
       "idx": 33,
       "question": "Who is the current CEO of United Airlines?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.026,
-      "threshold": 0.7786,
-      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing",
+      "score": 0.0133,
+      "threshold": 0.8049,
+      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 54.17
+      "q_seconds": 134.72
     },
     {
       "idx": 34,
       "question": "What is United Airlines' current stock price?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2955,
-      "threshold": 0.6621,
-      "gate_reason": "outside_document_intent,q2_missing_or_external",
+      "score": 0.0318,
+      "threshold": 0.783,
+      "gate_reason": "outside_document_intent,q2_missing_or_external,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 5.47
+      "q_seconds": 9.62
     },
     {
       "idx": 35,
       "question": "What is Snap's current number of registered users?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4826,
-      "threshold": 0.6294,
-      "gate_reason": "none",
+      "score": 0.036,
+      "threshold": 0.7239,
+      "gate_reason": "outside_document_intent,q2_missing_or_external,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 54.69
+      "q_seconds": 214.19
     },
     {
       "idx": 36,
       "question": "What is Snap's current annual revenue?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.052,
-      "threshold": 0.7444,
-      "gate_reason": "outside_document_intent,q2_missing_or_external",
+      "score": 0.017,
+      "threshold": 0.8063,
+      "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,outside_document_intent,q2_missing_or_external,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 5.5
+      "q_seconds": 245.66
     },
     {
       "idx": 37,
       "question": "What will happen to this agreement if United Airlines is acquired by another airline?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5916,
-      "threshold": 0.5733,
+      "score": 0.6332,
+      "threshold": 0.5615,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 5.28
+      "q_seconds": 9.0
     },
     {
       "idx": 38,
       "question": "What is Snap's internal assessment of United Airlines' financial reliability?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.342,
-      "threshold": 0.6255,
+      "score": 0.3062,
+      "threshold": 0.6293,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 49.34
+      "q_seconds": 9.59
     },
     {
       "idx": 39,
       "question": "What specific Mileage Plus account integration has been implemented on the Co-Branded Pages?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2349,
-      "threshold": 0.675,
+      "score": 0.1991,
+      "threshold": 0.6806,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 6.2
+      "q_seconds": 75.88
     },
     {
       "idx": 40,
       "question": "What amendments to this agreement have been signed since the Effective Date?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2,
-      "threshold": 0.6617,
+      "score": 0.2161,
+      "threshold": 0.651,
       "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,runtime_lookup_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 10.07
+      "q_seconds": 9.97
     }
   ],
   "errors": [
+    {
+      "idx": 3,
+      "question": "What state is Snap Technologies, Inc. incorporated in?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4963,
+      "threshold": 0.6644,
+      "gate_reason": "q2_missing_or_external",
+      "vote_fraction": 0.0,
+      "q_seconds": 387.9
+    },
+    {
+      "idx": 6,
+      "question": "What URL is the primary home page of the Sponsor Web Site?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6316,
+      "threshold": 0.5818,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 385.63
+    },
     {
       "idx": 13,
       "question": "In what city must disputes be brought under this agreement?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.7667,
-      "threshold": 0.5047,
+      "score": 0.7564,
+      "threshold": 0.5003,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 20.05
+      "q_seconds": 9.8
+    },
+    {
+      "idx": 16,
+      "question": "Does Snap warrant that the Snap Web Site will be free from bugs, faults, or defects?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.4643,
+      "threshold": 0.5998,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 13.61
     }
   ]
 }

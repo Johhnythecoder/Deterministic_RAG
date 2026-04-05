@@ -1,490 +1,468 @@
 {
   "summary": {
     "total": 40,
-    "accuracy": 0.925,
+    "accuracy": 0.975,
     "confusion_matrix": {
-      "tp": 18,
-      "tn": 19,
-      "fp": 1,
-      "fn": 2
+      "tp": 19,
+      "tn": 20,
+      "fp": 0,
+      "fn": 1
     },
-    "total_seconds": 1336.5
+    "total_seconds": 4783.2
   },
   "rows": [
     {
       "idx": 1,
       "question": "What is the Effective Date of this agreement?",
       "gold_label": "answerable",
-      "predicted_label": "answerable",
-      "score": 0.727,
-      "threshold": 0.5217,
+      "predicted_label": "unanswerable",
+      "score": 0.6869,
+      "threshold": 0.5511,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 6.45
+      "vote_fraction": 0.0,
+      "q_seconds": 141.15
     },
     {
       "idx": 2,
       "question": "What state is VerticalNet, Inc. incorporated in?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8979,
-      "threshold": 0.4912,
+      "score": 0.8642,
+      "threshold": 0.491,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 4.18
+      "q_seconds": 131.48
     },
     {
       "idx": 3,
       "question": "What is LeadersOnline's principal place of business address?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.733,
-      "threshold": 0.5856,
+      "score": 0.7769,
+      "threshold": 0.5333,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 33.69
+      "q_seconds": 365.45
     },
     {
       "idx": 4,
       "question": "What is the end date of the initial Term of this agreement?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6537,
-      "threshold": 0.5769,
+      "score": 0.8023,
+      "threshold": 0.4671,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 22.57
+      "q_seconds": 256.92
     },
     {
       "idx": 5,
       "question": "On which specific pages of the LeadersOnline Site must the VerticalNet Branded Link appear?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8751,
+      "score": 0.8917,
       "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 47.53
+      "vote_fraction": 0.667,
+      "q_seconds": 256.36
     },
     {
       "idx": 6,
       "question": "Is the Mark License granted to LeadersOnline exclusive or non-exclusive?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.9029,
+      "score": 0.8964,
       "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 17.9
+      "vote_fraction": 0.667,
+      "q_seconds": 255.08
     },
     {
       "idx": 7,
       "question": "To which URL does the Link License direct users?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.5692,
-      "threshold": 0.5799,
+      "score": 0.6474,
+      "threshold": 0.5446,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 37.89
+      "q_seconds": 140.45
     },
     {
       "idx": 8,
       "question": "For how long must VerticalNet place a purchased Banner on the HR Site Home Page?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.5202,
-      "threshold": 0.6004,
+      "score": 0.7939,
+      "threshold": 0.4717,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 21.59
+      "q_seconds": 262.78
     },
     {
       "idx": 9,
       "question": "How many times per calendar quarter may LeadersOnline contact a Resume Bank candidate?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.771,
-      "threshold": 0.4618,
+      "score": 0.833,
+      "threshold": 0.4597,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 45.17
+      "q_seconds": 383.29
     },
     {
       "idx": 10,
       "question": "Within how many days must LeadersOnline pay an underpayment identified by an audit?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7349,
-      "threshold": 0.5094,
+      "score": 0.0,
+      "threshold": 0.0,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 57.74
+      "vote_fraction": null,
+      "q_seconds": 4.1
     },
     {
       "idx": 11,
       "question": "Within how many days must VerticalNet return an overpayment identified by an audit?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6952,
-      "threshold": 0.514,
+      "score": 0.0,
+      "threshold": 0.0,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 18.96
+      "vote_fraction": null,
+      "q_seconds": 0.44
     },
     {
       "idx": 12,
       "question": "What interest rate applies to payments not paid by their due date?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8524,
-      "threshold": 0.4744,
+      "score": 0.0,
+      "threshold": 0.0,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 33.94
+      "vote_fraction": null,
+      "q_seconds": 0.79
     },
     {
       "idx": 13,
       "question": "How many days does a breaching party have to cure a material breach before the other party may terminate?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6743,
-      "threshold": 0.5394,
+      "score": 0.7938,
+      "threshold": 0.4638,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 19.06
+      "q_seconds": 10.98
     },
     {
       "idx": 14,
       "question": "How many days before the end of the initial Term must LeadersOnline notify VerticalNet to exercise the renewal option?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7317,
-      "threshold": 0.5116,
+      "score": 0.7294,
+      "threshold": 0.5093,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 47.18
+      "q_seconds": 98.61
     },
     {
       "idx": 15,
       "question": "In what city will arbitration be held under this agreement?",
       "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.3816,
-      "threshold": 0.6617,
+      "predicted_label": "answerable",
+      "score": 0.6628,
+      "threshold": 0.5615,
       "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 20.19
+      "vote_fraction": 1.0,
+      "q_seconds": 10.25
     },
     {
       "idx": 16,
       "question": "Who appoints the arbitrator, and how long do the parties have to agree on one?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7726,
-      "threshold": 0.4963,
+      "score": 0.8048,
+      "threshold": 0.4929,
       "gate_reason": "none",
-      "vote_fraction": 0.333,
-      "q_seconds": 63.51
+      "vote_fraction": 1.0,
+      "q_seconds": 134.19
     },
     {
       "idx": 17,
       "question": "What types of damages is the arbitrator prohibited from awarding?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8417,
-      "threshold": 0.4394,
+      "score": 0.8389,
+      "threshold": 0.4326,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 49.42
+      "q_seconds": 133.96
     },
     {
       "idx": 18,
       "question": "What is the limitations period for bringing a claim under this agreement?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.762,
-      "threshold": 0.4765,
+      "score": 0.7708,
+      "threshold": 0.4493,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 11.25
+      "q_seconds": 14.36
     },
     {
       "idx": 19,
       "question": "How are the costs and expenses of the arbitrator shared between the parties?",
       "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.8222,
-      "threshold": 0.4824,
+      "predicted_label": "answerable",
+      "score": 0.8887,
+      "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 50.97
+      "vote_fraction": 1.0,
+      "q_seconds": 136.24
     },
     {
       "idx": 20,
       "question": "For how many months after termination is LeadersOnline still obligated to pay placement fees under Section 6.3.2?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6733,
-      "threshold": 0.5091,
+      "score": 0.7815,
+      "threshold": 0.4494,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 46.2
+      "q_seconds": 132.63
     },
     {
       "idx": 21,
       "question": "What is the total dollar amount of the Banner and Newsletter Ad purchase commitment?",
       "gold_label": "unanswerable",
-      "predicted_label": "answerable",
-      "score": 0.5368,
-      "threshold": 0.6106,
+      "predicted_label": "unanswerable",
+      "score": 0.6289,
+      "threshold": 0.5663,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 18.98
+      "vote_fraction": 0.0,
+      "q_seconds": 15.48
     },
     {
       "idx": 22,
       "question": "What percentage discount does LeadersOnline receive on Banner and Newsletter Ad purchases?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2036,
-      "threshold": 0.6879,
+      "score": 0.2859,
+      "threshold": 0.6756,
       "gate_reason": "commercial_terms_not_instantiated,q2_missing_or_external",
-      "vote_fraction": 0.333,
-      "q_seconds": 43.92
+      "vote_fraction": 0.0,
+      "q_seconds": 141.19
     },
     {
       "idx": 23,
       "question": "What is the revenue share percentage LeadersOnline must pay VerticalNet under Section 6.3.1?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.7955,
-      "threshold": 0.5406,
+      "score": 0.7897,
+      "threshold": 0.4907,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 20.44
+      "q_seconds": 147.17
     },
     {
       "idx": 24,
       "question": "What is the slotting fee for Employer Spotlights under Section 6.1.1?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4877,
-      "threshold": 0.6502,
+      "score": 0.3887,
+      "threshold": 0.6874,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 51.41
+      "q_seconds": 264.34
     },
     {
       "idx": 25,
       "question": "What is the license fee for access to the Resume Bank under Section 6.1.3?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5759,
-      "threshold": 0.5804,
+      "score": 0.5592,
+      "threshold": 0.5715,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 12.16
+      "vote_fraction": 0.0,
+      "q_seconds": 11.1
     },
     {
       "idx": 26,
       "question": "What is the first installment payment amount due on the Effective Date?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5518,
-      "threshold": 0.6077,
+      "score": 0.6443,
+      "threshold": 0.5617,
       "gate_reason": "none",
-      "vote_fraction": 0.333,
-      "q_seconds": 49.73
+      "vote_fraction": 0.0,
+      "q_seconds": 258.77
     },
     {
       "idx": 27,
       "question": "What is the Guaranteed Revenue amount VerticalNet promises under Section 6.5?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4973,
-      "threshold": 0.609,
+      "score": 0.6506,
+      "threshold": 0.5569,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 7.97
+      "q_seconds": 138.12
     },
     {
       "idx": 28,
       "question": "What are the specific placement fee amounts for candidates with salaries below the first salary tier?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4923,
-      "threshold": 0.5968,
+      "score": 0.4961,
+      "threshold": 0.6116,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 38.44
+      "q_seconds": 261.07
     },
     {
       "idx": 29,
       "question": "What is the total LeadersOnline-VerticalNet Revenue earned to date under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2214,
-      "threshold": 0.6802,
+      "score": 0.2303,
+      "threshold": 0.6773,
       "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 21.44
+      "q_seconds": 115.52
     },
     {
       "idx": 30,
       "question": "How many VerticalNet-LeadersOnline Clients have been generated since the Effective Date?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2966,
-      "threshold": 0.6618,
+      "score": 0.3206,
+      "threshold": 0.6452,
       "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 54.68
+      "q_seconds": 12.75
     },
     {
       "idx": 31,
       "question": "Who are the authorized signatories who executed this agreement on behalf of each party?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.781,
-      "threshold": 0.5069,
+      "score": 0.6772,
+      "threshold": 0.5332,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 62.38
+      "q_seconds": 10.51
     },
     {
       "idx": 32,
       "question": "Has this agreement been renewed for a Renewal Term?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.6809,
-      "threshold": 0.5728,
+      "score": 0.3857,
+      "threshold": 0.6495,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 56.61
+      "q_seconds": 258.76
     },
     {
       "idx": 33,
       "question": "What is VerticalNet's current stock price?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3296,
-      "threshold": 0.6324,
-      "gate_reason": "outside_document_intent,q2_missing_or_external",
+      "score": 0.0623,
+      "threshold": 0.7233,
+      "gate_reason": "outside_document_intent,q2_missing_or_external,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 9.97
+      "q_seconds": 7.4
     },
     {
       "idx": 34,
       "question": "How many total Online Communities does VerticalNet operate?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1471,
-      "threshold": 0.7337,
-      "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,missing_artifact_contents,q2_missing_or_external",
+      "score": 0.5041,
+      "threshold": 0.6177,
+      "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 57.42
+      "q_seconds": 130.29
     },
     {
       "idx": 35,
       "question": "What specific industries does each VerticalNet Online Community cover?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4603,
-      "threshold": 0.6818,
+      "score": 0.5224,
+      "threshold": 0.6094,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 5.24
+      "q_seconds": 9.31
     },
     {
       "idx": 36,
       "question": "What is VerticalNet's current Privacy Policy for the Resume Bank?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1142,
-      "threshold": 0.7536,
+      "score": 0.1165,
+      "threshold": 0.7457,
       "gate_reason": "external_artifact_contents_missing,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 55.41
+      "q_seconds": 10.57
     },
     {
       "idx": 37,
       "question": "Has any arbitration proceeding been commenced under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3159,
-      "threshold": 0.6662,
-      "gate_reason": "missing_artifact_contents",
+      "score": 0.6018,
+      "threshold": 0.5781,
+      "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 53.74
+      "q_seconds": 7.49
     },
     {
       "idx": 38,
       "question": "What amendments to this agreement have been signed since the Effective Date?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1598,
-      "threshold": 0.6881,
+      "score": 0.1774,
+      "threshold": 0.6804,
       "gate_reason": "instance_or_runtime_missing,runtime_lookup_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 6.43
+      "q_seconds": 99.01
     },
     {
       "idx": 39,
       "question": "What is LeadersOnline's current number of registered users?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.6026,
-      "threshold": 0.5696,
-      "gate_reason": "none",
+      "score": 0.2633,
+      "threshold": 0.6308,
+      "gate_reason": "outside_document_intent,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 5.55
+      "q_seconds": 7.24
     },
     {
       "idx": 40,
       "question": "What will happen to VerticalNet's Online Communities if the internet advertising market collapses?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0595,
-      "threshold": 0.6897,
+      "score": 0.0417,
+      "threshold": 0.7289,
       "gate_reason": "outside_document_intent,q2_missing_or_external,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 49.17
+      "q_seconds": 7.49
     }
   ],
   "errors": [
     {
-      "idx": 15,
-      "question": "In what city will arbitration be held under this agreement?",
+      "idx": 1,
+      "question": "What is the Effective Date of this agreement?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.3816,
-      "threshold": 0.6617,
+      "score": 0.6869,
+      "threshold": 0.5511,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 20.19
-    },
-    {
-      "idx": 19,
-      "question": "How are the costs and expenses of the arbitrator shared between the parties?",
-      "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.8222,
-      "threshold": 0.4824,
-      "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 50.97
-    },
-    {
-      "idx": 21,
-      "question": "What is the total dollar amount of the Banner and Newsletter Ad purchase commitment?",
-      "gold_label": "unanswerable",
-      "predicted_label": "answerable",
-      "score": 0.5368,
-      "threshold": 0.6106,
-      "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 18.98
+      "q_seconds": 141.15
     }
   ]
 }

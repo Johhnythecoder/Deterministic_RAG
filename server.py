@@ -5,6 +5,7 @@ import math
 import os
 import re
 import time
+from collections import defaultdict, deque
 from datetime import datetime, timezone
 from pathlib import Path
 from threading import Lock, Thread
@@ -12,7 +13,7 @@ from typing import Any
 from uuid import uuid4
 
 import requests
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pypdf import PdfReader
@@ -82,9 +83,63 @@ app.mount("/web", StaticFiles(directory=str(WEB_DIR)), name="web")
 
 _prep_jobs: dict[str, dict[str, Any]] = {}
 _job_lock = Lock()
+_prep_runtime_lock = Lock()
+_prep_runtime_model: dict[str, Any] = {
+    "sec_per_page_ema": 2.6,
+    "samples": 0,
+}
+_prep_phase_model: dict[str, Any] = {
+    "setup_sec_ema": 10.0,
+    "sec_per_chunk_ema": 2.2,
+    "post_base_sec_ema": 6.0,
+    "post_sec_per_1k_nodes_ema": 10.0,
+    "post_sec_per_llm_call_ema": 1.2,
+    "samples": 0,
+}
 _doc_tokens: dict[str, Path] = {}
 _prepared_index: list[dict[str, Any]] = []
 _telemetry_lock = Lock()
+_access_code = (os.getenv("APP_ACCESS_CODE") or "").strip()
+_rate_window_sec = max(10, int(os.getenv("API_RATE_WINDOW_SEC") or 60))
+_rate_limit_general = max(10, int(os.getenv("API_RATE_LIMIT_REQS") or 120))
+_rate_limit_ask = max(5, int(os.getenv("API_RATE_LIMIT_ASK_REQS") or 60))
+_rate_limit_prepare = max(1, int(os.getenv("API_RATE_LIMIT_PREPARE_REQS") or 8))
+_rate_events: dict[str, deque[float]] = defaultdict(deque)
+_rate_lock = Lock()
+
+
+def _client_ip(request: Request) -> str:
+    xff = (request.headers.get("x-forwarded-for") or "").strip()
+    if xff:
+        return xff.split(",")[0].strip()
+    return (request.client.host if request.client else "unknown") or "unknown"
+
+
+def _enforce_access(request: Request, access_code: str | None = None) -> None:
+    """Optional server-side access control when APP_ACCESS_CODE is set."""
+    if not _access_code:
+        return
+    provided = (
+        (access_code or "").strip()
+        or (request.headers.get("x-access-code") or "").strip()
+        or (request.query_params.get("access_code") or "").strip()
+    )
+    if provided != _access_code:
+        raise HTTPException(status_code=401, detail="Unauthorized: invalid access code.")
+
+
+def _enforce_rate_limit(request: Request, bucket: str, limit: int, window_sec: int | None = None) -> None:
+    """Simple in-memory per-IP rate limit."""
+    window = window_sec or _rate_window_sec
+    now = time.time()
+    key = f"{bucket}:{_client_ip(request)}"
+    with _rate_lock:
+        dq = _rate_events[key]
+        while dq and now - dq[0] > window:
+            dq.popleft()
+        if len(dq) >= limit:
+            raise HTTPException(status_code=429, detail="Rate limit exceeded. Please retry shortly.")
+        dq.append(now)
 
 
 def _safe_name(name: str) -> str:
@@ -174,21 +229,89 @@ def _list_saved_docs() -> list[dict[str, Any]]:
     return docs
 
 
+def _pdf_page_count(pdf_path: Path) -> int:
+    try:
+        return max(1, len(PdfReader(str(pdf_path)).pages))
+    except Exception:
+        return 12
+
+
 def _estimate_prep_seconds(pdf_path: Path) -> int:
-    """Heuristic ETA for first pipeline load; cached docs are much faster."""
+    """ETA model using page count + adaptive per-page runtime from recent jobs."""
     if cache.has(pdf_path):
         return 5
-    try:
-        n_pages = len(PdfReader(str(pdf_path)).pages)
-    except Exception:
-        n_pages = 12
-    # Baseline + per-page cost for extraction, embeddings, graph build.
-    return max(12, min(240, int(10 + 2.6 * max(1, n_pages))))
+    n_pages = _pdf_page_count(pdf_path)
+    with _prep_runtime_lock:
+        sec_per_page = float(_prep_runtime_model.get("sec_per_page_ema") or 2.6)
+        samples = int(_prep_runtime_model.get("samples") or 0)
+    baseline = 12 if samples < 3 else 10
+    # Slightly increase for very large files where graph build and retries dominate.
+    large_doc_penalty = 0.0 if n_pages < 80 else 0.15 * (n_pages - 79)
+    est = int(baseline + sec_per_page * n_pages + large_doc_penalty)
+    # Permit larger ETAs for long contracts while avoiding runaway values.
+    return max(12, min(1200, est))
+
+
+def _record_prep_runtime(n_pages: int, elapsed_sec: float) -> None:
+    """Update in-memory ETA model from observed completed jobs."""
+    if n_pages <= 0 or elapsed_sec <= 0:
+        return
+    observed = float(elapsed_sec) / float(max(1, n_pages))
+    observed = max(0.8, min(20.0, observed))
+    with _prep_runtime_lock:
+        prev = float(_prep_runtime_model.get("sec_per_page_ema") or 2.6)
+        samples = int(_prep_runtime_model.get("samples") or 0)
+        alpha = 0.25 if samples < 8 else 0.12
+        _prep_runtime_model["sec_per_page_ema"] = prev * (1.0 - alpha) + observed * alpha
+        _prep_runtime_model["samples"] = samples + 1
+
+
+def _record_phase_runtime(
+    total_chunks: int,
+    started_at: float,
+    first_extract_at: float | None,
+    done_extract_at: float | None,
+    nodes_created: int,
+    llm_calls_actual: int,
+    finished_at: float,
+) -> None:
+    """Learn phase timing model: setup + extraction (sec/chunk) + post tail."""
+    if started_at <= 0 or finished_at <= started_at:
+        return
+    elapsed = max(1.0, finished_at - started_at)
+    tc = max(1, int(total_chunks or 0))
+
+    if first_extract_at and first_extract_at > started_at:
+        setup_sec = max(0.5, min(120.0, first_extract_at - started_at))
+    else:
+        setup_sec = max(0.5, min(120.0, elapsed * 0.18))
+
+    if done_extract_at and first_extract_at and done_extract_at > first_extract_at:
+        extract_sec = max(1.0, min(elapsed, done_extract_at - first_extract_at))
+    else:
+        extract_sec = max(1.0, min(elapsed, elapsed * 0.66))
+
+    post_sec = max(0.5, min(elapsed, elapsed - setup_sec - extract_sec))
+    sec_per_chunk = max(0.3, min(30.0, extract_sec / tc))
+
+    with _prep_runtime_lock:
+        smp = int(_prep_phase_model.get("samples") or 0)
+        alpha = 0.28 if smp < 8 else 0.12
+        _prep_phase_model["setup_sec_ema"] = float(_prep_phase_model.get("setup_sec_ema") or 10.0) * (1.0 - alpha) + setup_sec * alpha
+        _prep_phase_model["sec_per_chunk_ema"] = float(_prep_phase_model.get("sec_per_chunk_ema") or 2.2) * (1.0 - alpha) + sec_per_chunk * alpha
+        _prep_phase_model["post_base_sec_ema"] = float(_prep_phase_model.get("post_base_sec_ema") or 6.0) * (1.0 - alpha) + (post_sec * 0.35) * alpha
+        if nodes_created > 0:
+            obs_node_coef = max(0.2, min(120.0, (post_sec * 1000.0) / float(nodes_created)))
+            _prep_phase_model["post_sec_per_1k_nodes_ema"] = float(_prep_phase_model.get("post_sec_per_1k_nodes_ema") or 10.0) * (1.0 - alpha) + obs_node_coef * alpha
+        if llm_calls_actual > 0:
+            obs_llm_coef = max(0.2, min(40.0, post_sec / float(llm_calls_actual)))
+            _prep_phase_model["post_sec_per_llm_call_ema"] = float(_prep_phase_model.get("post_sec_per_llm_call_ema") or 1.2) * (1.0 - alpha) + obs_llm_coef * alpha
+        _prep_phase_model["samples"] = smp + 1
 
 
 def _llm_preflight_error() -> str | None:
     """Return error string when no viable LLM backend is configured."""
-    has_openai = bool(os.getenv("OPENAI_API_KEY") or os.getenv("AZURE_OPENAI_API_KEY"))
+    has_openai = bool(os.getenv("OPENAI_API_KEY"))
     if has_openai:
         return None
 
@@ -202,8 +325,8 @@ def _llm_preflight_error() -> str | None:
     except Exception:
         pass
     return (
-        "No OpenAI/Azure key found and Ollama is unreachable. "
-        "Set OPENAI_API_KEY (or Azure vars) in .env, or run Ollama locally."
+        "No OpenAI key found and Ollama is unreachable. "
+        "Set OPENAI_API_KEY in .env, or run Ollama locally."
     )
 
 
@@ -239,18 +362,21 @@ def _shape_response(result: dict) -> dict:
             reason = "No evidence in the uploaded contract supports this answer."
 
     topo = result.get("topo_pred") or {}
+    gate = result.get("answerability_gate") or {}
+
     metadata: dict[str, Any] = {
         "confidence": result.get("confidence"),
+        "topology_score": topo.get("score"),
+        "topology_predicted": topo.get("predicted"),
+        "gate_failures": gate.get("failures") or [],
+        "slot_score": result.get("slot_score"),
+        "vote_fraction": result.get("vote_fraction"),
     }
-    gate = result.get("answerability_gate") or {}
     if gate:
         metadata["gate_mode"] = gate.get("mode")
-        metadata["gate_failures"] = gate.get("failures")
         metadata["llm_answerable_raw"] = result.get("llm_answerable_raw")
         metadata["llm_confidence_raw"] = result.get("llm_confidence_raw")
     if topo.get("score") is not None:
-        metadata["topology_score"] = topo.get("score")
-        metadata["topology_predicted"] = topo.get("predicted")
         metadata["topology_confidence"] = topo.get("confidence")
         metadata["topology_threshold"] = topo.get("threshold")
 
@@ -258,7 +384,7 @@ def _shape_response(result: dict) -> dict:
         "answerable": answerable,
         "short_answer": short_answer,
         "reason": reason,
-        "supporting_clauses": _pick_supporting_clauses(result),
+        "supporting_clauses": _pick_supporting_clauses(result) if answerable else [],
         "metadata": metadata,
     }
 
@@ -456,7 +582,25 @@ def _run_prepare_job(job_id: str, pdf_path: Path) -> None:
                 "nodes_created": 0,
                 "llm_chunks_seen": 0,
                 "llm_calls_actual": 0,
+                "first_extract_at": None,
+                "done_extract_at": None,
+                "embedding_started_at": None,
             }
+
+        # Fast path: reuse in-memory prepared pipeline when available.
+        if cache.has(pdf_path):
+            pipeline = cache.get(pdf_path)
+            token = uuid4().hex
+            _register_prepared_doc(token, pdf_path)
+            with _job_lock:
+                _prep_jobs[job_id]["status"] = "done"
+                _prep_jobs[job_id]["doc_token"] = token
+                _prep_jobs[job_id]["finished_at"] = time.time()
+                _prep_jobs[job_id]["metrics"]["stage"] = "done_extract"
+                _prep_jobs[job_id]["metrics"]["llm_calls_actual"] = 0
+                _prep_jobs[job_id]["metrics"]["done_extract_at"] = _prep_jobs[job_id]["finished_at"]
+            return
+
         reset_llm_call_count()
 
         def _progress_cb(payload: dict[str, Any]) -> None:
@@ -468,6 +612,14 @@ def _run_prepare_job(job_id: str, pdf_path: Path) -> None:
                 for k in ("stage", "total_chunks", "extracted_chunks", "nodes_created", "llm_chunks_seen"):
                     if k in payload:
                         metrics[k] = payload[k]
+                stage = str(metrics.get("stage") or "").strip().lower()
+                now = time.time()
+                if stage == "extracting" and not metrics.get("first_extract_at"):
+                    metrics["first_extract_at"] = now
+                if stage == "done_extract" and not metrics.get("done_extract_at"):
+                    metrics["done_extract_at"] = now
+                if stage == "embedding_nodes" and not metrics.get("embedding_started_at"):
+                    metrics["embedding_started_at"] = now
                 metrics["llm_calls_actual"] = get_llm_call_count()
 
         pipeline = load_pdf(pdf_path, progress_cb=_progress_cb)
@@ -479,6 +631,26 @@ def _run_prepare_job(job_id: str, pdf_path: Path) -> None:
             _prep_jobs[job_id]["doc_token"] = token
             _prep_jobs[job_id]["finished_at"] = time.time()
             _prep_jobs[job_id]["metrics"]["llm_calls_actual"] = get_llm_call_count()
+            started_at = float(_prep_jobs[job_id].get("started_at") or 0.0)
+            finished_at = float(_prep_jobs[job_id].get("finished_at") or time.time())
+            n_pages = int(_prep_jobs[job_id].get("pages") or 0)
+            m = _prep_jobs[job_id].get("metrics") or {}
+            total_chunks = int(m.get("total_chunks") or 0)
+            first_extract_at = m.get("first_extract_at")
+            done_extract_at = m.get("done_extract_at")
+            nodes_created = int(m.get("nodes_created") or 0)
+            llm_calls_actual = int(m.get("llm_calls_actual") or 0)
+        if started_at > 0 and finished_at >= started_at:
+            _record_prep_runtime(n_pages=n_pages, elapsed_sec=finished_at - started_at)
+            _record_phase_runtime(
+                total_chunks=total_chunks,
+                started_at=started_at,
+                first_extract_at=float(first_extract_at) if first_extract_at else None,
+                done_extract_at=float(done_extract_at) if done_extract_at else None,
+                nodes_created=nodes_created,
+                llm_calls_actual=llm_calls_actual,
+                finished_at=finished_at,
+            )
     except Exception as exc:
         with _job_lock:
             _prep_jobs[job_id]["status"] = "error"
@@ -488,27 +660,81 @@ def _run_prepare_job(job_id: str, pdf_path: Path) -> None:
 
 
 @app.get("/")
-def root() -> FileResponse:
+def root():
     return FileResponse(str(WEB_DIR / "index.html"))
 
 
 @app.get("/api/health")
-def health() -> dict:
+def health(request: Request) -> dict:
+    _enforce_rate_limit(request, "health", _rate_limit_general)
     return {"ok": True}
 
 
 @app.get("/api/demo-docs")
-def demo_docs() -> dict:
-    return {"documents": _collect_demo_docs()}
+def demo_docs(request: Request) -> dict:
+    _enforce_access(request)
+    _enforce_rate_limit(request, "demo_docs", _rate_limit_general)
+    docs = _collect_demo_docs()
+    # Attach token if the doc is already prepared (enables instant load in UI)
+    name_to_token: dict[str, str] = {
+        str(item.get("name") or ""): str(item.get("token") or "")
+        for item in _prepared_index
+        if item.get("token") and item.get("name")
+    }
+    for doc in docs:
+        doc["token"] = name_to_token.get(doc["name"], "")
+    return {"documents": docs}
 
 
 @app.get("/api/saved-docs")
-def saved_docs() -> dict:
+def saved_docs(request: Request) -> dict:
+    _enforce_access(request)
+    _enforce_rate_limit(request, "saved_docs", _rate_limit_general)
     return {"documents": _list_saved_docs()}
 
 
+@app.get("/api/prepared-doc/{doc_token}")
+def prepared_doc(doc_token: str, request: Request, access_code: str | None = None):
+    _enforce_access(request, access_code=access_code)
+    _enforce_rate_limit(request, "prepared_doc", _rate_limit_general)
+    pdf_path = _resolve_pdf(sample_name=None, file=None, doc_token=doc_token)
+    return FileResponse(str(pdf_path), media_type="application/pdf", filename=pdf_path.name)
+
+
+@app.get("/api/prepared-nodes/{doc_token}")
+def prepared_nodes(doc_token: str, request: Request, access_code: str | None = None):
+    _enforce_access(request, access_code=access_code)
+    _enforce_rate_limit(request, "prepared_nodes", _rate_limit_general)
+    pdf_path = _resolve_pdf(sample_name=None, file=None, doc_token=doc_token)
+    nodes_path = pdf_path.parent / f"{pdf_path.stem}_typed_nodes.json"
+    if not nodes_path.exists():
+        raise HTTPException(status_code=404, detail="Nodes JSON not found for this document.")
+    return FileResponse(str(nodes_path), media_type="application/json", filename=nodes_path.name)
+
+
+@app.get("/api/sample-doc/{sample_name:path}")
+def sample_doc(sample_name: str, request: Request, access_code: str | None = None):
+    _enforce_access(request, access_code=access_code)
+    _enforce_rate_limit(request, "sample_doc", _rate_limit_general)
+    pdf_path = _resolve_pdf(sample_name=sample_name, file=None, doc_token=None)
+    return FileResponse(str(pdf_path), media_type="application/pdf", filename=pdf_path.name)
+
+
+@app.get("/api/sample-nodes/{sample_name:path}")
+def sample_nodes(sample_name: str, request: Request, access_code: str | None = None):
+    _enforce_access(request, access_code=access_code)
+    _enforce_rate_limit(request, "sample_nodes", _rate_limit_general)
+    pdf_path = _resolve_pdf(sample_name=sample_name, file=None, doc_token=None)
+    nodes_path = pdf_path.parent / f"{pdf_path.stem}_typed_nodes.json"
+    if not nodes_path.exists():
+        raise HTTPException(status_code=404, detail="Nodes JSON not found for this sample.")
+    return FileResponse(str(nodes_path), media_type="application/json", filename=nodes_path.name)
+
+
 @app.get("/api/topology-telemetry")
-def topology_telemetry(limit: int = 100) -> dict:
+def topology_telemetry(request: Request, limit: int = 100) -> dict:
+    _enforce_access(request)
+    _enforce_rate_limit(request, "topology_telemetry", _rate_limit_general)
     lim = max(1, min(1000, int(limit)))
     events = _read_recent_topology_events(lim)
     return {
@@ -520,14 +746,18 @@ def topology_telemetry(limit: int = 100) -> dict:
 
 @app.post("/api/prepare-doc")
 def prepare_doc(
+    request: Request,
     sample_name: str | None = Form(default=None),
     file: UploadFile | None = File(default=None),
 ) -> dict:
+    _enforce_access(request)
+    _enforce_rate_limit(request, "prepare_doc", _rate_limit_prepare)
     preflight_err = _llm_preflight_error()
     if preflight_err:
         raise HTTPException(status_code=400, detail=preflight_err)
 
     pdf_path = _resolve_pdf(sample_name=sample_name, file=file)
+    n_pages = _pdf_page_count(pdf_path)
     estimate_sec = _estimate_prep_seconds(pdf_path)
     job_id = uuid4().hex
     with _job_lock:
@@ -538,6 +768,7 @@ def prepare_doc(
             "started_at": None,
             "finished_at": None,
             "estimate_sec": estimate_sec,
+            "pages": n_pages,
             "document": pdf_path.name,
             "error": None,
             "doc_token": None,
@@ -548,6 +779,9 @@ def prepare_doc(
                 "nodes_created": 0,
                 "llm_chunks_seen": 0,
                 "llm_calls_actual": 0,
+                "first_extract_at": None,
+                "done_extract_at": None,
+                "embedding_started_at": None,
             },
         }
     t = Thread(target=_run_prepare_job, args=(job_id, pdf_path), daemon=True)
@@ -561,7 +795,9 @@ def prepare_doc(
 
 
 @app.get("/api/prepare-doc/{job_id}")
-def prepare_doc_status(job_id: str) -> dict:
+def prepare_doc_status(job_id: str, request: Request) -> dict:
+    _enforce_access(request)
+    _enforce_rate_limit(request, "prepare_status", _rate_limit_general)
     with _job_lock:
         job = _prep_jobs.get(job_id)
         if not job:
@@ -570,30 +806,137 @@ def prepare_doc_status(job_id: str) -> dict:
 
     status = payload["status"]
     estimate = max(1, int(payload.get("estimate_sec") or 30))
+    now_ts = time.time()
     started = payload.get("started_at")
     elapsed = 0.0
     if started:
-        elapsed = max(0.0, time.time() - float(started))
+        elapsed = max(0.0, now_ts - float(started))
     elif payload.get("created_at"):
-        elapsed = max(0.0, time.time() - float(payload["created_at"]))
+        elapsed = max(0.0, now_ts - float(payload["created_at"]))
+
+    metrics = payload.get("metrics") or {}
+    total_chunks = int(metrics.get("total_chunks") or 0)
+    extracted_chunks = int(metrics.get("extracted_chunks") or 0)
+    nodes_created = int(metrics.get("nodes_created") or 0)
+    llm_calls_actual = int(metrics.get("llm_calls_actual") or 0)
+    if total_chunks > 0:
+        llm_calls_estimated_total = total_chunks + 3
+    else:
+        llm_calls_estimated_total = int(payload.get("estimate_sec", 0) / 8) + 3
+    llm_calls_estimated_total = max(llm_calls_estimated_total, llm_calls_actual, 1)
+    chunk_progress = min(1.0, extracted_chunks / total_chunks) if total_chunks > 0 else 0.0
+    llm_progress = min(1.0, llm_calls_actual / llm_calls_estimated_total)
+    stage = str(metrics.get("stage") or "").strip().lower()
+    first_extract_at = float(metrics.get("first_extract_at")) if metrics.get("first_extract_at") else None
+    done_extract_at = float(metrics.get("done_extract_at")) if metrics.get("done_extract_at") else None
+    embedding_started_at = float(metrics.get("embedding_started_at")) if metrics.get("embedding_started_at") else None
+    with _prep_runtime_lock:
+        setup_sec_ema = float(_prep_phase_model.get("setup_sec_ema") or 10.0)
+        sec_per_chunk_ema = float(_prep_phase_model.get("sec_per_chunk_ema") or 2.2)
+        post_base_sec_ema = float(_prep_phase_model.get("post_base_sec_ema") or 6.0)
+        post_sec_per_1k_nodes_ema = float(_prep_phase_model.get("post_sec_per_1k_nodes_ema") or 10.0)
+        post_sec_per_llm_call_ema = float(_prep_phase_model.get("post_sec_per_llm_call_ema") or 1.2)
+
+    # Stage-aware floor used to stabilize progress display.
+    stage_floor = {
+        "queued": 0.01,
+        "start_load": 0.03,
+        "metadata": 0.08,
+        "extracting": 0.14,
+        "retrying_zero_chunks": 0.78,
+        "metadata_injected": 0.82,
+        "gap_audit": 0.84,
+        "entity_resolution": 0.87,
+        "summary_injected": 0.88,
+        "expand_condition_numerics": 0.90,
+        "signature_extract": 0.93,
+        "graph_build": 0.90,
+        "done_extract": 0.93,
+        "embedding_nodes": 0.98,
+        "ready": 0.995,
+        "load_cached_artifacts": 0.90,
+    }.get(stage, 0.05)
+    observed_progress = max(stage_floor, 0.10 + 0.78 * chunk_progress + 0.12 * llm_progress)
+
+    # Rate-based ETA model: setup + remaining extraction chunks + post-extraction tail.
+    remaining_model: int | None = None
+    if status == "running":
+        rem_setup = 0.0
+        rem_extract = 0.0
+
+        if not first_extract_at:
+            rem_setup = max(0.0, setup_sec_ema - elapsed)
+
+        if total_chunks > 0 and stage not in {"done_extract", "embedding_nodes", "ready"}:
+            rem_chunks = max(0, total_chunks - extracted_chunks)
+            observed_sec_per_chunk = None
+            if first_extract_at and extracted_chunks > 0:
+                extract_elapsed = max(0.0, now_ts - first_extract_at)
+                if extract_elapsed >= 0.8:
+                    observed_sec_per_chunk = extract_elapsed / max(1, extracted_chunks)
+            if observed_sec_per_chunk is None:
+                sec_per_chunk_est = sec_per_chunk_ema
+            elif extracted_chunks >= 5:
+                sec_per_chunk_est = 0.70 * observed_sec_per_chunk + 0.30 * sec_per_chunk_ema
+            else:
+                sec_per_chunk_est = 0.40 * observed_sec_per_chunk + 0.60 * sec_per_chunk_ema
+            sec_per_chunk_est = max(0.3, min(30.0, sec_per_chunk_est))
+            rem_extract = rem_chunks * sec_per_chunk_est
+
+        # Estimate total nodes from observed extraction density.
+        if total_chunks > 0 and extracted_chunks > 0:
+            nodes_per_chunk = nodes_created / max(1, extracted_chunks)
+            predicted_total_nodes = int(max(nodes_created, round(nodes_per_chunk * total_chunks)))
+        else:
+            # Fallback prior when no chunk data is available yet.
+            predicted_total_nodes = max(nodes_created, total_chunks * 35)
+        llm_calls_est_total = max(llm_calls_estimated_total, llm_calls_actual)
+        post_target = (
+            post_base_sec_ema
+            + max(
+                post_sec_per_1k_nodes_ema * (max(0, predicted_total_nodes) / 1000.0),
+                post_sec_per_llm_call_ema * max(0, llm_calls_est_total),
+            )
+        )
+
+        if stage in {"embedding_nodes", "ready"}:
+            if embedding_started_at:
+                rem_post = max(0.0, post_target - (now_ts - embedding_started_at))
+            else:
+                rem_post = max(0.0, post_target * 0.8)
+        elif done_extract_at:
+            rem_post = max(0.0, post_target - (now_ts - done_extract_at))
+        else:
+            rem_post = post_target
+
+        remaining_model = int(math.ceil(max(0.0, rem_setup + rem_extract + rem_post)))
 
     if status == "queued":
         progress = 0.02
         remaining_sec: int | None = estimate
         over_eta_sec = 0
     elif status == "running":
-        if elapsed <= estimate:
-            # Move up to 90% during estimated window.
-            progress = min(0.90, 0.05 + 0.85 * (elapsed / estimate))
-            remaining_sec = max(0, estimate - int(elapsed))
+        if remaining_model is not None:
+            remaining_sec = remaining_model
+            if stage not in {"embedding_nodes", "ready"}:
+                remaining_sec = max(12, remaining_sec)
+            model_progress = elapsed / max(1.0, (elapsed + float(remaining_sec)))
+            progress = min(0.99, max(observed_progress, model_progress))
             over_eta_sec = 0
+            if elapsed > estimate and remaining_sec > 20:
+                over_eta_sec = int(elapsed - estimate)
         else:
-            # Past ETA: keep moving slowly toward 99% to show liveness.
-            overtime = elapsed - estimate
-            tau = max(30.0, estimate * 0.6)
-            progress = min(0.99, 0.90 + 0.09 * (1.0 - math.exp(-overtime / tau)))
-            remaining_sec = None
-            over_eta_sec = int(overtime)
+            # Final fallback when no useful model signal exists.
+            if elapsed <= estimate:
+                progress = min(0.90, 0.05 + 0.85 * (elapsed / estimate))
+                remaining_sec = max(0, estimate - int(elapsed))
+                over_eta_sec = 0
+            else:
+                overtime = elapsed - estimate
+                tau = max(30.0, estimate * 0.6)
+                progress = min(0.99, 0.90 + 0.09 * (1.0 - math.exp(-overtime / tau)))
+                remaining_sec = None
+                over_eta_sec = int(overtime)
     elif status == "done":
         progress = 1.0
         remaining_sec = 0
@@ -612,28 +955,24 @@ def prepare_doc_status(job_id: str) -> dict:
     warn_after = max(estimate * 3, 900)  # 15 min minimum.
     if status == "running" and elapsed > warn_after:
         payload["warning"] = "Still running far past estimate. Check API key/network model availability."
-
-    metrics = payload.get("metrics") or {}
-    total_chunks = int(metrics.get("total_chunks") or 0)
-    extracted_chunks = int(metrics.get("extracted_chunks") or 0)
     if total_chunks > 0:
-        payload["chunk_progress"] = round(min(1.0, extracted_chunks / total_chunks), 4)
+        payload["chunk_progress"] = round(chunk_progress, 4)
     else:
         payload["chunk_progress"] = 0.0
 
-    llm_calls_actual = int(metrics.get("llm_calls_actual") or 0)
-    llm_calls_estimated_total = int(payload.get("estimate_sec", 0) / 8) + 3
-    llm_calls_estimated_total = max(llm_calls_estimated_total, llm_calls_actual, 1)
-    payload["llm_progress"] = round(min(1.0, llm_calls_actual / llm_calls_estimated_total), 4)
+    payload["llm_progress"] = round(llm_progress, 4)
     payload["llm_calls_estimated_total"] = llm_calls_estimated_total
     return payload
 
 
 @app.post("/api/ask")
 def ask(
+    request: Request,
     question: str = Form(...),
     doc_token: str | None = Form(default=None),
 ) -> dict:
+    _enforce_access(request)
+    _enforce_rate_limit(request, "ask", _rate_limit_ask)
     t0 = time.time()
     q = (question or "").strip()
     if not q:
@@ -673,9 +1012,12 @@ def ask(
 
 @app.post("/api/ask-batch")
 def ask_batch(
+    request: Request,
     questions: str = Form(...),
     doc_token: str | None = Form(default=None),
 ) -> dict:
+    _enforce_access(request)
+    _enforce_rate_limit(request, "ask_batch", _rate_limit_ask)
     if not doc_token:
         raise HTTPException(status_code=400, detail="Please prepare a document before asking questions.")
 

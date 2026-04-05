@@ -1,14 +1,14 @@
 {
   "summary": {
     "total": 40,
-    "accuracy": 0.925,
+    "accuracy": 0.9,
     "confusion_matrix": {
       "tp": 17,
-      "tn": 20,
-      "fp": 0,
+      "tn": 19,
+      "fp": 1,
       "fn": 3
     },
-    "total_seconds": 1270.2
+    "total_seconds": 4189.3
   },
   "rows": [
     {
@@ -16,110 +16,110 @@
       "question": "What state is Network 1 Financial, Inc. incorporated in?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.9075,
-      "threshold": 0.4938,
+      "score": 0.8721,
+      "threshold": 0.4748,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 44.55
+      "q_seconds": 8.76
     },
     {
       "idx": 2,
       "question": "What is Network 1's principal place of business address?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.6214,
-      "threshold": 0.5729,
+      "score": 0.6465,
+      "threshold": 0.578,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 37.89
+      "q_seconds": 268.72
     },
     {
       "idx": 3,
       "question": "What state is the Affiliate, Payment Data Systems, Inc., incorporated in?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8772,
-      "threshold": 0.5046,
+      "score": 0.0,
+      "threshold": 0.0,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 22.75
+      "q_seconds": 2.47
     },
     {
       "idx": 4,
       "question": "What payment card networks does Network 1 process for?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6782,
-      "threshold": 0.5604,
+      "score": 0.7066,
+      "threshold": 0.534,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 37.49
+      "q_seconds": 276.59
     },
     {
       "idx": 5,
       "question": "What is the initial term of this agreement in days?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6993,
-      "threshold": 0.539,
+      "score": 0.662,
+      "threshold": 0.5429,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 23.21
+      "q_seconds": 7.94
     },
     {
       "idx": 6,
       "question": "How many days written notice must a party give to prevent automatic renewal?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6475,
-      "threshold": 0.5534,
+      "score": 0.6386,
+      "threshold": 0.5483,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 21.43
+      "q_seconds": 12.81
     },
     {
       "idx": 7,
       "question": "Under what circumstance does the initial term become 3 years instead of 180 days?",
       "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.7402,
-      "threshold": 0.4836,
+      "predicted_label": "answerable",
+      "score": 0.801,
+      "threshold": 0.4113,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 38.29
+      "q_seconds": 131.62
     },
     {
       "idx": 8,
       "question": "Can this agreement be terminated for default, and how many days must the defaulting party be given to cure?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6212,
-      "threshold": 0.5765,
+      "score": 0.6034,
+      "threshold": 0.5747,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 44.41
+      "q_seconds": 13.11
     },
     {
       "idx": 9,
       "question": "What is the maximum dollar cap on the Exit Fee?",
       "gold_label": "answerable",
-      "predicted_label": "answerable",
-      "score": 0.7824,
-      "threshold": 0.5263,
+      "predicted_label": "unanswerable",
+      "score": 0.7703,
+      "threshold": 0.5359,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 51.78
+      "q_seconds": 210.24
     },
     {
       "idx": 10,
       "question": "How many months of net recurring revenue is used to calculate the Exit Fee per merchant?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.5288,
-      "threshold": 0.6191,
+      "score": 0.5096,
+      "threshold": 0.6183,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 25.63
+      "q_seconds": 10.81
     },
     {
       "idx": 11,
@@ -130,326 +130,326 @@
       "threshold": 0.4,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 61.4
+      "q_seconds": 257.63
     },
     {
       "idx": 12,
       "question": "What does Affiliate receive as compensation for its services?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8257,
-      "threshold": 0.4102,
+      "score": 0.8245,
+      "threshold": 0.4237,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 22.69
+      "q_seconds": 126.89
     },
     {
       "idx": 13,
       "question": "Who pays the Affiliate's Fee \u2014 Network 1 or an affiliate of Network 1?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.9017,
+      "score": 0.891,
       "threshold": 0.4,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 38.0
+      "q_seconds": 133.71
     },
     {
       "idx": 14,
       "question": "Does Network 1 have the right to approve or decline Merchant Agreements submitted by the Affiliate?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.9017,
+      "score": 0.8457,
       "threshold": 0.4,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 13.94
+      "q_seconds": 136.86
     },
     {
       "idx": 15,
       "question": "What must the Affiliate do with all Merchant Agreements it procures?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8566,
-      "threshold": 0.4032,
+      "score": 0.8348,
+      "threshold": 0.4,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 49.63
+      "q_seconds": 17.55
     },
     {
       "idx": 16,
       "question": "Can Network 1 assign this agreement without the Affiliate's prior written consent?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.9034,
+      "score": 0.8774,
       "threshold": 0.4,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 54.09
+      "q_seconds": 134.99
     },
     {
       "idx": 17,
       "question": "Can the Affiliate assign this agreement without Network 1's prior written consent?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8756,
+      "score": 0.8533,
       "threshold": 0.4,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 24.7
+      "q_seconds": 253.4
     },
     {
       "idx": 18,
       "question": "Does this agreement create an employer-employee relationship between Affiliate and its contractors?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8569,
-      "threshold": 0.458,
+      "score": 0.8246,
+      "threshold": 0.4067,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 36.64
+      "q_seconds": 127.35
     },
     {
       "idx": 19,
       "question": "Who is responsible for paying the Affiliate's business overhead, taxes, and self-employment expenses?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8813,
+      "score": 0.8846,
       "threshold": 0.4,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 14.83
+      "q_seconds": 141.44
     },
     {
       "idx": 20,
       "question": "Where are disputes brought by Payment Data Systems resolved under this agreement?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8428,
-      "threshold": 0.4,
+      "score": 0.665,
+      "threshold": 0.5024,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 24.09
+      "q_seconds": 143.16
     },
     {
       "idx": 21,
       "question": "What is the exact revenue share percentage stated in Exhibit A?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1875,
-      "threshold": 0.7124,
-      "gate_reason": "external_artifact_contents_missing",
+      "score": 0.1524,
+      "threshold": 0.7541,
+      "gate_reason": "external_artifact_contents_missing,missing_artifact_contents",
       "escape_hatch_triggered": false,
-      "q_seconds": 37.52
+      "q_seconds": 229.55
     },
     {
       "idx": 22,
       "question": "What are the specific buy rates for merchants as listed in Exhibit A?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1836,
-      "threshold": 0.7377,
-      "gate_reason": "external_artifact_contents_missing,q2_missing_or_external",
+      "score": 0.1353,
+      "threshold": 0.7485,
+      "gate_reason": "external_artifact_contents_missing,missing_artifact_contents",
       "escape_hatch_triggered": false,
-      "q_seconds": 46.76
+      "q_seconds": 10.62
     },
     {
       "idx": 23,
       "question": "What equipment prices appear on Network 1's price list provided to the Affiliate?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3824,
-      "threshold": 0.6684,
+      "score": 0.2844,
+      "threshold": 0.6995,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 22.26
+      "q_seconds": 9.76
     },
     {
       "idx": 24,
       "question": "What is the Affiliate's current monthly revenue earned under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1321,
-      "threshold": 0.7035,
+      "score": 0.1444,
+      "threshold": 0.6982,
       "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,runtime_lookup_missing",
       "escape_hatch_triggered": false,
-      "q_seconds": 35.07
+      "q_seconds": 9.98
     },
     {
       "idx": 25,
       "question": "How many merchants has the Affiliate enrolled as of today?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4879,
-      "threshold": 0.6066,
-      "gate_reason": "none",
+      "score": 0.3109,
+      "threshold": 0.673,
+      "gate_reason": "missing_artifact_contents",
       "escape_hatch_triggered": false,
-      "q_seconds": 16.51
+      "q_seconds": 131.42
     },
     {
       "idx": 26,
       "question": "What is the current outstanding balance owed by the Affiliate to Network 1 for equipment?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4387,
-      "threshold": 0.6197,
+      "score": 0.4624,
+      "threshold": 0.6199,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 43.59
+      "q_seconds": 137.21
     },
     {
       "idx": 27,
       "question": "On what specific date was this agreement executed?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3186,
-      "threshold": 0.677,
+      "score": 0.3231,
+      "threshold": 0.6751,
       "gate_reason": "missing_artifact_contents",
       "escape_hatch_triggered": false,
-      "q_seconds": 14.78
+      "q_seconds": 10.35
     },
     {
       "idx": 28,
       "question": "Who are the authorized representatives who signed this agreement on behalf of each party?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2092,
-      "threshold": 0.7014,
-      "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
+      "score": 0.5021,
+      "threshold": 0.6154,
+      "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 29.8
+      "q_seconds": 138.48
     },
     {
       "idx": 29,
       "question": "What is Network 1 Financial Corporation's total annual revenue?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3853,
-      "threshold": 0.6344,
-      "gate_reason": "none",
+      "score": 0.0349,
+      "threshold": 0.7639,
+      "gate_reason": "outside_document_intent,q2_missing_or_external",
       "escape_hatch_triggered": false,
-      "q_seconds": 20.32
+      "q_seconds": 256.19
     },
     {
       "idx": 30,
       "question": "Who is the current CEO of Network 1 Financial Corporation?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0296,
-      "threshold": 0.8194,
-      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing",
+      "score": 0.014,
+      "threshold": 0.8407,
+      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing,speculative_intent",
       "escape_hatch_triggered": false,
-      "q_seconds": 39.06
+      "q_seconds": 271.33
     },
     {
       "idx": 31,
       "question": "How many other affiliate offices has Network 1 entered into similar agreements with?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3531,
-      "threshold": 0.6733,
+      "score": 0.3393,
+      "threshold": 0.6709,
       "gate_reason": "missing_artifact_contents",
       "escape_hatch_triggered": false,
-      "q_seconds": 21.93
+      "q_seconds": 136.83
     },
     {
       "idx": 32,
       "question": "Has this agreement ever been subject to an arbitration proceeding?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.6495,
-      "threshold": 0.5784,
+      "score": 0.6106,
+      "threshold": 0.5844,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 11.87
+      "q_seconds": 128.33
     },
     {
       "idx": 33,
       "question": "What is Harris Bank's principal place of business address?",
       "gold_label": "unanswerable",
-      "predicted_label": "unanswerable",
-      "score": 0.6274,
-      "threshold": 0.5936,
+      "predicted_label": "answerable",
+      "score": 0.5064,
+      "threshold": 0.6132,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 45.15
+      "q_seconds": 12.38
     },
     {
       "idx": 34,
       "question": "What specific software products does Network 1 currently offer for sale to affiliates?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5477,
-      "threshold": 0.6256,
+      "score": 0.5159,
+      "threshold": 0.624,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 15.7
+      "q_seconds": 9.2
     },
     {
       "idx": 35,
       "question": "What was Network 1's stock price on the date this agreement was signed?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4518,
-      "threshold": 0.6173,
+      "score": 0.4005,
+      "threshold": 0.6492,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 22.88
+      "q_seconds": 13.23
     },
     {
       "idx": 36,
       "question": "What is the current processing fee percentage charged to the merchants enrolled under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.6332,
-      "threshold": 0.5895,
+      "score": 0.6599,
+      "threshold": 0.5767,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 26.65
+      "q_seconds": 133.43
     },
     {
       "idx": 37,
       "question": "Which specific merchants by name have been approved by Network 1 under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1938,
-      "threshold": 0.7379,
-      "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
+      "score": 0.3993,
+      "threshold": 0.6661,
+      "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 57.42
+      "q_seconds": 105.54
     },
     {
       "idx": 38,
       "question": "What amendments to this agreement have been executed since it was first signed?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3235,
-      "threshold": 0.6554,
+      "score": 0.6272,
+      "threshold": 0.5793,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 21.76
+      "q_seconds": 10.02
     },
     {
       "idx": 39,
       "question": "What is the internal credit risk score Network 1 assigns to the Affiliate?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4933,
-      "threshold": 0.6249,
+      "score": 0.4791,
+      "threshold": 0.6231,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 40.29
+      "q_seconds": 8.79
     },
     {
       "idx": 40,
       "question": "What will happen to this agreement if Network 1 is acquired by another company next year?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2698,
-      "threshold": 0.6253,
+      "score": 0.6277,
+      "threshold": 0.5583,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 13.43
+      "q_seconds": 10.61
     }
   ],
   "errors": [
@@ -458,33 +458,44 @@
       "question": "What is Network 1's principal place of business address?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.6214,
-      "threshold": 0.5729,
+      "score": 0.6465,
+      "threshold": 0.578,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 37.89
+      "q_seconds": 268.72
     },
     {
-      "idx": 7,
-      "question": "Under what circumstance does the initial term become 3 years instead of 180 days?",
+      "idx": 9,
+      "question": "What is the maximum dollar cap on the Exit Fee?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.7402,
-      "threshold": 0.4836,
+      "score": 0.7703,
+      "threshold": 0.5359,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 38.29
+      "q_seconds": 210.24
     },
     {
       "idx": 10,
       "question": "How many months of net recurring revenue is used to calculate the Exit Fee per merchant?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.5288,
-      "threshold": 0.6191,
+      "score": 0.5096,
+      "threshold": 0.6183,
       "gate_reason": "none",
       "escape_hatch_triggered": false,
-      "q_seconds": 25.63
+      "q_seconds": 10.81
+    },
+    {
+      "idx": 33,
+      "question": "What is Harris Bank's principal place of business address?",
+      "gold_label": "unanswerable",
+      "predicted_label": "answerable",
+      "score": 0.5064,
+      "threshold": 0.6132,
+      "gate_reason": "none",
+      "escape_hatch_triggered": false,
+      "q_seconds": 12.38
     }
   ]
 }

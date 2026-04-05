@@ -1,644 +1,622 @@
 {
   "summary": {
     "total": 50,
-    "accuracy": 0.86,
+    "accuracy": 0.9,
     "confusion_matrix": {
-      "tp": 20,
-      "tn": 23,
-      "fp": 2,
-      "fn": 5
+      "tp": 21,
+      "tn": 24,
+      "fp": 1,
+      "fn": 4
     },
-    "total_seconds": 3676.2
+    "total_seconds": 3415.4
   },
   "rows": [
     {
       "idx": 1,
       "question": "What is the full name of the Business Affiliate party to this agreement?",
       "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.1913,
-      "threshold": 0.7422,
-      "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
-      "vote_fraction": 0.0,
-      "q_seconds": 45.34
+      "predicted_label": "answerable",
+      "score": 0.6363,
+      "threshold": 0.5832,
+      "gate_reason": "none",
+      "vote_fraction": 1.0,
+      "q_seconds": 12.59
     },
     {
       "idx": 2,
       "question": "What is the name and state of incorporation of the company contracting with the Business Affiliate?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6548,
-      "threshold": 0.5816,
+      "score": 0.6938,
+      "threshold": 0.5579,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 48.46
+      "q_seconds": 132.5
     },
     {
       "idx": 3,
       "question": "What is the stated date of the agreement?",
       "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.6971,
-      "threshold": 0.556,
+      "predicted_label": "answerable",
+      "score": 0.7831,
+      "threshold": 0.479,
       "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 65.5
+      "vote_fraction": 1.0,
+      "q_seconds": 130.0
     },
     {
       "idx": 4,
       "question": "What is the Effective Date of the agreement?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7194,
-      "threshold": 0.5386,
+      "score": 0.7104,
+      "threshold": 0.5365,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 61.21
+      "q_seconds": 56.48
     },
     {
       "idx": 5,
       "question": "How many days' prior written notice must a party give to terminate this agreement under the standard termination provision?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6114,
-      "threshold": 0.5606,
+      "score": 0.0,
+      "threshold": 0.0,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 58.18
+      "vote_fraction": null,
+      "q_seconds": 0.39
     },
     {
       "idx": 6,
       "question": "How many days' written notice of an alleged material breach must UDC provide before the Business Affiliate's opportunity to cure?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6625,
-      "threshold": 0.5523,
+      "score": 0.0,
+      "threshold": 0.0,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 9.04
+      "vote_fraction": null,
+      "q_seconds": 0.61
     },
     {
       "idx": 7,
       "question": "Within how many days after receiving a written request must a party make its records, books, and policies available for inspection?",
       "gold_label": "answerable",
-      "predicted_label": "answerable",
-      "score": 0.7749,
-      "threshold": 0.5418,
+      "predicted_label": "unanswerable",
+      "score": 0.5269,
+      "threshold": 0.6044,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 119.9
+      "q_seconds": 8.61
     },
     {
       "idx": 8,
       "question": "Within how many days of a written request must a party provide information for amendment and accounting purposes regarding an individual's Confidential Information?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6865,
-      "threshold": 0.5382,
+      "score": 0.6907,
+      "threshold": 0.5434,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 114.03
+      "q_seconds": 9.21
     },
     {
       "idx": 9,
       "question": "Within how many days of termination must Confidential Information be returned or destroyed?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7074,
-      "threshold": 0.5742,
+      "score": 0.7338,
+      "threshold": 0.5406,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 39.87
+      "q_seconds": 8.21
     },
     {
       "idx": 10,
       "question": "Within how many days of discovering an unauthorized use or disclosure of Confidential Information must a party report it to the other party?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6017,
-      "threshold": 0.5789,
+      "score": 0.0,
+      "threshold": 0.0,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 59.51
+      "vote_fraction": null,
+      "q_seconds": 0.61
     },
     {
       "idx": 11,
       "question": "What is the relationship of the Business Affiliate to UDC under this agreement (employee, agent, or independent contractor)?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7563,
-      "threshold": 0.4936,
+      "score": 0.7446,
+      "threshold": 0.4891,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 61.07
+      "q_seconds": 9.82
     },
     {
       "idx": 12,
       "question": "Who signed the agreement on behalf of Union Dental Corp.?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.3997,
-      "threshold": 0.6669,
+      "score": 0.3964,
+      "threshold": 0.662,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 29.41
+      "q_seconds": 8.44
     },
     {
       "idx": 13,
       "question": "What is the title held by the person who signed on behalf of UDC?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.5218,
-      "threshold": 0.6276,
+      "score": 0.5428,
+      "threshold": 0.6163,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 117.66
+      "q_seconds": 10.0
     },
     {
       "idx": 14,
       "question": "What sections' rights and obligations survive the termination of the agreement indefinitely?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8938,
+      "score": 0.9078,
       "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 115.82
+      "vote_fraction": 1.0,
+      "q_seconds": 45.87
     },
     {
       "idx": 15,
       "question": "Does UDC withhold income tax, unemployment insurance, or social security on behalf of the Business Affiliate?",
       "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.7288,
-      "threshold": 0.5264,
+      "predicted_label": "answerable",
+      "score": 0.9009,
+      "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 67.36
+      "vote_fraction": 1.0,
+      "q_seconds": 11.29
     },
     {
       "idx": 16,
       "question": "What form must any modification or amendment to this agreement take?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8623,
-      "threshold": 0.4481,
+      "score": 0.8747,
+      "threshold": 0.4299,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 117.85
+      "q_seconds": 9.37
     },
     {
       "idx": 17,
       "question": "Are there any third-party beneficiaries to this agreement?",
       "gold_label": "answerable",
-      "predicted_label": "answerable",
-      "score": 0.6818,
-      "threshold": 0.6481,
+      "predicted_label": "unanswerable",
+      "score": 0.5393,
+      "threshold": 0.6117,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 61.73
+      "q_seconds": 9.92
     },
     {
       "idx": 18,
       "question": "What method of delivery makes a notice deemed given on the third business day after deposit?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8578,
-      "threshold": 0.4033,
+      "score": 0.7759,
+      "threshold": 0.5259,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 119.86
+      "q_seconds": 107.33
     },
     {
       "idx": 19,
       "question": "What is the primary mission of UDC described in the agreement's recitals?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8383,
-      "threshold": 0.5193,
+      "score": 0.6968,
+      "threshold": 0.5271,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 61.74
+      "vote_fraction": 1.0,
+      "q_seconds": 128.05
     },
     {
       "idx": 20,
       "question": "Must all employees, subcontractors, or agents who access Confidential Information agree in writing to the same restrictions?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7777,
-      "threshold": 0.5127,
+      "score": 0.7893,
+      "threshold": 0.4985,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 120.55
+      "q_seconds": 13.92
     },
     {
       "idx": 21,
       "question": "What happens to each party's Confidential Information held by subcontractors or agents upon termination?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7782,
-      "threshold": 0.5045,
+      "score": 0.7969,
+      "threshold": 0.5,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 94.94
+      "vote_fraction": 1.0,
+      "q_seconds": 16.57
     },
     {
       "idx": 22,
       "question": "Who is responsible for all federal and state tax payments, withholdings, and benefits related to the Business Affiliate?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8864,
-      "threshold": 0.4167,
+      "score": 0.8869,
+      "threshold": 0.4095,
       "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 195.63
+      "vote_fraction": 1.0,
+      "q_seconds": 14.79
     },
     {
       "idx": 23,
       "question": "Under what circumstances may UDC immediately terminate this agreement without notice?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8816,
+      "score": 0.8786,
       "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 71.95
+      "vote_fraction": 1.0,
+      "q_seconds": 12.1
     },
     {
       "idx": 24,
       "question": "What types of fees does the indemnification provision in Section 6 specifically include coverage for?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7872,
-      "threshold": 0.5081,
+      "score": 0.7509,
+      "threshold": 0.5546,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 107.25
+      "q_seconds": 12.19
     },
     {
       "idx": 25,
       "question": "Does UDC have specific control or direction over the particular methods by which Business Affiliate performs services?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6726,
-      "threshold": 0.5101,
+      "score": 0.8915,
+      "threshold": 0.4,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 75.03
+      "q_seconds": 110.38
     },
     {
       "idx": 26,
       "question": "What is the compensation or fee structure agreed upon between the Business Affiliate and UDC for the services?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5648,
-      "threshold": 0.5932,
+      "score": 0.5519,
+      "threshold": 0.5979,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 59.5
+      "q_seconds": 12.66
     },
     {
       "idx": 27,
       "question": "What specific dental offices or clients are covered by the services contemplated in this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5341,
-      "threshold": 0.6187,
+      "score": 0.5331,
+      "threshold": 0.6165,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 108.07
+      "q_seconds": 9.26
     },
     {
       "idx": 28,
       "question": "Has UDC ever exercised its right to immediately terminate the agreement without notice?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.506,
-      "threshold": 0.5556,
-      "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing",
-      "vote_fraction": 1.0,
-      "q_seconds": 61.53
+      "score": 0.2643,
+      "threshold": 0.6276,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 134.77
     },
     {
       "idx": 29,
       "question": "What is the content of UDC's Business Affiliate manual referenced in Section 7(f)?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0871,
-      "threshold": 0.7423,
-      "gate_reason": "external_artifact_contents_missing,outside_document_intent,q2_missing_or_external",
-      "vote_fraction": 0.0,
-      "q_seconds": 60.5
+      "score": 0.1225,
+      "threshold": 0.7527,
+      "gate_reason": "external_artifact_contents_missing,q2_missing_or_external",
+      "vote_fraction": 0.333,
+      "q_seconds": 384.15
     },
     {
       "idx": 30,
       "question": "Has Dr. George D. Green ever been treated as an employee of UDC for federal tax purposes?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5125,
-      "threshold": 0.5781,
+      "score": 0.1896,
+      "threshold": 0.6924,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 74.32
+      "q_seconds": 141.63
     },
     {
       "idx": 31,
       "question": "What specific Confidential Information was exchanged between the parties under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2658,
-      "threshold": 0.6835,
+      "score": 0.5664,
+      "threshold": 0.5802,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 107.28
+      "q_seconds": 486.31
     },
     {
       "idx": 32,
       "question": "Has any unauthorized use or disclosure of Confidential Information occurred under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5807,
-      "threshold": 0.6532,
+      "score": 0.5856,
+      "threshold": 0.5932,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 59.68
+      "q_seconds": 8.53
     },
     {
       "idx": 33,
       "question": "What is Union Dental Holdings, Inc.'s current stock price or market capitalization?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0496,
-      "threshold": 0.7612,
-      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing",
+      "score": 0.0608,
+      "threshold": 0.7193,
+      "gate_reason": "outside_document_intent,q2_missing_or_external,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 72.94
+      "q_seconds": 139.86
     },
     {
       "idx": 34,
       "question": "Has any governmental agency challenged the Business Affiliate's independent contractor status?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5936,
-      "threshold": 0.5935,
+      "score": 0.224,
+      "threshold": 0.6847,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 59.01
+      "q_seconds": 11.73
     },
     {
       "idx": 35,
       "question": "What services did Dr. Green actually provide to UDC clients after the Effective Date?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2549,
-      "threshold": 0.6822,
-      "gate_reason": "missing_artifact_contents",
+      "score": 0.2634,
+      "threshold": 0.6787,
+      "gate_reason": "low_exactness,missing_artifact_contents",
       "vote_fraction": 0.0,
-      "q_seconds": 63.71
+      "q_seconds": 243.26
     },
     {
       "idx": 36,
       "question": "How many dental offices does UDC currently manage?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5675,
-      "threshold": 0.6057,
+      "score": 0.5918,
+      "threshold": 0.595,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 104.71
+      "q_seconds": 8.58
     },
     {
       "idx": 37,
       "question": "Has any amendment been made to this agreement since January 28, 2005?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1293,
-      "threshold": 0.7046,
-      "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,outside_document_intent,runtime_lookup_missing",
+      "score": 0.0818,
+      "threshold": 0.7504,
+      "gate_reason": "instance_or_runtime_missing,low_exactness,missing_artifact_contents,outside_document_intent,runtime_lookup_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 73.7
+      "q_seconds": 132.46
     },
     {
       "idx": 38,
       "question": "What is the address of Dr. George D. Green?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5273,
-      "threshold": 0.6276,
+      "score": 0.6091,
+      "threshold": 0.5977,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 107.35
+      "q_seconds": 125.43
     },
     {
       "idx": 39,
       "question": "Has a third party ever made a claim against UDC or the Business Affiliate requiring indemnification under Section 6?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5913,
-      "threshold": 0.5754,
+      "score": 0.2726,
+      "threshold": 0.6566,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 62.01
+      "q_seconds": 10.95
     },
     {
       "idx": 40,
       "question": "What specific records did either party request to inspect under Section 3(e)?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5034,
-      "threshold": 0.5971,
+      "score": 0.3918,
+      "threshold": 0.6592,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 58.66
+      "q_seconds": 12.12
     },
     {
       "idx": 41,
       "question": "How much revenue did UDC generate from the services rendered under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2916,
-      "threshold": 0.6842,
+      "score": 0.6686,
+      "threshold": 0.5842,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 71.46
+      "q_seconds": 136.24
     },
     {
       "idx": 42,
       "question": "What is the UDC's current state registration status in Florida?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4225,
-      "threshold": 0.6354,
+      "score": 0.4002,
+      "threshold": 0.6447,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 59.71
+      "q_seconds": 11.25
     },
     {
       "idx": 43,
       "question": "What subcontractors or agents, if any, did the Business Affiliate use to fulfill obligations under this agreement?",
       "gold_label": "unanswerable",
-      "predicted_label": "answerable",
-      "score": 0.8146,
-      "threshold": 0.4376,
+      "predicted_label": "unanswerable",
+      "score": 0.845,
+      "threshold": 0.4443,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 66.56
+      "q_seconds": 130.6
     },
     {
       "idx": 44,
       "question": "Did the Internal Revenue Service ever challenge Dr. Green's status as an independent contractor?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.6467,
-      "threshold": 0.5749,
+      "score": 0.647,
+      "threshold": 0.566,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 105.46
+      "q_seconds": 13.32
     },
     {
       "idx": 45,
       "question": "Were there any prior agreements between the parties that this agreement superseded?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.5145,
-      "threshold": 0.6195,
+      "score": 0.6664,
+      "threshold": 0.5798,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 59.47
+      "q_seconds": 140.31
     },
     {
       "idx": 46,
       "question": "What specific federal or state laws triggered any termination rights during the agreement's term?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.4895,
-      "threshold": 0.6212,
+      "score": 0.5389,
+      "threshold": 0.5984,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 14.64
+      "q_seconds": 124.57
     },
     {
       "idx": 47,
       "question": "What is the title held by Dr. George D. Green in his capacity as Business Affiliate?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3357,
-      "threshold": 0.6646,
-      "gate_reason": "q2_missing_or_external",
-      "vote_fraction": 0.333,
-      "q_seconds": 50.11
+      "score": 0.5295,
+      "threshold": 0.6139,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 84.68
     },
     {
       "idx": 48,
       "question": "What applicable privacy laws governed the handling of Confidential Information under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0138,
-      "threshold": 0.8265,
+      "score": 0.0183,
+      "threshold": 0.7983,
       "gate_reason": "outside_document_intent,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 58.02
+      "q_seconds": 12.1
     },
     {
       "idx": 49,
       "question": "How many patients' or clients' Confidential Information was processed under this agreement?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3468,
-      "threshold": 0.6901,
+      "score": 0.3246,
+      "threshold": 0.6846,
       "gate_reason": "missing_artifact_contents",
       "vote_fraction": 0.0,
-      "q_seconds": 5.72
+      "q_seconds": 8.45
     },
     {
       "idx": 50,
       "question": "What are the specific terms of the indemnification mutual agreement described in Section 6 beyond attorney's fees?",
       "gold_label": "unanswerable",
       "predicted_label": "answerable",
-      "score": 0.8634,
-      "threshold": 0.4471,
+      "score": 0.7949,
+      "threshold": 0.4931,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 13.19
+      "vote_fraction": 1.0,
+      "q_seconds": 12.82
     }
   ],
   "errors": [
     {
-      "idx": 1,
-      "question": "What is the full name of the Business Affiliate party to this agreement?",
+      "idx": 7,
+      "question": "Within how many days after receiving a written request must a party make its records, books, and policies available for inspection?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.1913,
-      "threshold": 0.7422,
-      "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
-      "vote_fraction": 0.0,
-      "q_seconds": 45.34
-    },
-    {
-      "idx": 3,
-      "question": "What is the stated date of the agreement?",
-      "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.6971,
-      "threshold": 0.556,
+      "score": 0.5269,
+      "threshold": 0.6044,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 65.5
+      "q_seconds": 8.61
     },
     {
       "idx": 12,
       "question": "Who signed the agreement on behalf of Union Dental Corp.?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.3997,
-      "threshold": 0.6669,
+      "score": 0.3964,
+      "threshold": 0.662,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 29.41
+      "q_seconds": 8.44
     },
     {
       "idx": 13,
       "question": "What is the title held by the person who signed on behalf of UDC?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.5218,
-      "threshold": 0.6276,
+      "score": 0.5428,
+      "threshold": 0.6163,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 117.66
+      "q_seconds": 10.0
     },
     {
-      "idx": 15,
-      "question": "Does UDC withhold income tax, unemployment insurance, or social security on behalf of the Business Affiliate?",
+      "idx": 17,
+      "question": "Are there any third-party beneficiaries to this agreement?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.7288,
-      "threshold": 0.5264,
+      "score": 0.5393,
+      "threshold": 0.6117,
       "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 67.36
-    },
-    {
-      "idx": 43,
-      "question": "What subcontractors or agents, if any, did the Business Affiliate use to fulfill obligations under this agreement?",
-      "gold_label": "unanswerable",
-      "predicted_label": "answerable",
-      "score": 0.8146,
-      "threshold": 0.4376,
-      "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 66.56
+      "vote_fraction": 1.0,
+      "q_seconds": 9.92
     },
     {
       "idx": 50,
       "question": "What are the specific terms of the indemnification mutual agreement described in Section 6 beyond attorney's fees?",
       "gold_label": "unanswerable",
       "predicted_label": "answerable",
-      "score": 0.8634,
-      "threshold": 0.4471,
+      "score": 0.7949,
+      "threshold": 0.4931,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 13.19
+      "vote_fraction": 1.0,
+      "q_seconds": 12.82
     }
   ]
 }

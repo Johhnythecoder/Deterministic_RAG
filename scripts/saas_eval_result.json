@@ -8,7 +8,7 @@
       "fp": 0,
       "fn": 5
     },
-    "total_seconds": 684.0
+    "total_seconds": 4647.7
   },
   "rows": [
     {
@@ -16,497 +16,497 @@
       "question": "What is the late charge rate applied to unpaid invoices?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8614,
-      "threshold": 0.4779,
+      "score": 0.8207,
+      "threshold": 0.4823,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 5.11
+      "q_seconds": 135.89
     },
     {
       "idx": 2,
       "question": "How many days does Customer have to pay CyberArk's invoice when paying directly?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6702,
-      "threshold": 0.5191,
+      "score": 0.7525,
+      "threshold": 0.4509,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 5.29
+      "q_seconds": 276.72
     },
     {
       "idx": 3,
       "question": "Will CyberArk use Customer Data to train generative AI models?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.85,
+      "score": 0.8462,
       "threshold": 0.4,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 49.68
+      "q_seconds": 258.58
     },
     {
       "idx": 4,
       "question": "Does CyberArk guarantee the accuracy of outputs produced by AI/ML Features?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8511,
+      "score": 0.8598,
       "threshold": 0.4,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 7.89
+      "q_seconds": 134.86
     },
     {
       "idx": 5,
       "question": "What is the maximum aggregate liability cap for either party under this agreement?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7867,
-      "threshold": 0.5296,
+      "score": 0.8217,
+      "threshold": 0.462,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 5.05
+      "vote_fraction": 0.333,
+      "q_seconds": 266.97
     },
     {
       "idx": 6,
       "question": "What types of damages are excluded from liability under Section 8.2?",
       "gold_label": "answerable",
-      "predicted_label": "answerable",
-      "score": 0.8461,
-      "threshold": 0.4117,
+      "predicted_label": "unanswerable",
+      "score": 0.6878,
+      "threshold": 0.4949,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 5.26
+      "vote_fraction": 0.0,
+      "q_seconds": 135.07
     },
     {
       "idx": 7,
       "question": "How many days does a breaching party have to cure a material breach before the other party may terminate?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.748,
-      "threshold": 0.4852,
+      "score": 0.839,
+      "threshold": 0.4197,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 37.51
+      "q_seconds": 259.81
     },
     {
       "idx": 8,
       "question": "How many months' prior written notice must Customer give to terminate an Order under the EU Data Act?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.5033,
-      "threshold": 0.6155,
-      "gate_reason": "none",
+      "score": 0.1628,
+      "threshold": 0.6941,
+      "gate_reason": "missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 5.97
+      "q_seconds": 140.61
     },
     {
       "idx": 9,
       "question": "How many days notice must CyberArk give before suspending Customer's access to the SaaS Products?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.5048,
-      "threshold": 0.6033,
+      "score": 0.5424,
+      "threshold": 0.5998,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 6.81
+      "q_seconds": 129.25
     },
     {
       "idx": 10,
       "question": "How many days after sending does a notice sent by registered or certified mail become effective?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8023,
-      "threshold": 0.4685,
+      "score": 0.7579,
+      "threshold": 0.4753,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 4.97
+      "q_seconds": 10.17
     },
     {
       "idx": 11,
       "question": "How many days after deposit does a notice sent by overnight courier become effective?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7538,
-      "threshold": 0.4995,
+      "score": 0.716,
+      "threshold": 0.5089,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 4.41
+      "q_seconds": 233.23
     },
     {
       "idx": 12,
       "question": "What email address should electronic contract notices to CyberArk be sent to?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8579,
-      "threshold": 0.4167,
+      "score": 0.8373,
+      "threshold": 0.4171,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 4.18
+      "q_seconds": 133.03
     },
     {
       "idx": 13,
       "question": "Is Customer's payment obligation excluded from force majeure protection?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.6091,
-      "threshold": 0.5545,
+      "score": 0.6272,
+      "threshold": 0.5512,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 33.33
+      "q_seconds": 9.48
     },
     {
       "idx": 14,
       "question": "What does CyberArk warrant about Third-Party Materials included in the SaaS Products?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8195,
+      "score": 0.8416,
       "threshold": 0.4,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 6.93
+      "q_seconds": 133.46
     },
     {
       "idx": 15,
       "question": "Who owns CyberArk products that incorporate Suggestions provided by Customer?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.7215,
-      "threshold": 0.5125,
+      "score": 0.8956,
+      "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 0.667,
-      "q_seconds": 6.35
+      "vote_fraction": 1.0,
+      "q_seconds": 14.49
     },
     {
       "idx": 16,
       "question": "What is the revision date of this Terms of Service document?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.7594,
-      "threshold": 0.551,
+      "score": 0.6414,
+      "threshold": 0.5606,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 4.81
+      "q_seconds": 129.8
     },
     {
       "idx": 17,
       "question": "What happens to prepaid Subscription Fees when Customer terminates an Order under the EU Data Act?",
       "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.5891,
-      "threshold": 0.5286,
+      "predicted_label": "answerable",
+      "score": 0.8013,
+      "threshold": 0.4037,
       "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 9.85
+      "vote_fraction": 1.0,
+      "q_seconds": 136.0
     },
     {
       "idx": 18,
       "question": "Who is responsible for the accuracy and quality of Customer Data?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.8958,
+      "score": 0.883,
       "threshold": 0.4,
       "gate_reason": "none",
-      "vote_fraction": 1.0,
-      "q_seconds": 32.73
+      "vote_fraction": 0.333,
+      "q_seconds": 397.74
     },
     {
       "idx": 19,
       "question": "Where is the Data Processing Addendum (DPA) located for customers in the EEA?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6854,
-      "threshold": 0.5368,
+      "score": 0.5188,
+      "threshold": 0.5969,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 11.39
+      "q_seconds": 140.74
     },
     {
       "idx": 20,
       "question": "Does this Agreement create a joint venture or partnership between CyberArk and Customer?",
       "gold_label": "answerable",
       "predicted_label": "answerable",
-      "score": 0.6518,
-      "threshold": 0.5297,
+      "score": 0.8435,
+      "threshold": 0.4219,
       "gate_reason": "none",
       "vote_fraction": 1.0,
-      "q_seconds": 5.64
+      "q_seconds": 244.01
     },
     {
       "idx": 21,
       "question": "What specific SaaS Products has this Customer ordered?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1521,
-      "threshold": 0.7543,
+      "score": 0.1423,
+      "threshold": 0.7524,
       "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 5.23
+      "q_seconds": 16.34
     },
     {
       "idx": 22,
       "question": "What is the subscription price for this Customer's Order?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1549,
-      "threshold": 0.7433,
+      "score": 0.1242,
+      "threshold": 0.7463,
       "gate_reason": "q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 4.94
+      "q_seconds": 7.87
     },
     {
       "idx": 23,
       "question": "What is the Subscription Term duration for this Customer?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1906,
-      "threshold": 0.7195,
-      "gate_reason": "q2_missing_or_external",
+      "score": 0.2639,
+      "threshold": 0.6706,
+      "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 5.32
+      "q_seconds": 125.93
     },
     {
       "idx": 24,
       "question": "How many Authorized Users does this Customer currently have?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0722,
-      "threshold": 0.7543,
+      "score": 0.0735,
+      "threshold": 0.7494,
       "gate_reason": "instance_or_runtime_missing,missing_artifact_contents,q2_missing_or_external,runtime_lookup_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 41.72
+      "q_seconds": 142.43
     },
     {
       "idx": 25,
       "question": "Which specific Channel Partner does this Customer use?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1266,
-      "threshold": 0.7591,
+      "score": 0.1376,
+      "threshold": 0.746,
       "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 5.02
+      "q_seconds": 10.56
     },
     {
       "idx": 26,
       "question": "What discount did this Customer receive on their subscription?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2051,
-      "threshold": 0.711,
+      "score": 0.1483,
+      "threshold": 0.7254,
       "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 4.55
+      "q_seconds": 135.35
     },
     {
       "idx": 27,
       "question": "What are the specific data processing obligations set out in the CyberArk DPA?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.6805,
-      "threshold": 0.6038,
+      "score": 0.6252,
+      "threshold": 0.6018,
       "gate_reason": "external_artifact_contents_missing,missing_artifact_contents",
       "vote_fraction": 0.0,
-      "q_seconds": 4.83
+      "q_seconds": 19.35
     },
     {
       "idx": 28,
       "question": "What are the specific terms of the CyberArk Business Associate Agreement for HIPAA compliance?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0754,
-      "threshold": 0.7939,
+      "score": 0.0888,
+      "threshold": 0.7722,
       "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 5.69
+      "q_seconds": 12.03
     },
     {
       "idx": 29,
       "question": "What does CyberArk's Responsible AI Policy say about data retention?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1315,
-      "threshold": 0.6968,
-      "gate_reason": "external_artifact_contents_missing,q2_missing_or_external",
+      "score": 0.333,
+      "threshold": 0.6061,
+      "gate_reason": "external_artifact_contents_missing",
       "vote_fraction": 0.0,
-      "q_seconds": 45.72
+      "q_seconds": 137.08
     },
     {
       "idx": 30,
       "question": "What specific open source software components are included in the SaaS Products?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.3544,
-      "threshold": 0.6731,
+      "score": 0.2166,
+      "threshold": 0.6704,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 11.3
+      "q_seconds": 10.3
     },
     {
       "idx": 31,
       "question": "What is CyberArk's current annual revenue?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.023,
-      "threshold": 0.762,
-      "gate_reason": "missing_artifact_contents,outside_document_intent,q2_missing_or_external,speculative_intent",
+      "score": 0.0382,
+      "threshold": 0.7323,
+      "gate_reason": "outside_document_intent,q2_missing_or_external,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 44.78
+      "q_seconds": 253.67
     },
     {
       "idx": 32,
       "question": "What is CyberArk's uptime SLA percentage for the SaaS Products?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.007,
-      "threshold": 0.8425,
+      "score": 0.5596,
+      "threshold": 0.6023,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 22.51
+      "q_seconds": 12.7
     },
     {
       "idx": 33,
       "question": "Has CyberArk experienced any security incidents affecting Customer Data?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0272,
-      "threshold": 0.8228,
-      "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,outside_document_intent,q2_missing_or_external",
+      "score": 0.6544,
+      "threshold": 0.5719,
+      "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 43.28
+      "q_seconds": 130.7
     },
     {
       "idx": 34,
       "question": "What is CyberArk's current stock price?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1695,
-      "threshold": 0.6802,
-      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing",
+      "score": 0.3182,
+      "threshold": 0.6271,
+      "gate_reason": "outside_document_intent,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 11.92
+      "q_seconds": 9.42
     },
     {
       "idx": 35,
       "question": "Who is the current CEO of CyberArk?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.2083,
-      "threshold": 0.6696,
-      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing",
+      "score": 0.0345,
+      "threshold": 0.7336,
+      "gate_reason": "instance_or_runtime_missing,outside_document_intent,q2_missing_or_external,runtime_lookup_missing,speculative_intent",
       "vote_fraction": 0.0,
-      "q_seconds": 6.11
+      "q_seconds": 11.07
     },
     {
       "idx": 36,
       "question": "Has this Customer filed any indemnification claims against CyberArk?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1496,
-      "threshold": 0.7428,
+      "score": 0.1618,
+      "threshold": 0.7344,
       "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 47.17
+      "q_seconds": 122.1
     },
     {
       "idx": 37,
       "question": "What amendments to this agreement have been made for this specific Customer?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0973,
-      "threshold": 0.745,
+      "score": 0.1161,
+      "threshold": 0.7338,
       "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 34.08
+      "q_seconds": 13.1
     },
     {
       "idx": 38,
       "question": "What are the specific security controls listed in the Documentation?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.0616,
-      "threshold": 0.8022,
+      "score": 0.0838,
+      "threshold": 0.7816,
       "gate_reason": "external_artifact_contents_missing,missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 28.24
+      "q_seconds": 13.67
     },
     {
       "idx": 39,
       "question": "What will CyberArk's liability be if it fails to provide the SaaS service next month?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1932,
-      "threshold": 0.668,
+      "score": 0.1879,
+      "threshold": 0.6612,
       "gate_reason": "instance_or_runtime_missing,outside_document_intent,runtime_lookup_missing",
       "vote_fraction": 1.0,
-      "q_seconds": 35.28
+      "q_seconds": 12.56
     },
     {
       "idx": 40,
       "question": "What governing law applies to this specific Customer's agreement with CyberArk?",
       "gold_label": "unanswerable",
       "predicted_label": "unanswerable",
-      "score": 0.1284,
-      "threshold": 0.7397,
-      "gate_reason": "instance_or_runtime_missing,q2_missing_or_external",
+      "score": 0.1498,
+      "threshold": 0.7299,
+      "gate_reason": "customer_instance_value_missing,instance_or_runtime_missing,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 23.12
+      "q_seconds": 131.53
     }
   ],
   "errors": [
+    {
+      "idx": 6,
+      "question": "What types of damages are excluded from liability under Section 8.2?",
+      "gold_label": "answerable",
+      "predicted_label": "unanswerable",
+      "score": 0.6878,
+      "threshold": 0.4949,
+      "gate_reason": "none",
+      "vote_fraction": 0.0,
+      "q_seconds": 135.07
+    },
     {
       "idx": 8,
       "question": "How many months' prior written notice must Customer give to terminate an Order under the EU Data Act?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.5033,
-      "threshold": 0.6155,
-      "gate_reason": "none",
+      "score": 0.1628,
+      "threshold": 0.6941,
+      "gate_reason": "missing_artifact_contents,q2_missing_or_external",
       "vote_fraction": 0.0,
-      "q_seconds": 5.97
+      "q_seconds": 140.61
     },
     {
       "idx": 9,
       "question": "How many days notice must CyberArk give before suspending Customer's access to the SaaS Products?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.5048,
-      "threshold": 0.6033,
+      "score": 0.5424,
+      "threshold": 0.5998,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 6.81
+      "q_seconds": 129.25
     },
     {
       "idx": 13,
       "question": "Is Customer's payment obligation excluded from force majeure protection?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.6091,
-      "threshold": 0.5545,
+      "score": 0.6272,
+      "threshold": 0.5512,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 33.33
+      "q_seconds": 9.48
     },
     {
       "idx": 16,
       "question": "What is the revision date of this Terms of Service document?",
       "gold_label": "answerable",
       "predicted_label": "unanswerable",
-      "score": 0.7594,
-      "threshold": 0.551,
+      "score": 0.6414,
+      "threshold": 0.5606,
       "gate_reason": "none",
       "vote_fraction": 0.0,
-      "q_seconds": 4.81
-    },
-    {
-      "idx": 17,
-      "question": "What happens to prepaid Subscription Fees when Customer terminates an Order under the EU Data Act?",
-      "gold_label": "answerable",
-      "predicted_label": "unanswerable",
-      "score": 0.5891,
-      "threshold": 0.5286,
-      "gate_reason": "none",
-      "vote_fraction": 0.0,
-      "q_seconds": 9.85
+      "q_seconds": 129.8
     }
   ]
 }
