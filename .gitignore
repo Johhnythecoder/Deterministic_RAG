@@ -1,7 +1,33 @@
 .env
+.DS_Store
+
 __pycache__/
 *.pyc
 venv/
-uploads/
-topology_telemetry.jsonl
+
+# Runtime artifacts
 prepared_docs.json
+topology_telemetry.jsonl
+
+# Generated uploads (keep folder)
+uploads/*
+!uploads/.gitkeep
+
+# Generated sample artifacts (keep only source PDFs)
+sample_docs/*_graph.json
+sample_docs/*_typed_nodes.json
+sample_docs/questions.json
+
+# Local/debug/eval outputs
+scripts/__pycache__/
+scripts/*.json
+scripts/*.csv
+scripts/*.txt
+scripts/*.md
+scripts/diag_*.py
+scripts/run_eval_*.py
+scripts/time_one_question.py
+
+# Root debug scripts
+debug_*.py
+run_eval.py
