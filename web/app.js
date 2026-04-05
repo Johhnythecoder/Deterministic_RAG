@@ -121,7 +121,12 @@ function fmtSec(s) {
 
 function nextPaint() {
   return new Promise((resolve) => {
-    requestAnimationFrame(() => resolve());
+    // Safari/iOS may defer first paint unless we yield across 2 frames.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTimeout(resolve, 0);
+      });
+    });
   });
 }
 
