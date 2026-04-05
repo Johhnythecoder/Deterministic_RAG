@@ -180,7 +180,7 @@ async function loadSavedDocs() {
 }
 
 /* ── Sample docs grid ────────────────────────────────────── */
-async function loadSamples() {
+async function loadSamples(attempt = 0) {
   debug("Loading sample document list...");
   try {
     const res  = await apiFetch("/api/demo-docs");
@@ -188,6 +188,12 @@ async function loadSamples() {
     const docs = data.documents || [];
     sampleBoxes.innerHTML = "";
     if (!docs.length) {
+      if (attempt < 4) {
+        sampleBoxes.innerHTML = "<span style='color:#888;font-size:0.85rem;'>Loading sample docs…</span>";
+        debug(`No sample docs yet (attempt ${attempt + 1}/5). Retrying...`, "warn");
+        setTimeout(() => { void loadSamples(attempt + 1); }, 800);
+        return;
+      }
       sampleBoxes.innerHTML = "<span style='color:#888;font-size:0.85rem;'>No sample docs found</span>";
       return;
     }
@@ -239,6 +245,12 @@ async function loadSamples() {
       sampleBoxes.appendChild(box);
     }
   } catch (_) {
+    if (attempt < 4) {
+      debug(`Failed to load sample docs endpoint (attempt ${attempt + 1}/5). Retrying...`, "warn");
+      sampleBoxes.innerHTML = "<span style='color:#888;font-size:0.85rem;'>Loading sample docs…</span>";
+      setTimeout(() => { void loadSamples(attempt + 1); }, 800);
+      return;
+    }
     debug("Failed to load sample docs endpoint.", "err");
     sampleBoxes.innerHTML = "<span style='color:#f66;font-size:0.85rem;'>Failed to load samples</span>";
   }
