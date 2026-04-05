@@ -38,11 +38,6 @@ const stepRetrieve    = document.getElementById("stepRetrieve");
 const stepTopology    = document.getElementById("stepTopology");
 const stepGate        = document.getElementById("stepGate");
 const stepAnswer      = document.getElementById("stepAnswer");
-const liveDbgPhase    = document.getElementById("liveDbgPhase");
-const liveDbgStatus   = document.getElementById("liveDbgStatus");
-const liveDbgToken    = document.getElementById("liveDbgToken");
-const liveDbgApi      = document.getElementById("liveDbgApi");
-const liveDbgErr      = document.getElementById("liveDbgErr");
 
 let preparedDocToken = null;
 let prepareJobId     = null;
@@ -50,17 +45,24 @@ let preparePollTimer = null;
 let savedDocs        = [];
 let isPreparing      = false;
 
-function _short(v, n = 44) {
-  const s = String(v == null ? "" : v);
-  return s.length > n ? `${s.slice(0, n - 1)}…` : s;
+function updateLiveDebug({ phase, status, token, api, err } = {}) {
+  void phase;
+  void status;
+  void token;
+  void api;
+  void err;
 }
 
-function updateLiveDebug({ phase, status, token, api, err } = {}) {
-  if (phase != null && liveDbgPhase)  liveDbgPhase.textContent = _short(phase);
-  if (status != null && liveDbgStatus) liveDbgStatus.textContent = _short(status);
-  if (token != null && liveDbgToken)  liveDbgToken.textContent = token ? _short(token, 14) : "none";
-  if (api != null && liveDbgApi)      liveDbgApi.textContent = _short(api);
-  if (err != null && liveDbgErr)      liveDbgErr.textContent = _short(err);
+function stopAskRuntimeDebug() {
+  return;
+}
+
+function startAskRuntimeDebug() {
+  return;
+}
+
+async function loadRuntimeDebugSnapshot() {
+  return;
 }
 
 function _getAccessCode() {
@@ -234,7 +236,7 @@ async function loadSamples(attempt = 0) {
         setTimeout(() => { void loadSamples(attempt + 1); }, 800);
         return;
       }
-      sampleBoxes.innerHTML = "<span style='color:#888;font-size:0.85rem;'>No sample docs found</span>";
+      sampleBoxes.innerHTML = "<span style='color:#888;font-size:0.85rem;'>Please refresh browser to load sample docs.</span>";
       updateLiveDebug({ status: "no sample docs found" });
       return;
     }
@@ -303,7 +305,7 @@ async function loadSamples(attempt = 0) {
 /* ── Ask UI helpers ──────────────────────────────────────── */
 function setAsking(isLoading) {
   updateLiveDebug({ phase: isLoading ? "asking" : "ready", status: isLoading ? "question running" : "idle" });
-  askBtn.textContent    = isLoading ? "Running…" : "Submit question";
+  askBtn.textContent    = isLoading ? "Running…" : "Ask question";
   setAskEnabled(!isLoading && !!preparedDocToken);
   if (!isLoading) demoStatus.textContent = "Ready.";
 }
@@ -536,15 +538,38 @@ function renderResult(data) {
   if (!clauses.length) {
     clausesList.innerHTML = "<p class='hint'>No supporting text returned.</p>";
   } else {
-    for (const clause of clauses) {
-      const card = document.createElement("article");
-      card.className = "clause";
-      card.innerHTML = `
-        <p>${escapeHtml(clause.text || "")}</p>
-        <small>${clause.source ? escapeHtml(clause.source) : "Unknown source"}</small>
-      `;
-      clausesList.appendChild(card);
+    const initialCount = 3;
+    const maxCount = Math.min(6, clauses.length);
+    let expanded = false;
+
+    function renderClauses() {
+      clausesList.innerHTML = "";
+      const count = expanded ? maxCount : Math.min(initialCount, maxCount);
+      const visible = clauses.slice(0, count);
+      for (const clause of visible) {
+        const card = document.createElement("article");
+        card.className = "clause";
+        card.innerHTML = `
+          <p>${escapeHtml(clause.text || "")}</p>
+        `;
+        clausesList.appendChild(card);
+      }
+
+      if (maxCount > initialCount) {
+        const toggleBtn = document.createElement("button");
+        toggleBtn.type = "button";
+        toggleBtn.className = "btn btn-secondary";
+        toggleBtn.style.marginTop = "0.4rem";
+        toggleBtn.textContent = expanded ? "Show less" : "Show more";
+        toggleBtn.addEventListener("click", () => {
+          expanded = !expanded;
+          renderClauses();
+        });
+        clausesList.appendChild(toggleBtn);
+      }
     }
+
+    renderClauses();
   }
 
 }
@@ -563,6 +588,7 @@ async function askQuestion() {
 
   setAsking(true);
   startAskSteps(false);
+  startAskRuntimeDebug();
 
   try {
     const { res, data, raw } = await apiFetchJson("/api/ask", { method: "POST", body: form });
@@ -575,6 +601,7 @@ async function askQuestion() {
       debug(`Ask failed: HTTP ${res.status} detail=${detail}`, "err");
       updateLiveDebug({ phase: "error", status: `ask failed ${res.status}`, err: detail });
       showError(`Request failed (${res.status}). ${detail}`);
+      stopAskRuntimeDebug();
       return;
     }
     if (!data || typeof data !== "object") {
@@ -582,6 +609,7 @@ async function askQuestion() {
       debug(`Ask failed: non-JSON success response: ${snippet}`, "err");
       updateLiveDebug({ phase: "error", status: "ask non-json", err: snippet });
       showError(`Server returned an unexpected response. ${snippet}`);
+      stopAskRuntimeDebug();
       return;
     }
     updateLiveDebug({ phase: "ready", status: "answer received", err: "none" });
@@ -593,6 +621,7 @@ async function askQuestion() {
     updateLiveDebug({ phase: "error", status: "network/server error", err: detail });
     showError(`Network or server error. ${detail}`);
   } finally {
+    stopAskRuntimeDebug();
     setAsking(false);
   }
 }
@@ -715,3 +744,4 @@ updateLiveDebug({ phase: "boot", status: "ui booting", token: "", api: "-", err:
 debug("UI boot complete. v6");
 loadSamples();
 loadSavedDocs();
+loadRuntimeDebugSnapshot();

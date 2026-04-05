@@ -75,6 +75,13 @@ class PipelineCache:
             self._cache[key] = {"mtime": mtime, "pipeline": pipeline, "last_used": time.time()}
             self._prune_locked()
 
+    def stats(self) -> dict[str, Any]:
+        with self._lock:
+            return {
+                "items": len(self._cache),
+                "max_items": self._max_items,
+            }
+
 
 cache = PipelineCache()
 app = FastAPI(title="Deterministic RAG Demo", version="1.0.0")
@@ -106,6 +113,17 @@ _rate_limit_ask = max(5, int(os.getenv("API_RATE_LIMIT_ASK_REQS") or 60))
 _rate_limit_prepare = max(1, int(os.getenv("API_RATE_LIMIT_PREPARE_REQS") or 8))
 _rate_events: dict[str, deque[float]] = defaultdict(deque)
 _rate_lock = Lock()
+_server_started_at = time.time()
+_ask_debug_lock = Lock()
+_ask_debug: dict[str, Any] = {
+    "active": 0,
+    "total_started": 0,
+    "total_finished": 0,
+    "last_started_at": None,
+    "last_finished_at": None,
+    "last_latency_ms": None,
+    "last_error": None,
+}
 
 
 def _client_ip(request: Request) -> str:
@@ -357,36 +375,194 @@ def _llm_preflight_error() -> str | None:
     )
 
 
-def _pick_supporting_clauses(result: dict, limit: int = 5) -> list[dict[str, str]]:
-    clauses: list[dict[str, str]] = []
+def _mark_ask_start() -> None:
+    with _ask_debug_lock:
+        _ask_debug["active"] = int(_ask_debug.get("active") or 0) + 1
+        _ask_debug["total_started"] = int(_ask_debug.get("total_started") or 0) + 1
+        _ask_debug["last_started_at"] = time.time()
+
+
+def _mark_ask_end(*, latency_ms: int, error: str | None = None) -> None:
+    with _ask_debug_lock:
+        _ask_debug["active"] = max(0, int(_ask_debug.get("active") or 0) - 1)
+        _ask_debug["total_finished"] = int(_ask_debug.get("total_finished") or 0) + 1
+        _ask_debug["last_finished_at"] = time.time()
+        _ask_debug["last_latency_ms"] = int(latency_ms)
+        _ask_debug["last_error"] = (str(error).strip() if error else None)
+
+
+_DISPLAY_STOPWORDS = {
+    "the", "and", "for", "with", "that", "this", "from", "into", "under", "over",
+    "about", "there", "their", "they", "them", "what", "when", "where", "which",
+    "who", "whom", "whose", "have", "has", "had", "does", "did", "are", "was",
+    "were", "will", "would", "shall", "should", "can", "could", "may", "might",
+    "must", "your", "ours", "its", "not", "only", "also", "than", "then", "such",
+    "all", "any", "each", "either", "both", "between", "within", "across", "into",
+    "onto", "upon", "before", "after", "because", "while", "during", "through",
+    "agreement", "document", "contract",
+}
+
+
+def _display_terms(text: str) -> set[str]:
+    tokens = re.findall(r"[a-z0-9][a-z0-9'_-]*", (text or "").lower())
+    return {t for t in tokens if len(t) >= 3 and t not in _DISPLAY_STOPWORDS}
+
+
+def _score_support_node(
+    node: dict,
+    *,
+    question_terms: set[str],
+    answer_terms: set[str],
+    answer_text: str,
+) -> dict | None:
+    text = (node.get("source_text") or "").strip()
+    if not text:
+        return None
+
+    text_terms = _display_terms(text)
+    if not text_terms:
+        return None
+
+    source = node.get("_section") or f"Chunk {node.get('_chunk_id', '?')}"
+    node_type = str(node.get("type") or "").upper()
+    text_lower = text.lower()
+
+    q_overlap = len(text_terms & question_terms) / max(1, len(question_terms))
+    a_overlap = len(text_terms & answer_terms) / max(1, len(answer_terms)) if answer_terms else 0.0
+    phrase_match = bool(answer_text and answer_text.lower() in text_lower)
+
+    type_bonus = {
+        "DEFINITION": 1.5,
+        "OBLIGATION": 1.1,
+        "RIGHT": 1.1,
+        "CONDITION": 0.8,
+        "NUMERIC": 0.7,
+    }.get(node_type, 0.0)
+
+    retrieval_score = float(node.get("_score") or 0.0)
+    vote_frac = float(node.get("_vote_frac") or 0.0)
+
+    direct_strength = (3.0 if phrase_match else 0.0) + (2.0 * a_overlap) + q_overlap
+    score = (
+        direct_strength * 6.0
+        + type_bonus
+        + retrieval_score * 1.4
+        + vote_frac * 1.2
+        - (0.6 if len(text) < 40 else 0.0)
+    )
+
+    is_definition = node_type == "DEFINITION"
+    is_direct = bool(phrase_match or a_overlap >= 0.5 or (a_overlap >= 0.3 and q_overlap >= 0.12))
+    is_weak = bool(
+        not is_direct
+        and q_overlap < 0.08
+        and a_overlap < 0.08
+        and retrieval_score < 0.55
+        and not is_definition
+    )
+
+    return {
+        "key": text.lower(),
+        "text": text,
+        "source": str(source),
+        "score": score,
+        "q_overlap": q_overlap,
+        "a_overlap": a_overlap,
+        "is_definition": is_definition,
+        "is_direct": is_direct,
+        "is_weak": is_weak,
+    }
+
+
+def _pick_supporting_clauses(result: dict, limit: int = 6) -> tuple[list[dict[str, str]], dict[str, Any]]:
+    question = str(result.get("question") or "").strip()
+    answer_text = str(result.get("answer") or "").strip()
+    question_terms = _display_terms(question)
+    answer_terms = _display_terms(answer_text)
+
     seen: set[str] = set()
+    scored: list[dict[str, Any]] = []
+    for node in result.get("surviving_nodes", [])[:40]:
+        ranked = _score_support_node(
+            node,
+            question_terms=question_terms,
+            answer_terms=answer_terms,
+            answer_text=answer_text,
+        )
+        if not ranked:
+            continue
+        if ranked["key"] in seen:
+            continue
+        seen.add(ranked["key"])
+        scored.append(ranked)
 
-    for node in result.get("surviving_nodes", [])[:30]:
-        text = (node.get("source_text") or "").strip()
-        if not text:
-            continue
-        key = text.lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        source = node.get("_section") or f"Chunk {node.get('_chunk_id', '?')}"
-        clauses.append({"text": text, "source": str(source)})
-        if len(clauses) >= limit:
+    scored.sort(key=lambda item: item["score"], reverse=True)
+
+    selected: list[dict[str, Any]] = []
+    selected_keys: set[str] = set()
+    used_fallback = False
+
+    direct_candidates = [s for s in scored if s["is_direct"] and not s["is_weak"]]
+    if direct_candidates:
+        top_direct = direct_candidates[0]
+        selected.append(top_direct)
+        selected_keys.add(top_direct["key"])
+
+    definition_candidates = [
+        s for s in scored
+        if s["is_definition"] and s["q_overlap"] >= 0.08 and s["key"] not in selected_keys and not s["is_weak"]
+    ]
+    if definition_candidates and len(selected) < limit:
+        top_definition = definition_candidates[0]
+        selected.append(top_definition)
+        selected_keys.add(top_definition["key"])
+
+    for item in scored:
+        if len(selected) >= limit:
             break
+        if item["key"] in selected_keys:
+            continue
+        if item["is_weak"]:
+            continue
+        selected.append(item)
+        selected_keys.add(item["key"])
 
-    return clauses
+    if not selected and scored:
+        selected = [scored[0]]
+        used_fallback = True
+
+    clauses = [{"text": item["text"], "source": item["source"]} for item in selected[:limit]]
+    context = {
+        "has_direct_support": any(item["is_direct"] for item in selected),
+        "has_definition_support": any(item["is_definition"] for item in selected),
+        "used_fallback": used_fallback,
+    }
+    return clauses, context
 
 
 def _shape_response(result: dict) -> dict:
     answerable = bool(result.get("answerable", False))
     short_answer = result.get("answer") if answerable else None
-    reason = (result.get("reasoning") or "").strip()
+    clauses: list[dict[str, str]] = []
+    evidence_context: dict[str, Any] = {
+        "has_direct_support": False,
+        "has_definition_support": False,
+        "used_fallback": False,
+    }
+    if answerable:
+        clauses, evidence_context = _pick_supporting_clauses(result, limit=6)
 
-    if not reason:
-        if answerable:
-            reason = "The contract includes evidence supporting this answer."
+    if answerable:
+        if evidence_context["has_direct_support"]:
+            reason = "The agreement states this directly in the supporting text below."
+        elif evidence_context["has_definition_support"]:
+            reason = "The document explicitly identifies the relevant party or term in the supporting text below."
+        elif evidence_context["used_fallback"]:
+            reason = "The answer is inferred from the strongest supporting text retrieved below, but the support is less direct than ideal."
         else:
-            reason = "No evidence in the uploaded contract supports this answer."
+            reason = "The answer is supported by the document text shown below."
+    else:
+        reason = (result.get("reasoning") or "").strip() or "No evidence in the uploaded contract supports this answer."
 
     topo = result.get("topo_pred") or {}
     gate = result.get("answerability_gate") or {}
@@ -411,7 +587,7 @@ def _shape_response(result: dict) -> dict:
         "answerable": answerable,
         "short_answer": short_answer,
         "reason": reason,
-        "supporting_clauses": _pick_supporting_clauses(result) if answerable else [],
+        "supporting_clauses": clauses if answerable else [],
         "metadata": metadata,
     }
 
@@ -695,6 +871,27 @@ def root():
 def health(request: Request) -> dict:
     _enforce_rate_limit(request, "health", _rate_limit_general)
     return {"ok": True}
+
+
+@app.get("/api/debug/runtime")
+def debug_runtime(request: Request) -> dict:
+    _enforce_access(request)
+    _enforce_rate_limit(request, "debug_runtime", _rate_limit_general)
+    llm_preflight = _llm_preflight_error()
+    with _ask_debug_lock:
+        ask_debug = dict(_ask_debug)
+    return {
+        "ok": True,
+        "uptime_sec": int(max(0.0, time.time() - _server_started_at)),
+        "openai_key_present": bool(os.getenv("OPENAI_API_KEY")),
+        "ollama_url": os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate"),
+        "llm_preflight_error": llm_preflight,
+        "cache": cache.stats(),
+        "prepared_docs_count": len(_prepared_index),
+        "doc_tokens_count": len(_doc_tokens),
+        "active_prepare_jobs": sum(1 for j in _prep_jobs.values() if j.get("status") in {"queued", "running"}),
+        "ask_debug": ask_debug,
+    }
 
 
 @app.get("/api/demo-docs")
@@ -1001,18 +1198,22 @@ def ask(
     _enforce_access(request)
     _enforce_rate_limit(request, "ask", _rate_limit_ask)
     t0 = time.time()
+    _mark_ask_start()
     q = (question or "").strip()
     if not q:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error="Question is required.")
         raise HTTPException(status_code=400, detail="Question is required.")
     if not doc_token:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error="Missing doc token.")
         raise HTTPException(status_code=400, detail="Please prepare a document before asking questions.")
-    pdf_path = _resolve_pdf(sample_name=None, file=None, doc_token=doc_token)
 
     try:
+        pdf_path = _resolve_pdf(sample_name=None, file=None, doc_token=doc_token)
         pipeline = cache.get(pdf_path)
         raw = run_query(pipeline, q)
         shaped = _shape_response(raw)
         shaped["document"] = pdf_path.name
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000))
         _record_topology_event(
             question=q,
             pdf_path=pdf_path,
@@ -1023,8 +1224,10 @@ def ask(
         )
         return shaped
     except HTTPException:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error="HTTPException")
         raise
     except Exception as exc:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error=str(exc))
         _record_topology_event(
             question=q,
             pdf_path=pdf_path,
@@ -1045,22 +1248,28 @@ def ask_batch(
 ) -> dict:
     _enforce_access(request)
     _enforce_rate_limit(request, "ask_batch", _rate_limit_ask)
+    t0 = time.time()
+    _mark_ask_start()
     if not doc_token:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error="Missing doc token.")
         raise HTTPException(status_code=400, detail="Please prepare a document before asking questions.")
 
     parsed = [q.strip() for q in (questions or "").splitlines() if q.strip()]
     if not parsed:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error="Empty question batch.")
         raise HTTPException(status_code=400, detail="Provide at least one question (one per line).")
     if len(parsed) > 40:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error="Batch size > 40.")
         raise HTTPException(status_code=400, detail="Maximum batch size is 40 questions.")
 
-    pdf_path = _resolve_pdf(sample_name=None, file=None, doc_token=doc_token)
-
     try:
+        pdf_path = _resolve_pdf(sample_name=None, file=None, doc_token=doc_token)
         pipeline = cache.get(pdf_path)
     except HTTPException:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error="HTTPException while loading pipeline.")
         raise
     except Exception as exc:
+        _mark_ask_end(latency_ms=int((time.time() - t0) * 1000), error=str(exc))
         raise HTTPException(status_code=500, detail=f"Pipeline error: {exc}")
 
     results: list[dict[str, Any]] = []
@@ -1105,6 +1314,7 @@ def ask_batch(
 
     answerable_count = sum(1 for r in results if r.get("answerable"))
     unanswerable_count = len(results) - answerable_count
+    _mark_ask_end(latency_ms=int((time.time() - t0) * 1000))
     return {
         "document": pdf_path.name,
         "total": len(results),

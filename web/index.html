@@ -4,65 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Deterministic RAG: Legal Contract AI That Refuses to Guess</title>
-    <link rel="stylesheet" href="/web/styles.css?v=36" />
+    <link rel="stylesheet" href="/web/styles.css?v=37" />
   </head>
   <body>
-    <!-- PASSWORD WALL -->
-    <div id="passwordWall" style="display:none;position:fixed;inset:0;background:#ffffff;z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
-      <div style="text-align:center;margin-bottom:8px;">
-        <div style="font-size:1.5rem;font-weight:700;color:#111;letter-spacing:-0.02em;">Deterministic RAG</div>
-        <div style="color:#333;font-size:0.9rem;margin-top:4px;">Enter access code to continue</div>
-      </div>
-      <input id="passwordInput" type="text" placeholder="Enter" autofocus
-        style="padding:12px 16px;border-radius:8px;border:1px solid #111;background:#fff;color:#111;font-size:1rem;width:260px;outline:none;" />
-      <button onclick="checkPassword()"
-        style="padding:12px 24px;border-radius:8px;background:#fff;color:#111;font-size:1rem;font-weight:600;border:1px solid #111;cursor:pointer;width:260px;">
-        Enter
-      </button>
-      <div id="passwordError" style="color:#b00020;font-size:0.85rem;display:none;">Incorrect code. Try again.</div>
-    </div>
-    <script>
-      (function() {
-        var granted = localStorage.getItem('rag_access') === 'granted';
-        var hasCode = !!(localStorage.getItem('rag_access_code') || '').trim();
-        if (!(granted && hasCode)) {
-          var wall = document.getElementById('passwordWall');
-          wall.style.display = 'flex';
-          document.body.style.overflow = 'hidden';
-        }
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') checkPassword();
-        });
-      })();
-      function checkPassword() {
-        const val = document.getElementById('passwordInput').value;
-        if (val.toLowerCase() === 'chatgpt26') {
-          localStorage.setItem('rag_access', 'granted');
-          localStorage.setItem('rag_access_code', val.toLowerCase());
-          document.getElementById('passwordWall').style.display = 'none';
-          document.body.style.overflow = '';
-        } else {
-          document.getElementById('passwordError').style.display = 'block';
-          document.getElementById('passwordInput').value = '';
-          document.getElementById('passwordInput').focus();
-        }
-      }
-    </script>
-
     <aside class="debug-panel" id="debugPanel">
       <div class="debug-head">
         <strong>Debug Console</strong>
         <button id="clearDebugBtn" type="button">Clear</button>
       </div>
       <div id="debugLog" class="debug-log"></div>
-    </aside>
-    <aside class="live-debug" id="liveDebug">
-      <div class="live-debug-title">Live Debug</div>
-      <div class="live-debug-row"><span>Phase</span><strong id="liveDbgPhase">boot</strong></div>
-      <div class="live-debug-row"><span>Status</span><strong id="liveDbgStatus">-</strong></div>
-      <div class="live-debug-row"><span>Token</span><strong id="liveDbgToken">none</strong></div>
-      <div class="live-debug-row"><span>Last API</span><strong id="liveDbgApi">-</strong></div>
-      <div class="live-debug-row"><span>Error</span><strong id="liveDbgErr">none</strong></div>
     </aside>
 
     <header class="site-header">
@@ -82,10 +32,9 @@
       <section class="hero-wrap">
         <div class="container hero">
           <div class="hero-content">
-            <p class="eyebrow">Legal AI Research Project</p>
             <h1>Contract AI that refuses to guess</h1>
             <p class="subtext">
-              When legal AI hallucinates, people act on answers that are not actually in the document. I am building a system that turns contracts into a structured graph, checks whether the evidence is actually there, and if it is not, it does not answer. Instead of guessing, it knows when to stop.
+              When legal AI hallucinates, people act on answers that are not actually in the document. I am building a system that turns contracts into a structured graph, checks whether the evidence actually supports the answer, and if it does not, it does not answer. Instead of guessing, it knows when to stop.
             </p>
             <div class="hero-actions">
               <a href="#demo" class="btn btn-primary">Try the demo</a>
@@ -100,8 +49,7 @@
               <p class="vp-q">"What is the renewal term?"</p>
               <p class="vp-a">Renews automatically for successive one-year terms unless written notice is provided.</p>
               <div class="vp-clause">
-                <span class="vp-clause-label">§4.2 Supporting clause</span>
-                <p class="vp-clause-text">"...shall automatically renew for consecutive one (1) year periods unless either party provides written notice of non-renewal no less than sixty (60) days prior..."</p>
+                <p class="vp-clause-text">Shall automatically renew for consecutive one (1) year periods unless either party provides written notice of non-renewal no less than sixty (60) days prior.</p>
               </div>
             </div>
             <div class="verdict-preview vp-unanswerable">
@@ -143,7 +91,7 @@
       <!-- DEMO -->
       <section class="container section" id="demo">
         <h2>Live Demo</h2>
-        <p class="section-lead">Upload a contract or select a sample, then ask any question. The system either returns the relevant supporting text from the document or explains why it cannot answer.</p>
+        <p class="section-lead">Upload a contract or select a sample, then ask any question. The system either returns supporting text from the document or explains why the question cannot be answered.</p>
 
         <div class="demo-grid">
           <div class="card control-card">
@@ -202,7 +150,7 @@
                 <label class="label" for="questionInput">Question</label>
                 <textarea id="questionInput" rows="6" placeholder="Ask a question about the contract…"></textarea>
                 <button id="prepareBtn" class="btn btn-secondary full" style="display:none;">Prepare document</button>
-                <button id="askBtn" class="btn btn-primary full">Submit question</button>
+                <button id="askBtn" class="btn btn-primary full">Ask question</button>
                 <p id="demoStatus" class="hint">Select a document above to get started.</p>
               </div>
             </div>
@@ -252,17 +200,17 @@
               </div>
 
               <div class="result-block">
-                <h4>Answer</h4>
+                <h4>ANSWER</h4>
                 <p id="shortAnswer">-</p>
               </div>
 
               <div class="result-block">
-                <h4>Evidence Summary</h4>
+                <h4>EVIDENCE SUMMARY</h4>
                 <p id="reasonText" class="reason-text">-</p>
               </div>
 
               <div class="result-block">
-                <h4>Evidence From Document</h4>
+                <h4>EVIDENCE FROM DOCUMENT</h4>
                 <div id="clausesList" class="clauses"></div>
               </div>
 
@@ -321,7 +269,7 @@
         <p class="section-lead">Evaluated on 500+ questions across 12+ real contracts not seen during development.</p>
 
         <div class="proof-callout">
-          <strong>Why this matters.</strong> In legal settings, a confident wrong answer can cost real money and real trust. This system avoids that by only answering when the evidence is actually there, and refusing to answer when it is not. A well-calibrated "I don't know" is more valuable than a fluent hallucination.
+          <strong>Why this matters.</strong> In legal settings, a confident wrong answer can cost real money and real trust. This system avoids that by only answering when the evidence actually supports the answer, and refusing to answer when it does not. A well-calibrated "I don't know" is more valuable than a fluent hallucination.
         </div>
       </section>
 
@@ -367,11 +315,11 @@
           I used ChatGPT as a build partner the whole way through, designing the system, debugging retrieval, and testing it across hundreds of questions. What you see here is a real system tested on real contracts.
         </p>
         <p>
-          Right now it works on one document at a time, but the goal is to extend this across multiple documents while keeping the same idea: only answer when the evidence is actually there.
+          Right now it works on one document at a time, but the goal is to extend this across multiple documents while keeping the same idea: only answer when the evidence actually supports the answer.
         </p>
       </section>
     </main>
 
-    <script src="/web/app.js?v=38" defer></script>
+    <script src="/web/app.js?v=39" defer></script>
   </body>
 </html>
