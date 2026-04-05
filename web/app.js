@@ -119,6 +119,12 @@ function fmtSec(s) {
   return `${Math.floor(n / 60)}m ${Math.round(n % 60)}s`;
 }
 
+function nextPaint() {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => resolve());
+  });
+}
+
 /* ── Sample box state helpers ────────────────────────────── */
 function _boxEl(name) {
   return sampleBoxes.querySelector(`.sample-box[data-name="${CSS.escape(name)}"]`);
@@ -428,6 +434,8 @@ async function prepareDocument() {
   if (activeFile)   form.append("file", activeFile);
 
   try {
+    // Ensure loader/progress UI paints before network + backend work begins.
+    await nextPaint();
     const res  = await apiFetch("/api/prepare-doc", { method: "POST", body: form });
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || "Could not start document preparation.");
@@ -591,6 +599,8 @@ async function askQuestion() {
   startAskRuntimeDebug();
 
   try {
+    // Ensure ask loading animation is visible immediately on first run.
+    await nextPaint();
     const { res, data, raw } = await apiFetchJson("/api/ask", { method: "POST", body: form });
     stopAskSteps();
     if (!res.ok) {
