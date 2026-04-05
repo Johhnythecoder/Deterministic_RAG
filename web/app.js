@@ -63,6 +63,20 @@ async function apiFetch(url, options = {}) {
   return fetch(_withAccessCode(url), { ...options, headers });
 }
 
+async function apiFetchJson(url, options = {}) {
+  const res = await apiFetch(url, options);
+  const raw = await res.text();
+  let data = null;
+  if (raw) {
+    try {
+      data = JSON.parse(raw);
+    } catch (_) {
+      data = null;
+    }
+  }
+  return { res, data, raw };
+}
+
 function debug(msg, level = "info") {
   if (!debugLog) return;
   const ts = new Date().toLocaleTimeString();
@@ -511,14 +525,29 @@ async function askQuestion() {
   startAskSteps(false);
 
   try {
-    const res  = await apiFetch("/api/ask", { method: "POST", body: form });
-    const data = await res.json();
+    const { res, data, raw } = await apiFetchJson("/api/ask", { method: "POST", body: form });
     stopAskSteps();
-    if (!res.ok) { showError(data.detail || "Request failed."); return; }
+    if (!res.ok) {
+      const detail =
+        (data && (data.detail || data.error || data.message))
+        || (raw && raw.slice(0, 220))
+        || `HTTP ${res.status}`;
+      debug(`Ask failed: HTTP ${res.status} detail=${detail}`, "err");
+      showError(`Request failed (${res.status}). ${detail}`);
+      return;
+    }
+    if (!data || typeof data !== "object") {
+      const snippet = raw ? raw.slice(0, 220) : "empty response body";
+      debug(`Ask failed: non-JSON success response: ${snippet}`, "err");
+      showError(`Server returned an unexpected response. ${snippet}`);
+      return;
+    }
     renderResult(data);
-  } catch (_) {
+  } catch (err) {
     stopAskSteps();
-    showError("Network or server error. Please try again.");
+    const detail = err?.message ? String(err.message) : "Unknown network error";
+    debug(`Ask network error: ${detail}`, "err");
+    showError(`Network or server error. ${detail}`);
   } finally {
     setAsking(false);
   }
