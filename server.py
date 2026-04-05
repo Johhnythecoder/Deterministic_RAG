@@ -154,25 +154,52 @@ def _collect_demo_docs() -> list[dict[str, str]]:
     return docs
 
 
+def _has_prebuilt_artifacts(pdf_path: Path) -> bool:
+    nodes_path = pdf_path.parent / f"{pdf_path.stem}_typed_nodes.json"
+    graph_path = pdf_path.parent / f"{pdf_path.stem}_graph.json"
+    return nodes_path.exists() and graph_path.exists()
+
+
+def _ensure_prepared_token_for_pdf(pdf_path: Path) -> str:
+    resolved = str(pdf_path.resolve())
+    for item in _prepared_index:
+        if item.get("path") == resolved and item.get("token"):
+            token = str(item.get("token") or "")
+            if token:
+                _doc_tokens[token] = pdf_path
+                return token
+    token = uuid4().hex
+    _register_prepared_doc(token, pdf_path)
+    return token
+
+
+def _bootstrap_prepared_index_from_artifacts() -> None:
+    # Ensure sample docs with baked artifacts are instantly selectable after restart/deploy.
+    for p in sorted(SAMPLE_DIR.glob("*.pdf")):
+        if _has_prebuilt_artifacts(p):
+            _ensure_prepared_token_for_pdf(p)
+
+
 def _load_prepared_index() -> None:
     global _prepared_index
     if not PREPARED_INDEX_PATH.exists():
         _prepared_index = []
-        return
-    try:
-        raw = json.loads(PREPARED_INDEX_PATH.read_text())
-        if isinstance(raw, list):
-            _prepared_index = raw
-        else:
+    else:
+        try:
+            raw = json.loads(PREPARED_INDEX_PATH.read_text())
+            if isinstance(raw, list):
+                _prepared_index = raw
+            else:
+                _prepared_index = []
+        except Exception:
             _prepared_index = []
-    except Exception:
-        _prepared_index = []
 
     for item in _prepared_index:
         token = str(item.get("token") or "")
         p = Path(str(item.get("path") or ""))
         if token and p.exists():
             _doc_tokens[token] = p
+    _bootstrap_prepared_index_from_artifacts()
 
 
 def _save_prepared_index() -> None:
