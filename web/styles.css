@@ -84,6 +84,43 @@ body {
 .debug-line.warn { color: #f6dca7; }
 .debug-line.err  { color: #ffb5ab; }
 
+.live-debug {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 65;
+  width: min(320px, calc(100vw - 24px));
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #cad4d7;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(10, 20, 26, 0.14);
+  padding: 10px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+}
+
+.live-debug-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #17303a;
+}
+
+.live-debug-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+  color: #3f5560;
+}
+
+.live-debug-row strong {
+  color: #0f2933;
+  max-width: 65%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* ── LAYOUT ──────────────────────────────────────────────── */
 .container {
   width: min(1060px, calc(100% - 2rem));
@@ -850,6 +887,12 @@ textarea { resize: vertical; }
     bottom: 12px;
     right: 12px;
     max-height: 38vh;
+  }
+  .live-debug {
+    top: auto;
+    bottom: 12px;
+    right: 12px;
+    width: min(340px, calc(100vw - 24px));
   }
 
   nav { display: none; }

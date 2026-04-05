@@ -38,12 +38,30 @@ const stepRetrieve    = document.getElementById("stepRetrieve");
 const stepTopology    = document.getElementById("stepTopology");
 const stepGate        = document.getElementById("stepGate");
 const stepAnswer      = document.getElementById("stepAnswer");
+const liveDbgPhase    = document.getElementById("liveDbgPhase");
+const liveDbgStatus   = document.getElementById("liveDbgStatus");
+const liveDbgToken    = document.getElementById("liveDbgToken");
+const liveDbgApi      = document.getElementById("liveDbgApi");
+const liveDbgErr      = document.getElementById("liveDbgErr");
 
 let preparedDocToken = null;
 let prepareJobId     = null;
 let preparePollTimer = null;
 let savedDocs        = [];
 let isPreparing      = false;
+
+function _short(v, n = 44) {
+  const s = String(v == null ? "" : v);
+  return s.length > n ? `${s.slice(0, n - 1)}…` : s;
+}
+
+function updateLiveDebug({ phase, status, token, api, err } = {}) {
+  if (phase != null && liveDbgPhase)  liveDbgPhase.textContent = _short(phase);
+  if (status != null && liveDbgStatus) liveDbgStatus.textContent = _short(status);
+  if (token != null && liveDbgToken)  liveDbgToken.textContent = token ? _short(token, 14) : "none";
+  if (api != null && liveDbgApi)      liveDbgApi.textContent = _short(api);
+  if (err != null && liveDbgErr)      liveDbgErr.textContent = _short(err);
+}
 
 function _getAccessCode() {
   return (localStorage.getItem("rag_access_code") || "").trim();
@@ -60,6 +78,7 @@ async function apiFetch(url, options = {}) {
   const headers = new Headers(options.headers || {});
   const code = _getAccessCode();
   if (code) headers.set("x-access-code", code);
+  updateLiveDebug({ api: `${options.method || "GET"} ${url}` });
   return fetch(_withAccessCode(url), { ...options, headers });
 }
 
@@ -121,6 +140,7 @@ function setBoxState(name, state) {
 
 /* ── Prep UI state ───────────────────────────────────────── */
 function showPrepLoading(docName_) {
+  updateLiveDebug({ phase: "preparing", status: `building ${docName_ || "document"}`, err: "none" });
   prepLoadingBlock.style.display = "block";
   prepReadyBlock.style.display   = "none";
   prepLabel.textContent = `Building knowledge graph for ${docName_ || "document"}…`;
@@ -129,6 +149,7 @@ function showPrepLoading(docName_) {
 }
 
 function showPrepReady(docName_) {
+  updateLiveDebug({ phase: "ready", status: `${docName_ || "Document"} ready` });
   prepLoadingBlock.style.display = "none";
   prepReadyBlock.style.display   = "flex";
   prepReadyLabel.textContent = `${docName_ || "Document"} is ready for questions`;
@@ -143,6 +164,7 @@ function hidePrepUI() {
 function clearPreparedState() {
   debug("Reset prepared state.", "warn");
   preparedDocToken = null;
+  updateLiveDebug({ token: "", status: "cleared selection" });
   isPreparing = false;
   setAskEnabled(false);
   hidePrepUI();
@@ -183,19 +205,23 @@ function refreshBoxStates() {
 
 async function loadSavedDocs() {
   debug("Loading saved document list...");
+  updateLiveDebug({ phase: "loading", status: "loading saved docs" });
   try {
     const res  = await apiFetch("/api/saved-docs");
     const data = await res.json();
     savedDocs  = data.documents || [];
     debug(`Saved docs loaded: ${savedDocs.length}`);
+    updateLiveDebug({ status: `saved docs ${savedDocs.length}` });
   } catch (_) {
     debug("Failed to load saved docs endpoint.", "err");
+    updateLiveDebug({ err: "failed /api/saved-docs", status: "saved docs failed" });
   }
 }
 
 /* ── Sample docs grid ────────────────────────────────────── */
 async function loadSamples(attempt = 0) {
   debug("Loading sample document list...");
+  updateLiveDebug({ phase: "loading", status: `loading samples (${attempt + 1}/5)` });
   try {
     const res  = await apiFetch("/api/demo-docs");
     const data = await res.json();
@@ -209,8 +235,10 @@ async function loadSamples(attempt = 0) {
         return;
       }
       sampleBoxes.innerHTML = "<span style='color:#888;font-size:0.85rem;'>No sample docs found</span>";
+      updateLiveDebug({ status: "no sample docs found" });
       return;
     }
+    updateLiveDebug({ status: `samples loaded: ${docs.length}` });
 
     sampleSelect.innerHTML = "<option value=''></option>" +
       docs.map(d => `<option value="${d.name}">${d.name}</option>`).join("");
@@ -247,6 +275,7 @@ async function loadSamples(attempt = 0) {
         if (token) {
           setSampleBox(d.name, false);
           preparedDocToken = token;
+          updateLiveDebug({ token, phase: "ready", status: `${d.name} instant ready`, err: "none" });
           setAskEnabled(true);
           showPrepReady(d.name);
           setBoxState(d.name, "ready");
@@ -267,11 +296,13 @@ async function loadSamples(attempt = 0) {
     }
     debug("Failed to load sample docs endpoint.", "err");
     sampleBoxes.innerHTML = "<span style='color:#f66;font-size:0.85rem;'>Failed to load samples</span>";
+    updateLiveDebug({ err: "failed /api/demo-docs", status: "sample load failed" });
   }
 }
 
 /* ── Ask UI helpers ──────────────────────────────────────── */
 function setAsking(isLoading) {
+  updateLiveDebug({ phase: isLoading ? "asking" : "ready", status: isLoading ? "question running" : "idle" });
   askBtn.textContent    = isLoading ? "Running…" : "Submit question";
   setAskEnabled(!isLoading && !!preparedDocToken);
   if (!isLoading) demoStatus.textContent = "Ready.";
@@ -279,6 +310,7 @@ function setAsking(isLoading) {
 
 /* ── Prepare poll ────────────────────────────────────────── */
 async function pollPrepareJob(jobId, sampleName) {
+  updateLiveDebug({ phase: "preparing", status: `polling job ${jobId.slice(0, 8)}` });
   if (preparePollTimer) clearInterval(preparePollTimer);
 
   preparePollTimer = setInterval(async () => {
@@ -328,6 +360,7 @@ async function pollPrepareJob(jobId, sampleName) {
         preparePollTimer = null;
         isPreparing = false;
         preparedDocToken = data.doc_token;
+        updateLiveDebug({ token: data.doc_token || "", phase: "ready", status: "prepare done", err: "none" });
         prepProgress.style.width = "100%";
 
         setTimeout(() => {
@@ -351,6 +384,7 @@ async function pollPrepareJob(jobId, sampleName) {
         isPreparing = false;
         hidePrepUI();
         if (sampleName) setBoxState(sampleName, "idle");
+        updateLiveDebug({ phase: "error", status: "prepare error", err: data.error || "prepare failed" });
         showError(data.error || "Failed to prepare document.");
       }
     } catch (err) {
@@ -360,6 +394,7 @@ async function pollPrepareJob(jobId, sampleName) {
       isPreparing = false;
       hidePrepUI();
       if (sampleName) setBoxState(sampleName, "idle");
+      updateLiveDebug({ phase: "error", status: "prepare poll failed", err: err.message || "poll error" });
       showError(err.message || "Failed to check preparation status.");
     }
   }, 1000);
@@ -379,6 +414,7 @@ async function prepareDocument() {
   }
 
   debug(`Prepare start: sample="${activeSample || ""}" file="${activeFile?.name || ""}"`);
+  updateLiveDebug({ phase: "preparing", status: `start ${activeSample || activeFile?.name || "document"}`, err: "none" });
 
   showPrepLoading(activeSample || activeFile?.name || "document");
   if (activeSample) setBoxState(activeSample, "loading");
@@ -395,6 +431,7 @@ async function prepareDocument() {
     if (!res.ok) throw new Error(data.detail || "Could not start document preparation.");
 
     debug(`Prepare job started: id=${data.job_id} eta=${data.estimate_sec}s`);
+    updateLiveDebug({ status: `job started (${String(data.job_id || "").slice(0, 8)})` });
     prepareJobId = data.job_id;
     prepLabel.textContent = `Building knowledge graph for ${data.document}…`;
     if (data.estimate_sec) prepEta.textContent = `ETA ${fmtSec(data.estimate_sec)} (estimate only; may be shorter or longer)`;
@@ -406,6 +443,7 @@ async function prepareDocument() {
     isPreparing = false;
     hidePrepUI();
     if (activeSample) setBoxState(activeSample, "idle");
+    updateLiveDebug({ phase: "error", status: "prepare start failed", err: err.message || "prepare start error" });
     showError(err.message || "Failed to prepare document.");
   }
 }
@@ -469,6 +507,7 @@ function escapeHtml(str) {
 
 function showError(message) {
   debug(`UI error: ${message}`, "err");
+  updateLiveDebug({ phase: "error", status: "ui error", err: message || "unknown error" });
   emptyState.classList.remove("hidden");
   resultBody.classList.add("hidden");
   emptyState.innerHTML = `<div class="empty-icon">!</div><p>${escapeHtml(message)}</p>`;
@@ -520,6 +559,7 @@ async function askQuestion() {
   form.append("question",  question);
   form.append("doc_token", preparedDocToken);
   debug(`Ask: q="${question.slice(0, 120)}"`);
+  updateLiveDebug({ phase: "asking", status: "sending /api/ask", err: "none" });
 
   setAsking(true);
   startAskSteps(false);
@@ -533,20 +573,24 @@ async function askQuestion() {
         || (raw && raw.slice(0, 220))
         || `HTTP ${res.status}`;
       debug(`Ask failed: HTTP ${res.status} detail=${detail}`, "err");
+      updateLiveDebug({ phase: "error", status: `ask failed ${res.status}`, err: detail });
       showError(`Request failed (${res.status}). ${detail}`);
       return;
     }
     if (!data || typeof data !== "object") {
       const snippet = raw ? raw.slice(0, 220) : "empty response body";
       debug(`Ask failed: non-JSON success response: ${snippet}`, "err");
+      updateLiveDebug({ phase: "error", status: "ask non-json", err: snippet });
       showError(`Server returned an unexpected response. ${snippet}`);
       return;
     }
+    updateLiveDebug({ phase: "ready", status: "answer received", err: "none" });
     renderResult(data);
   } catch (err) {
     stopAskSteps();
     const detail = err?.message ? String(err.message) : "Unknown network error";
     debug(`Ask network error: ${detail}`, "err");
+    updateLiveDebug({ phase: "error", status: "network/server error", err: detail });
     showError(`Network or server error. ${detail}`);
   } finally {
     setAsking(false);
@@ -572,6 +616,7 @@ pdfFile.addEventListener("change", () => {
   if (cached) {
     clearPreparedState();
     preparedDocToken = cached.token;
+    updateLiveDebug({ token: cached.token || "", phase: "ready", status: "uploaded doc reused", err: "none" });
     setAskEnabled(true);
     showPrepReady(filename);
     demoStatus.textContent = "Document is ready. Ask a question.";
@@ -644,6 +689,7 @@ async function _openSelected(kind) {
 
   const url = await _findReachableUrl([...tokenCandidates, ...sampleCandidates]);
   if (!url) {
+    updateLiveDebug({ phase: "error", status: `open ${kind} failed`, err: "no reachable url" });
     showError("Could not open this file. If you just updated code, restart the backend server and try again.");
     return;
   }
@@ -665,6 +711,7 @@ clearDebugBtn.addEventListener("click", () => {
 
 /* ── Boot ────────────────────────────────────────────────── */
 setAskEnabled(false);
+updateLiveDebug({ phase: "boot", status: "ui booting", token: "", api: "-", err: "none" });
 debug("UI boot complete. v6");
 loadSamples();
 loadSavedDocs();
