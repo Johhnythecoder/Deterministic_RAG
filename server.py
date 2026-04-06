@@ -401,11 +401,177 @@ _DISPLAY_STOPWORDS = {
     "onto", "upon", "before", "after", "because", "while", "during", "through",
     "agreement", "document", "contract",
 }
+_DEF_CLAUSE_RE = re.compile(
+    r"\b("
+    r"means|shall\s+mean|is\s+defined\s+as|are\s+defined\s+as|"
+    r"referred\s+to\s+as|collectively\s+referred\s+to|"
+    r"each\s+referred\s+to\s+as|is\s+a\b|are\s+the\b"
+    r")\b",
+    re.IGNORECASE,
+)
+_ENTITY_REL_CLAUSE_RE = re.compile(
+    r"\b("
+    r"referred\s+to\s+as|collectively\s+as|collectively\s+referred\s+to\s+as|"
+    r"between|means|defined\s+as|each\s+referred\s+to\s+as"
+    r")\b",
+    re.IGNORECASE,
+)
+_INDIRECT_ENTITY_RE = re.compile(
+    r"\b("
+    r"payment|fee|invoice|liability|liable|obligation|obligations|"
+    r"responsible|indemnif|breach|terminate|termination|damages|"
+    r"warranty|confidential|security|tax|costs?|charges?"
+    r")\b",
+    re.IGNORECASE,
+)
 
 
 def _display_terms(text: str) -> set[str]:
     tokens = re.findall(r"[a-z0-9][a-z0-9'_-]*", (text or "").lower())
     return {t for t in tokens if len(t) >= 3 and t not in _DISPLAY_STOPWORDS}
+
+
+def _is_definition_entity_question(result: dict) -> bool:
+    q_node = result.get("q_node") if isinstance(result.get("q_node"), dict) else {}
+    node_type = str(q_node.get("node_type") or "").upper().strip()
+    if node_type == "DEFINITION":
+        return True
+
+    slot_slots = result.get("slot_slots") if isinstance(result.get("slot_slots"), list) else []
+    slot_names = {
+        str(s.get("slot") or "").upper().strip()
+        for s in slot_slots
+        if isinstance(s, dict)
+    }
+    if slot_names & {"MEANING", "ACTOR"}:
+        return True
+
+    topo = result.get("topo_pred") if isinstance(result.get("topo_pred"), dict) else {}
+    meta = topo.get("meta") if isinstance(topo.get("meta"), dict) else {}
+    q_intent = meta.get("question_intent") if isinstance(meta.get("question_intent"), dict) else {}
+    primary_slot = str(q_intent.get("primary_slot") or "").upper().strip()
+    proof_type = str(q_intent.get("proof_type") or "").lower().strip()
+    if primary_slot in {"MEANING", "ACTOR"}:
+        return True
+    if proof_type in {"definition", "entity", "identity"}:
+        return True
+    return False
+
+
+def _is_full_sentence_text(text: str) -> bool:
+    t = (text or "").strip()
+    if len(t) < 40:
+        return False
+    if t.startswith("...") or t.endswith("..."):
+        return False
+    if not re.search(r"[.!?;:]$", t):
+        return False
+    if re.search(r"^[a-z]", t):
+        return False
+    return True
+
+
+def _extract_answer_entities(answer_text: str) -> list[str]:
+    raw = (answer_text or "").strip()
+    if not raw:
+        return []
+
+    # Prefer proper-name spans from the answer text (general, non-question-specific).
+    stop = {
+        "agreement", "party", "parties", "services", "terms", "term",
+        "section", "order form", "input", "output", "customer content",
+    }
+    entities: list[str] = []
+    for m in re.finditer(r"\b[A-Z][A-Za-z0-9&.'-]*(?:\s+[A-Z][A-Za-z0-9&.'-]*)*\b", raw):
+        ent = re.sub(r"\s+", " ", m.group(0)).strip(" ,.;:()[]{}\"'").lower()
+        if not ent or ent in stop:
+            continue
+        if ent in {"in", "this", "that", "the", "and", "or"}:
+            continue
+        if ent not in entities:
+            entities.append(ent)
+
+    return entities[:4]
+
+
+def _is_entity_definition_direct_clause(text: str, answer_entities: list[str]) -> bool:
+    raw_text = (text or "").strip()
+    t = raw_text.lower()
+    if not t:
+        return False
+    if not _ENTITY_REL_CLAUSE_RE.search(t):
+        return False
+    if answer_entities:
+        matched = [ent for ent in answer_entities if ent in t]
+        required = 1 if len(answer_entities) == 1 else min(2, len(answer_entities))
+        if len(matched) < required:
+            return False
+    else:
+        # If answer entities are unavailable, require explicit named entities in clause text.
+        named = re.findall(r"\b[A-Z][A-Za-z0-9&.'-]*\b", raw_text)
+        named_norm = []
+        for n in named:
+            nn = n.strip().lower()
+            if nn in {"party", "parties", "agreement", "section", "services", "terms"}:
+                continue
+            if nn not in named_norm:
+                named_norm.append(nn)
+        if len(named_norm) < 2:
+            return False
+    # Explicitly reject Party/parties-only references without named entities.
+    if re.search(r"\bpart(?:y|ies)\b", t):
+        named_like = [ent for ent in answer_entities if ent and ent not in {"party", "parties"}]
+        if named_like and not any(ent in t for ent in named_like):
+            return False
+    return True
+
+
+def _extract_entity_definition_span(text: str, answer_entities: list[str]) -> str:
+    """
+    Display-layer helper: for entity/definition questions, pick the shortest
+    direct supporting span from potentially aggregated text blobs.
+    """
+    raw = (text or "").strip()
+    if not raw:
+        return ""
+
+    candidates: list[str] = []
+    # Bundled definition blobs often use pipes; split first to isolate clauses.
+    if "|" in raw:
+        for part in raw.split("|"):
+            p = part.strip()
+            if p:
+                candidates.append(p)
+
+    # Also consider sentence-like spans from the full text.
+    sentence_parts = re.split(r"(?<=[.!?;])\s+|\s+\|\s+", raw)
+    for part in sentence_parts:
+        p = part.strip()
+        if p:
+            candidates.append(p)
+
+    # Always include the raw text as fallback.
+    candidates.append(raw)
+
+    # Keep unique, preserve order.
+    seen: set[str] = set()
+    unique: list[str] = []
+    for c in candidates:
+        key = c.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(c)
+
+    direct = [c for c in unique if _is_entity_definition_direct_clause(c, answer_entities)]
+    if direct:
+        # Prefer the shortest direct span that still carries full meaning.
+        direct.sort(key=lambda s: (len(s), s.count("|"), s.count(":")))
+        best = direct[0]
+        # Drop leading definition labels like "Party:" for cleaner display.
+        best = re.sub(r"^[A-Za-z][A-Za-z0-9'’ _-]{0,40}:\s*", "", best).strip()
+        return best
+    return raw
 
 
 def _score_support_node(
@@ -414,10 +580,17 @@ def _score_support_node(
     question_terms: set[str],
     answer_terms: set[str],
     answer_text: str,
+    is_definition_question: bool,
+    answer_entities: list[str],
 ) -> dict | None:
     text = (node.get("source_text") or "").strip()
     if not text:
         return None
+
+    if is_definition_question:
+        narrowed = _extract_entity_definition_span(text, answer_entities)
+        if narrowed:
+            text = narrowed
 
     text_terms = _display_terms(text)
     if not text_terms:
@@ -426,6 +599,10 @@ def _score_support_node(
     source = node.get("_section") or f"Chunk {node.get('_chunk_id', '?')}"
     node_type = str(node.get("type") or "").upper()
     text_lower = text.lower()
+    has_definition_cue = bool(_DEF_CLAUSE_RE.search(text))
+    has_indirect_mention = bool(_INDIRECT_ENTITY_RE.search(text))
+    is_full_sentence = _is_full_sentence_text(text)
+    is_entity_relation_clause = _is_entity_definition_direct_clause(text, answer_entities)
 
     q_overlap = len(text_terms & question_terms) / max(1, len(question_terms))
     a_overlap = len(text_terms & answer_terms) / max(1, len(answer_terms)) if answer_terms else 0.0
@@ -446,13 +623,25 @@ def _score_support_node(
     score = (
         direct_strength * 6.0
         + type_bonus
+        + (1.2 if has_definition_cue else 0.0)
+        + (1.0 if is_full_sentence else -1.6)
         + retrieval_score * 1.4
         + vote_frac * 1.2
         - (0.6 if len(text) < 40 else 0.0)
+        - (1.6 if has_indirect_mention and not has_definition_cue else 0.0)
     )
+    if is_definition_question:
+        # Penalize long aggregated text when shorter direct support exists.
+        score -= min(2.0, max(0.0, (len(text) - 180) / 140.0))
+        if text.count("|") >= 2:
+            score -= 1.8
 
     is_definition = node_type == "DEFINITION"
     is_direct = bool(phrase_match or a_overlap >= 0.5 or (a_overlap >= 0.3 and q_overlap >= 0.12))
+    is_entity_direct = bool(
+        is_entity_relation_clause
+        and (is_definition or q_overlap >= 0.14)
+    )
     is_weak = bool(
         not is_direct
         and q_overlap < 0.08
@@ -460,6 +649,12 @@ def _score_support_node(
         and retrieval_score < 0.55
         and not is_definition
     )
+    if not is_full_sentence and not (is_definition_question and is_entity_direct):
+        is_weak = True
+
+    # For definition/entity questions, only allow explicit naming/definition text.
+    if is_definition_question and not is_entity_direct:
+        is_weak = True
 
     return {
         "key": text.lower(),
@@ -470,6 +665,12 @@ def _score_support_node(
         "a_overlap": a_overlap,
         "is_definition": is_definition,
         "is_direct": is_direct,
+        "phrase_match": phrase_match,
+        "has_definition_cue": has_definition_cue,
+        "has_indirect_mention": has_indirect_mention,
+        "is_full_sentence": is_full_sentence,
+        "is_entity_relation_clause": is_entity_relation_clause,
+        "is_entity_direct": is_entity_direct,
         "is_weak": is_weak,
     }
 
@@ -479,17 +680,24 @@ def _pick_supporting_clauses(result: dict, limit: int = 6) -> tuple[list[dict[st
     answer_text = str(result.get("answer") or "").strip()
     question_terms = _display_terms(question)
     answer_terms = _display_terms(answer_text)
+    is_definition_question = _is_definition_entity_question(result)
+    answer_entities = _extract_answer_entities(answer_text)
 
     seen: set[str] = set()
     scored: list[dict[str, Any]] = []
-    for node in result.get("surviving_nodes", [])[:40]:
+    scan_limit = 200 if is_definition_question else 40
+    for node in result.get("surviving_nodes", [])[:scan_limit]:
         ranked = _score_support_node(
             node,
             question_terms=question_terms,
             answer_terms=answer_terms,
             answer_text=answer_text,
+            is_definition_question=is_definition_question,
+            answer_entities=answer_entities,
         )
         if not ranked:
+            continue
+        if is_definition_question and not ranked["is_entity_direct"]:
             continue
         if ranked["key"] in seen:
             continue
@@ -497,10 +705,58 @@ def _pick_supporting_clauses(result: dict, limit: int = 6) -> tuple[list[dict[st
         scored.append(ranked)
 
     scored.sort(key=lambda item: item["score"], reverse=True)
+    # For entity/definition questions, show a single exact proof clause only.
+    if is_definition_question:
+        strict_candidates = [
+            s for s in scored
+            if s["is_entity_direct"] and not s["is_weak"]
+        ]
+        if strict_candidates:
+            strict_candidates.sort(key=lambda item: item["score"], reverse=True)
+            best = strict_candidates[0]
+            clauses = [{"text": best["text"], "source": best["source"]}]
+            context = {
+                "has_direct_support": True,
+                "has_definition_support": True,
+                "used_fallback": False,
+            }
+            return clauses, context
+        # No strict direct evidence found: do not show indirect clauses.
+        return [], {
+            "has_direct_support": False,
+            "has_definition_support": False,
+            "used_fallback": True,
+        }
 
     selected: list[dict[str, Any]] = []
     selected_keys: set[str] = set()
     used_fallback = False
+    single_clause_answer = False
+
+    # If one strong full sentence fully answers the question, show only that.
+    for cand in scored:
+        fully_answers = bool(
+            cand["is_full_sentence"]
+            and (
+                cand["phrase_match"]
+                or (cand["a_overlap"] >= 0.72 and cand["q_overlap"] >= 0.20)
+                or (is_definition_question and cand["has_definition_cue"] and cand["q_overlap"] >= 0.20)
+            )
+        )
+        if fully_answers:
+            selected = [cand]
+            selected_keys = {cand["key"]}
+            single_clause_answer = True
+            break
+
+    if single_clause_answer:
+        clauses = [{"text": selected[0]["text"], "source": selected[0]["source"]}]
+        context = {
+            "has_direct_support": True,
+            "has_definition_support": bool(selected[0]["is_definition"] or selected[0]["has_definition_cue"]),
+            "used_fallback": False,
+        }
+        return clauses, context
 
     direct_candidates = [s for s in scored if s["is_direct"] and not s["is_weak"]]
     if direct_candidates:
@@ -510,7 +766,12 @@ def _pick_supporting_clauses(result: dict, limit: int = 6) -> tuple[list[dict[st
 
     definition_candidates = [
         s for s in scored
-        if s["is_definition"] and s["q_overlap"] >= 0.08 and s["key"] not in selected_keys and not s["is_weak"]
+        if (
+            s["is_definition"]
+            and s["q_overlap"] >= (0.12 if is_definition_question else 0.08)
+            and s["key"] not in selected_keys
+            and not s["is_weak"]
+        )
     ]
     if definition_candidates and len(selected) < limit:
         top_definition = definition_candidates[0]
@@ -524,11 +785,14 @@ def _pick_supporting_clauses(result: dict, limit: int = 6) -> tuple[list[dict[st
             continue
         if item["is_weak"]:
             continue
+        if not item["is_full_sentence"]:
+            continue
         selected.append(item)
         selected_keys.add(item["key"])
 
     if not selected and scored:
-        selected = [scored[0]]
+        full_sentence_scored = [s for s in scored if s["is_full_sentence"]]
+        selected = [full_sentence_scored[0] if full_sentence_scored else scored[0]]
         used_fallback = True
 
     clauses = [{"text": item["text"], "source": item["source"]} for item in selected[:limit]]
@@ -542,7 +806,7 @@ def _pick_supporting_clauses(result: dict, limit: int = 6) -> tuple[list[dict[st
 
 def _shape_response(result: dict) -> dict:
     answerable = bool(result.get("answerable", False))
-    short_answer = result.get("answer") if answerable else None
+    is_definition_question = _is_definition_entity_question(result)
     clauses: list[dict[str, str]] = []
     evidence_context: dict[str, Any] = {
         "has_direct_support": False,
@@ -551,6 +815,30 @@ def _shape_response(result: dict) -> dict:
     }
     if answerable:
         clauses, evidence_context = _pick_supporting_clauses(result, limit=6)
+        if not clauses and not is_definition_question:
+            # Serialization fallback: if answerable and we have surviving node text,
+            # attach at least one readable evidence snippet.
+            for node in result.get("surviving_nodes", [])[:40]:
+                text = _normalize_clause_text(node.get("source_text"))
+                if not text:
+                    continue
+                if not _is_full_sentence_text(text):
+                    continue
+                source = node.get("_section") or f"Chunk {node.get('_chunk_id', '?')}"
+                clauses = [{"text": text, "source": str(source)}]
+                evidence_context["used_fallback"] = True
+                break
+    short_answer: str | None = None
+    if answerable:
+        raw_answer = str(result.get("answer") or "").strip()
+        if raw_answer:
+            short_answer = raw_answer
+        elif clauses:
+            # Display-layer fallback so answerable responses never return null short answers.
+            short_answer = str(clauses[0].get("text") or "").strip() or None
+        else:
+            reasoning_fallback = str(result.get("reasoning") or "").strip()
+            short_answer = reasoning_fallback or "Answerable based on supporting text."
 
     if answerable:
         if evidence_context["has_direct_support"]:
@@ -587,7 +875,10 @@ def _shape_response(result: dict) -> dict:
         "answerable": answerable,
         "short_answer": short_answer,
         "reason": reason,
+        # Canonical evidence field consumed by the UI.
         "supporting_clauses": clauses if answerable else [],
+        # Backward-compatible alias for any callers still reading `clauses`.
+        "clauses": clauses if answerable else [],
         "metadata": metadata,
     }
 
