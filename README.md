@@ -4,6 +4,11 @@ A system that determines whether a question is actually answerable from a docume
 
 Instead of returning text that only looks relevant, this system verifies whether the evidence truly supports an answer. If it does, it returns the supporting text. If not, it abstains.
 
+## Live Website
+
+Hosted demo:
+[https://deterministic-rag-demo-p2jyg.ondigitalocean.app/](https://deterministic-rag-demo-p2jyg.ondigitalocean.app/)
+
 ## Key idea
 
 Most RAG systems retrieve content that is topically similar, but not necessarily correct.
@@ -25,7 +30,7 @@ These signals are used together to decide whether there is enough support to ans
 
 ## Demo
 
-[Live demo link coming soon]
+[https://deterministic-rag-demo-p2jyg.ondigitalocean.app/](https://deterministic-rag-demo-p2jyg.ondigitalocean.app/)
 
 Example behavior:
 
@@ -76,7 +81,7 @@ The backend preserves the core pipeline behavior and adds a thin API wrapper for
 `- README.md
 ```
 
-## Setup (local)
+## Local development (optional)
 
 ```bash
 python3 -m venv venv
@@ -84,38 +89,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
 # add OPENAI_API_KEY in .env
-```
-
-## Run the website
-
-```bash
-source venv/bin/activate
 uvicorn server:app --host 127.0.0.1 --port 8000 --reload
 ```
-
-Open:
-- [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
-## Production / hosting quick-start
-
-1. Set environment variables on your host:
-- `OPENAI_API_KEY`
-- `APP_ACCESS_CODE` (required for server-side API protection)
-- optional tuning: `WEB_CONCURRENCY`, `WEB_TIMEOUT`, rate-limit vars from `.env.example`
-
-2. Start command (already in `Procfile`):
-
-```bash
-gunicorn server:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --workers ${WEB_CONCURRENCY:-2} --timeout ${WEB_TIMEOUT:-180}
-```
-
-3. Ensure these writable paths exist in deployment:
-- `./uploads/`
-- `./sample_docs/`
-- `./prepared_docs.json` (or parent directory write access)
-
-4. Health check endpoint:
-- `GET /api/health`
 
 ## Test with a sample document
 
