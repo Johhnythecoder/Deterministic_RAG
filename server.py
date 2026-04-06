@@ -713,8 +713,8 @@ def _pick_supporting_clauses(result: dict, limit: int = 6) -> tuple[list[dict[st
         ]
         if strict_candidates:
             strict_candidates.sort(key=lambda item: item["score"], reverse=True)
-            best = strict_candidates[0]
-            clauses = [{"text": best["text"], "source": best["source"]}]
+            top = strict_candidates[:2]
+            clauses = [{"text": item["text"], "source": item["source"]} for item in top]
             context = {
                 "has_direct_support": True,
                 "has_definition_support": True,
