@@ -33,58 +33,6 @@ body {
   line-height: 1.55;
 }
 
-/* ── DEBUG PANEL ─────────────────────────────────────────── */
-.debug-panel {
-  display: none;
-  position: fixed;
-  top: 14px;
-  right: 14px;
-  width: min(420px, calc(100vw - 24px));
-  max-height: 46vh;
-  z-index: 60;
-  background: rgba(10, 22, 25, 0.94);
-  color: #d8f0ea;
-  border: 1px solid rgba(73, 153, 140, 0.4);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 10px 28px rgba(6, 14, 17, 0.45);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
-
-.debug-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.45rem 0.6rem;
-  border-bottom: 1px solid rgba(84, 163, 150, 0.3);
-  font-size: 0.8rem;
-  background: rgba(20, 45, 51, 0.8);
-}
-
-.debug-head button {
-  border: 1px solid rgba(95, 182, 167, 0.5);
-  background: rgba(42, 91, 102, 0.9);
-  color: #d8f0ea;
-  border-radius: 6px;
-  font-size: 0.72rem;
-  padding: 0.12rem 0.42rem;
-  cursor: pointer;
-}
-
-.debug-log {
-  font-size: 0.72rem;
-  line-height: 1.35;
-  padding: 0.48rem 0.58rem;
-  max-height: calc(46vh - 34px);
-  overflow: auto;
-  white-space: pre-wrap;
-}
-
-.debug-line { margin-bottom: 0.2rem; color: #bfe5dd; }
-.debug-line.warn { color: #f6dca7; }
-.debug-line.err  { color: #ffb5ab; }
-
-
 /* ── LAYOUT ──────────────────────────────────────────────── */
 .container {
   width: min(1060px, calc(100% - 2rem));
@@ -845,13 +793,6 @@ textarea { resize: vertical; }
   .stat-item { padding: 0.5rem 1.2rem; }
   .stat-divider { display: none; }
   .proof-grid { grid-template-columns: 1fr 1fr; }
-
-  .debug-panel {
-    top: auto;
-    bottom: 12px;
-    right: 12px;
-    max-height: 38vh;
-  }
 
   nav { display: none; }
 }

@@ -11,8 +11,6 @@ const demoStatus      = document.getElementById("demoStatus");
 const prepLabel       = document.getElementById("prepLabel");
 const prepEta         = document.getElementById("prepEta");
 const prepProgress    = document.getElementById("prepProgress");
-const debugLog        = document.getElementById("debugLog");
-const clearDebugBtn   = document.getElementById("clearDebugBtn");
 const prepLoadingBlock = document.getElementById("prepLoadingBlock");
 const prepReadyBlock   = document.getElementById("prepReadyBlock");
 const prepReadyLabel   = document.getElementById("prepReadyLabel");
@@ -99,14 +97,8 @@ async function apiFetchJson(url, options = {}) {
 }
 
 function debug(msg, level = "info") {
-  if (!debugLog) return;
-  const ts = new Date().toLocaleTimeString();
-  const line = document.createElement("div");
-  line.className = `debug-line${level === "warn" ? " warn" : level === "err" ? " err" : ""}`;
-  line.textContent = `[${ts}] ${msg}`;
-  debugLog.appendChild(line);
-  while (debugLog.children.length > 140) debugLog.removeChild(debugLog.firstChild);
-  debugLog.scrollTop = debugLog.scrollHeight;
+  void msg;
+  void level;
 }
 
 function setAskEnabled(enabled) {
@@ -748,15 +740,9 @@ if (openNodesBtn) {
   openNodesBtn.addEventListener("click", () => { void _openSelected("nodes"); });
 }
 
-clearDebugBtn.addEventListener("click", () => {
-  debugLog.textContent = "";
-  debug("Debug log cleared.");
-});
-
 /* ── Boot ────────────────────────────────────────────────── */
 setAskEnabled(false);
 updateLiveDebug({ phase: "boot", status: "ui booting", token: "", api: "-", err: "none" });
-debug("UI boot complete. v6");
 loadSamples();
 loadSavedDocs();
 loadRuntimeDebugSnapshot();
